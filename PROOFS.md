@@ -1,9 +1,9 @@
-# The converse, proved
+# The converse and the achievability half, proved
 
-This document proves the detector-placement converse (FORMALIZATION.md §6,
-Conjecture B) in two forms, after an honest repair that the proof itself
-forced. The proofs are elementary once the model is right; per repo
-convention, we say so — the content is in the definitions and in the
+This document proves both directions of the detector-placement iff
+(FORMALIZATION.md §6, Conjectures B and A), after an honest repair that the
+proof itself forced. The proofs are elementary once the model is right; per
+repo convention, we say so — the content is in the definitions and in the
 quantifier structure, not in analytic difficulty.
 
 **What is proved here:**
@@ -18,13 +18,19 @@ quantifier structure, not in analytic difficulty.
   it, matching Goldwasser et al. (2020).
 - Corollary 3 (growth form): under multiplicative dynamics, survival and
   specialization gain cannot coexist inside the defect.
+- **Theorem A (achievability, §8):** a detector *outside* the defect earns a
+  worst-case premium bounded below by an explicit $\Pi^\* > 0$ under the
+  advantage condition; the premium identity has three per-unit-priced terms.
+  A meets B exactly at the $L \to \infty$ boundary, and the two give the
+  **full iff** (Corollary A+B).
 
 **What the proof forced us to admit:** the drafted definition of "removable"
 was vacuous, and the drafted Conjecture B was false under it (§2). The
 repaired notion is *profitable removability*.
 
-**Still open:** the full costed achievability (Conjecture A), the iterated
-adversary, and the capacity-defect analogue of the exact value formula.
+**Still open (§10):** end-to-end achievability with the detector's rates
+*learned* rather than assumed, the exact capacity-defect premium, and the
+iterated adversary.
 
 ---
 
@@ -280,7 +286,130 @@ forces $\mu = 0$; here, inside the defect, $\mu = 0$ forces $q_0 = 0$
 (Lemma 1) — no gain. The two halves together are the theorem the founding
 statement needed.
 
-## 8. Positioning
+## 8. Theorem A — the achievability half (the converse's partner)
+
+The converse (§4–§7) says a confounded detector earns zero premium. The
+partner statement: a detector placed *outside* the defect earns a premium
+bounded below by an explicit constant, so removal is not merely possible but
+*profitable* — closing the "if" direction of the iff. Where §4–§7 fixed the
+detector class and varied $P$ adversarially, here we fix a good detector and
+lower-bound its worst-case premium over the class.
+
+**Hypotheses.**
+- **Structured class with a competence floor.**
+  $\mathcal{P} \subseteq \{P : P(E) \leq \bar\varepsilon,\; P(C) \geq \underline{c}\}$
+  with $\underline{c} + \bar\varepsilon \leq 1$. The floor $\underline c > 0$
+  is necessary: if the world may contain no in-competence mass, no policy can
+  guarantee positive premium (there is nothing to specialize *on*).
+- **Out-of-defect detector.** There is a detector $d$ achieving, *uniformly
+  over $\mathcal{P}$*, miss rate $\sup_P P(d{=}a \mid E) \leq \delta$ and
+  false-alarm rate $\sup_P P(d{=}e \mid C) \leq \alpha_0$, at rent $c_d$, and
+  escalating the benign region ($P(d{=}a \mid N) = 0$ — the conservative
+  choice; acting on benign only helps, by $(p-\ell) \geq 0$ per unit). "Out of
+  the defect" is exactly what makes both bounds simultaneously attainable:
+  Lemma 1 forbids it *inside* an observation defect (there capture rate $=$
+  miss rate), and the repaired Conjecture C (FORMALIZATION.md §7) *constructs*
+  such a $d$ for structured $\mathcal{P}$ (finite-VC families,
+  $f$-divergence balls). A inherits C's structural restriction — no more, no
+  less.
+
+**The premium identity.** Against the always-escalate baseline $B_0 = -p$,
+for any detector and any $P$ (writing $\alpha_P, \mu_P$ for the realized
+rates, benign escalated):
+
+$$\Pi_P(d) \;=\; P(C)\,(1-\alpha_P)\,(g+p) \;-\; P(E)\,\mu_P\,(L-p) \;-\; c_d.$$
+
+*Derivation.* Add $p = p\,[P(C)+P(E)+P(N)]$ to $G_P(d)$ region by region. On
+$C$: $P(C)[(1-\alpha_P)g - \alpha_P p] + pP(C) = P(C)(1-\alpha_P)(g+p)$. On
+$E$: $-P(E)p - P(E)\mu_P(L-p) + pP(E) = -P(E)\mu_P(L-p)$ (baseline exactly
+cancels the escalate cost on $E$). On $N$ with benign escalated: $-pP(N) +
+pP(N) = 0$. Subtract rent $c_d$. $\square$
+
+Three terms, each a per-unit price: **captured competence** earns $(g+p)$ per
+unit (gain $g$ where the baseline paid $p$); **leaked fatal** costs $(L-p)$
+per unit (loss $L$ where the baseline paid $p$); **rent** is flat.
+
+**Theorem A.** Under the hypotheses,
+
+$$\inf_{P \in \mathcal{P}} \Pi_P(d) \;\geq\; \Pi^\* \;:=\; \underline{c}\,(1-\alpha_0)\,(g+p) \;-\; \bar\varepsilon\,\delta\,(L-p) \;-\; c_d,$$
+
+and the defect is **profitably removable** ($\Pi^\* > 0$) iff the
+**advantage condition** holds:
+
+$$\underline{c}\,(1-\alpha_0)\,(g+p) \;>\; \bar\varepsilon\,\delta\,(L-p) + c_d.$$
+
+*Proof.* The identity gives $\Pi_P(d) = P(C)(1-\alpha_P)(g+p) - P(E)\mu_P(L-p)
+- c_d$, which is nondecreasing in $P(C)$ and nonincreasing in each of
+$\alpha_P, \mu_P, P(E)$. Apply the uniform caps $\alpha_P \leq \alpha_0$,
+$\mu_P \leq \delta$ and the class bounds $P(C) \geq \underline c$, $P(E) \leq
+\bar\varepsilon$ — all valid for every $P \in \mathcal{P}$ — to get
+$\Pi_P(d) \geq \Pi^\*$ pointwise, hence for the infimum. $\square$
+
+**This is Proposition 1 / the advantage condition (FORMALIZATION.md §3),
+re-derived as the achievability threshold** with the detector's real
+operating characteristics substituted for the abstract "price of
+compensation": the escalation cost enters as the $(1-\alpha_0)$ haircut on
+captured competence, and the missed-fatal cost as $\bar\varepsilon\delta(L-p)$.
+
+### Remarks — where A meets B
+
+**1. The $L$-dependence, and the exact meeting with the converse.** $\Pi^\*$
+carries $L$ only through the leakage $\bar\varepsilon\delta(L-p)$. With
+$\delta > 0$ *fixed*, $\Pi^\* \to -\infty$ as $L \to \infty$: **a detector of
+any fixed positive miss rate is eventually ruined by a severe enough fatal
+event.** This is not a weakness of the proof — it is A shaking hands with
+Conjecture B, which drove $G \to -\infty$ precisely when $\mu$ stayed bounded
+away from $0$. The two theorems partition the $(\delta, L)$ plane along the
+same curve. Profitable removal survives arbitrary $L$ only if the miss rate
+shrinks with severity,
+
+$$\delta(L) \;<\; \frac{\underline c(1-\alpha_0)(g+p) - c_d}{\bar\varepsilon(L-p)} \;=\; O\!\big(1/L\big).$$
+
+**2. Two independent routes to a bound uniform in $L$.** Either
+(i) **sharpen the detector**, $\delta = O(1/L)$, so leakage stays $\leq
+\bar\varepsilon\kappa$ for a constant $\kappa$; or (ii) **cap the blast
+radius** — a spend ceiling / bounded compensation making realized loss
+$\leq \bar L$ regardless of the true $L$ (FORMALIZATION.md §2, point 2), after
+which any fixed $\delta$ satisfying the advantage condition at $\bar L$ works.
+The architecture uses both; either alone suffices for a constant lower bound.
+
+**3. Route (i) is cheap — the tie to detector economics.** By the
+hypothesis-testing bound (Conjecture D, FORMALIZATION.md §8), miss rate
+$\delta$ costs rent $c_d \sim \log(1/\delta)$, so $\delta = O(1/L)$ costs only
+$c_d \sim \log L$. Leakage is held constant at the price of *logarithmic*
+rent — the detector's cost grows exponentially slower than the severity it
+insures against. Profitability then holds up to a finite but **exponentially
+large** ceiling $L \leq \exp\big(O(\text{margin})\big)$, where the margin is
+the specialization premium net of constant leakage. Cheap detection is what
+makes the whole architecture affordable, quantified.
+
+**4. Graceful degradation recovers the converse's witness.** At the ideal
+operating point $\alpha_0 = \delta = 0$ (perfect detector) with the fullest
+class $\underline c = 1-\bar\varepsilon$, $\Pi^\* = (1-\bar\varepsilon)(g+p)$
+— **exactly the separation witness of Theorem 1(3)** and the outside-defect
+value against which the converse measured the collapse. A's bound degrades
+continuously from that ideal as $(\alpha_0, \delta, c_d)$ rise, so Theorems 1′
+and A are two ends of one continuum: $\sigma_0$ measures how much of the
+premium a *confined* detector keeps; $(\alpha_0, \delta)$ measure how much a
+*free but imperfect* detector keeps.
+
+### Corollary A+B — the full iff
+
+Combining Theorem A with the converse (§4–§7), over structured classes and
+with either $L$ capped or $\delta = O(1/L)$:
+
+> A defect is **profitably removable** iff a detector achieving small
+> miss and false-alarm rates exists **outside** it — equivalently, iff the
+> detector-relevant distinction survives the restriction (coefficient
+> $\sigma_0 > 0$ for observation defects; the resolution condition for
+> capacity defects) **and** the advantage condition holds.
+
+Necessity is B (inside the defect the distinction is gone, premium $= 0$);
+sufficiency is A (outside it, the explicit $\Pi^\* > 0$). Placement supplies
+the *possibility*; the advantage condition supplies the *profit*. This is the
+theorem the founding statement asked for, in both directions.
+
+## 9. Positioning
 
 - **vs. Fang et al. (2022):** their impossibility is statistical
   (non-learnability of OOD detection in restricted spaces); ours is
@@ -303,14 +432,19 @@ statement needed.
   the extent that the detector's distinction survives outside it* —
   coefficient $\sigma_0$, not a yes/no.
 
-## 9. Open
+## 10. Open
 
-1. **Conjecture A (costed achievability)** remains open: Theorem 1(3) proves
-   the separation witness, but the full statement with detector rent $c_d$,
-   escalation-frequency accounting, and general $\mathcal{P}$ is unproved.
+1. **Costed achievability with *learned* detector rates.** Theorem A takes the
+   uniform caps $(\alpha_0, \delta)$ as given (existence delegated to repaired
+   Conjecture C). Folding in finite-sample estimation of those rates — the
+   detector trained, not assumed — would make A end-to-end. The concentration
+   is standard; the honest work is the union bound over $\mathcal{P}$'s
+   structure.
 2. **Capacity-defect value formula:** the analogue of Theorem 1′ — a
    removability coefficient for function-class defects (presumably a
-   disagreement/covering quantity on $H$ restricted to $C \times E$).
+   disagreement/covering quantity on $H$ restricted to $C \times E$). Would let
+   the A+B iff carry an *exact* premium for capacity defects, not just the
+   inequality of Theorem 2.
 3. **Iterated adversary** (QUESTIONS.md #3, second half): the adversary here
    chooses $P$ once; the repeated game with a learning detector is untouched.
 4. **Beyond mixture families:** the theorems quantify over

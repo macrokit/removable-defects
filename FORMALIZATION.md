@@ -225,11 +225,24 @@ worst-case growth above the always-escalate baseline — over $\mathcal{P}$.
 Survival was never the question; paid-for survival is. (Full definitions in
 PROOFS.md §2.)
 
-**Conjecture A (achievability).** If the detector lies outside the defect with
-$\mu \leq \delta$, and the compensation channel is affordable
-($p < \infty$, and $c_d + p\,\mathbb{E}[\text{escalations}]$ below the
-specialization margin), then $D$ is removable, with $G$ bounded below by an
-explicit function of $(\delta, p, c_d, L)$.
+**Conjecture A — now PROVED (2026-07-13); see PROOFS.md §8.** A detector
+placed *outside* the defect, achieving miss rate $\leq \delta$ and
+false-alarm rate $\leq \alpha_0$ uniformly over a structured class $\mathcal{P}$
+with competence floor $\underline c$, earns worst-case premium bounded below
+by the **explicit constant**
+
+$$\Pi^\* = \underline{c}\,(1-\alpha_0)(g+p) - \bar\varepsilon\,\delta\,(L-p) - c_d,$$
+
+and the defect is profitably removable ($\Pi^\* > 0$) iff the advantage
+condition $\underline c(1-\alpha_0)(g+p) > \bar\varepsilon\delta(L-p) + c_d$
+holds. The premium identity has three per-unit-priced terms (captured
+competence at $g{+}p$, leaked fatal at $L{-}p$, flat rent); this *is*
+Proposition 1 re-derived as the achievability threshold. Existence of the
+out-of-defect detector is delegated to the repaired Conjecture C (§7), so A
+inherits C's structural restriction on $\mathcal{P}$. **A meets B exactly at
+the $L\to\infty$ boundary** — fixed $\delta$ is ruined by large $L$ (matching
+B), and uniform-in-$L$ removal needs either $\delta = O(1/L)$ (rent only
+$O(\log L)$, by §8) or a capped blast radius $\bar L$.
 
 **Conjecture B — now PROVED (2026-07-13), in two forms; see PROOFS.md.**
 The proof splits by defect type, and the split is itself a result:
@@ -260,19 +273,22 @@ inside a confounded defect, **survival and specialization gain cannot
 coexist** — bounded log-growth forces zero premium, positive premium forces
 $-\infty$.
 
-The slogan's final form, post-proof: *a defect is profitably removable
-exactly to the extent that the detector's distinction survives outside it* —
-a coefficient ($\sigma_0$), not a yes/no. Placement remains the necessary
-condition and needs no channel assumption; affordability (Conjecture A) is
-what turns necessity into sufficiency.
+**The full iff (Corollary A+B, PROOFS.md §8).** Necessity is B — inside the
+defect the detector-relevant distinction is gone, premium $= 0$; sufficiency
+is A — outside it, the explicit $\Pi^\* > 0$. Placement supplies the
+*possibility*, the advantage condition supplies the *profit*. The slogan's
+final form: *a defect is profitably removable exactly to the extent that the
+detector's distinction survives outside it* — a coefficient ($\sigma_0$), not
+a yes/no.
 
-**Remaining proof obligations.**
-- A: still open — mostly assembly (concentration on escalation counts + the
-  linearity of §2), with the separation witness already proved
-  (PROOFS.md Thm 1(3)). The work is making the bound uniform over
-  $\mathcal{P}$ with the detector rent $c_d$ carried honestly.
+**Remaining proof obligations (now narrowed; full list PROOFS.md §10).**
+- End-to-end A with the detector's rates $(\alpha_0, \delta)$ *learned* rather
+  than assumed — folding finite-sample estimation into the bound. Standard
+  concentration; the work is the union bound over $\mathcal{P}$'s structure.
 - The capacity-defect value formula: the analogue of $\sigma_0$ for
-  function-class defects (a disagreement/covering quantity on $H$).
+  function-class defects (a disagreement/covering quantity on $H$), which would
+  give the A+B iff an *exact* premium for capacity defects, not just Theorem 2's
+  inequality.
 - The iterated adversary (backlog #3, second half): the one-shot case is now
   Thms 1–2; the repeated game with a learning detector is untouched.
 - The restriction-formalism question (backlog #6) is partially **answered

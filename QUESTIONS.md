@@ -12,12 +12,29 @@ tail events are precisely what history underestimates. Is there a robust
 (minimax / heavy-tail-safe) version? What does the condition look like when the
 frequency estimate itself carries fat uncertainty?
 
+**Status (2026-07-13): minimax form now in hand** — Theorem A (PROOFS.md §8)
+proves the worst-case version $\underline c(1-\alpha_0)(g+p) > \bar\varepsilon
+\delta(L-p) + c_d$, which uses only an *upper bound* $\bar\varepsilon$ on fatal
+mass and an upper bound $\delta$ on miss rate — never a point estimate of the
+frequency. Open remainder: making $\bar\varepsilon$ itself adversarial/unknown
+(vs. a declared budget), and the clustered-events non-i.i.d. regime flagged in
+FORMALIZATION.md §5.
+
 ## 2. Detector economics
 
 When is detection *provably* cheaper than competence? The intuition is
 NP-flavored — verifying is easier than solving — but intuition is not a bound.
 Make it precise or drop it. A useful target: conditions under which a detector
 with cost o(competence cost) achieves a given miss rate.
+
+**Status (2026-07-13): now load-bearing, not just a curiosity** — Theorem A
+(PROOFS.md §8, Remark 3) shows the architecture survives arbitrary loss
+severity $L$ only if miss rate shrinks as $\delta = O(1/L)$, which by the
+hypothesis-testing bound costs rent $c_d \sim \log L$. Cheap detection is
+exactly what keeps leakage bounded at logarithmic price — so this question's
+answer sets the sustainable ceiling on $L$ (exponential in the premium
+margin). Resolving the verification-vs-generation unit model (FORMALIZATION.md
+§8, via doubly-efficient proofs) would upgrade this from asymptotic to exact.
 
 ## 3. Adversarial removal
 
