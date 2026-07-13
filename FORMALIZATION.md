@@ -13,6 +13,71 @@ Nothing here is claimed as novel until the literature check (§9) is done.
 
 ---
 
+## 0. The general principle — a conditionally-valuable feature
+
+Before the fatal-defect model, the genus it belongs to. The concept is not
+fundamentally about *defects*; it is about **features whose value depends on
+context**, and about **whether the context is detectable**.
+
+Take a feature $\theta$ (a capability, a disposition, a specialization) whose
+per-context value flips sign: harmful in situation $A$, beneficial in
+situation $B$. Three policies:
+
+- **Always-on** ($\theta$ enabled everywhere): pays $B$'s benefit and $A$'s
+  harm.
+- **Always-off** ($\theta$ disabled everywhere — the generalist who never
+  specializes): forfeits $B$'s benefit to avoid $A$'s harm.
+- **Controlled** (enable in $B$, disable in $A$): captures the max in each
+  context. *If achievable, it dominates both.*
+
+The controlled policy is the goal. But "if achievable" is doing all the work,
+and it decomposes into two very unequal requirements:
+
+1. **A switch** — the mechanism to enable or disable $\theta$. Usually cheap,
+   usually available.
+2. **A detector** — knowing *which context you are in*, so you know which way
+   to throw the switch. This is the binding constraint. A flawless switch you
+   cannot time is worthless.
+
+So there is a **controllability ladder**, and this document climbs it:
+
+| Rung | Condition | Where treated |
+|---|---|---|
+| Trivial optimum | perfect detector, free switch | this section |
+| Priced control | switch costs, per event | §3 (advantage condition) |
+| Imperfect detector | miss rate $\mu > 0$ | §2, §4 |
+| **Control impossible** | detector inherits the feature's blindness | PROOFS.md |
+
+The last rung is the reason the project exists: a feature can be
+**uncontrollable even with a perfect switch**, because the feature and its
+harm share a substrate and no detector can separate them (PROOFS.md, the
+coupling lemma — the rate at which $\theta$ does good and the rate at which it
+does harm are the *same number*). Nature exhibits this as antagonistic
+pleiotropy: a gene good when young, bad when old, with no controller that
+fires on "now disable it." The engineered answer — add the controller nature
+lacked — is what this document formalizes.
+
+**Two regimes of the genus.** When $A$ and $B$ are both common, this is a
+pure control / value-of-information problem (gating, mixture-of-experts
+routing, inducible defenses). The species studied here is the **asymmetric**
+one — $A$ rare but *fatal*, $B$ common and good — where the payoff structure
+is insurance-shaped and keeping $\theta$ enabled by default is a deliberate
+economic bet (§3, §5). "Defect" is the name for a conditionally-valuable
+feature in this asymmetric regime; §1 specializes to it.
+
+**One refinement the general slogan hides:** "disable $\theta$ in $A$" does
+not mean the task in $A$ goes away — declining leaves it undone, which may
+itself be the harm. The operational move is *compensate*: route $A$ to a
+channel that handles it (§1's escalate action), so control is
+enable-vs-**reroute**, not enable-vs-drop.
+
+The observation-vs-capacity split proved in PROOFS.md is exactly this
+section's switch/detector distinction made precise: a **capacity defect** is
+"the switch is confined but the context is in principle visible" (control
+recoverable if you can see the deployment context — the transductive escape);
+an **observation defect** is "the context itself is unresolvable to you"
+(control impossible, switch quality irrelevant).
+
 ## 1. Primitives
 
 - **Task space** $X$, one task drawn per period from distribution $P$.

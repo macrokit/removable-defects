@@ -6,9 +6,18 @@ be fatal.
 
 ## The claim
 
-Most accounts of specialization treat its blind spots as a cost to be minimized.
-This project treats them as the point. A **removable defect** is a deficiency that
-is:
+The genus is broader than defects: a **feature whose value depends on context** —
+harmful in one situation, beneficial in another. The best you can do with such a
+feature is *control* it — enable it where it helps, disable it where it hurts —
+and if that were free, it would simply dominate. It is not free, and this project
+is the study of why. Control needs two things: a switch (cheap, usually
+available) and a *detector* that tells you which situation you are in (the binding
+constraint). A flawless switch you cannot time is worthless.
+
+A **removable defect** is the sharp, asymmetric corner of that genus: the feature
+is beneficial in the common case and fatal in a rare one, so it is kept enabled by
+default and switched off — routed to compensation — only on detection. Concretely,
+it is a deficiency that is:
 
 1. **Beneficial by default.** In most situations it is non-fatal, and it is what
    the edge is made of: it reduces noise, concentrates capability, and raises
@@ -35,8 +44,11 @@ Two things distinguish this from the familiar praise of specialization:
   must stay general, cheap, and always-on. The detector never has to solve the
   out-of-frame situation, only notice it and route — and detection is orders of
   magnitude cheaper than competence, which is what makes the architecture
-  affordable. The theorem-shaped version this project aims to defend:
-  **a defect is removable iff the detector lies outside it.**
+  affordable. The theorem-shaped version, **now proved** (see `PROOFS.md`):
+  **a defect is profitably removable exactly to the extent that the detector's
+  distinction survives outside it** — and in the worst corner, where the feature
+  and its harm share a substrate, the two rates coincide and no switch, however
+  perfect, can separate benefit from harm.
 
 The pattern is not specific to any one kind of entity. It reads on humans
 (specialization and the attention it buys), organisms (immune tolerance, costly
