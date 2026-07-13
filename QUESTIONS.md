@@ -36,6 +36,14 @@ answer sets the sustainable ceiling on $L$ (exponential in the premium
 margin). Resolving the verification-vs-generation unit model (FORMALIZATION.md
 §8, via doubly-efficient proofs) would upgrade this from asymptotic to exact.
 
+**Lifecycle addendum (PROOFS.md §12):** once the detector must be *learned*,
+detection economics gains a second bill — a one-time training cost linear in
+$L$ (rare-event certification of a near-zero miss rate), on top of the
+per-period $O(\log L)$ rent. Amortized, the advantage condition survives
+learning; the scarce input is labeled fatal examples, which a well-run system
+stops producing — a market for labeled catastrophes, demand priced at $O(L)$
+per fatal category.
+
 ## 3. Adversarial removal
 
 An opponent who crafts situations the detector misses defeats the whole
@@ -69,7 +77,7 @@ with the gap to ideal bounded by router confusion × (A+B); the router is
 itself a detector and obeys detector economics (O(1/L) fatal-side confusion at
 O(log L) rent). Open remainder: aggregating N detector rents vs one
 generalist's carrying cost, and whether iterated routing telescopes
-(PROOFS.md §13, item 5).
+(PROOFS.md §14, item 4).
 
 ## 6. Is "removable" one concept or three?
 

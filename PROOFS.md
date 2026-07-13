@@ -42,14 +42,19 @@ quantifier structure, not in analytic difficulty.
   advantage condition; the premium identity has three per-unit-priced terms.
   A meets B exactly at the $L \to \infty$ boundary, and the two give the
   **full iff** (Corollary A+B).
+- **Theorem E/E′ (end-to-end, §12):** the detector learned from stratified
+  samples of a declared cell cover, with certified rates. The rare-event form
+  certifies the fatal side at a one-time training bill *linear* in severity
+  $L$ (the agnostic route costs $L^2$); amortized, learning preserves the
+  advantage condition. Default-deny gating makes the certificate fail-safe
+  against cover incompleteness; the residual risk is mis-declaration.
 
 **What the proof forced us to admit:** the drafted definition of "removable"
 was vacuous, and the drafted Conjecture B was false under it (§2). The
 repaired notion is *profitable removability*.
 
-**Still open (§13):** end-to-end achievability with the detector's rates
-*learned* rather than assumed, the iterated adversary, the deterministic
-max-min's complexity, and iterated routing.
+**Still open (§14):** the iterated adversary, the deterministic max-min's
+complexity, iterated routing, and beyond-mixture uncertainty classes.
 
 ---
 
@@ -744,7 +749,105 @@ sufficiency is A (outside it, the explicit $\Pi^\* > 0$). Placement supplies
 the *possibility*; the advantage condition supplies the *profit*. This is the
 theorem the founding statement asked for, in both directions.
 
-## 12. Positioning
+## 12. Theorem E — end-to-end achievability: the detector learned, not assumed
+
+Theorem A takes the uniform rate caps $(\alpha_0, \delta)$ as given. Here the
+detector is *selected from data*, and the caps are replaced by certificates.
+The concentration is standard and we use it as such (textbook constants, not
+optimized); the content is where the union bound lands and what the
+certificate costs as severity grows.
+
+**Setup (declared cover; the repaired-C structure made concrete).** The
+agent declares a finite **cover**: safe-cell conditionals
+$\nu_0^1, \dots, \nu_0^r$ (supported in $C$) and fatal-cell conditionals
+$\nu_1^1, \dots, \nu_1^m$ (supported in $E$) — fixed measures, the
+Mondrian/group-conditional structure of repaired Conjecture C in its simplest
+form. The uncertainty class $\mathcal{P}$ reweights cells arbitrarily subject
+to the budgets $P(E) \leq \bar\varepsilon$, $P(C) \geq \underline c$; within
+cells, conditionals are fixed. Worst-case rates then reduce to cell maxima:
+$\mu(d) := \max_i \nu_1^i(d{=}a)$, $\alpha(d) := \max_l \nu_0^l(d{=}e)$, and
+Theorem A's bound holds with these: $\inf_P \Pi_P(d) \geq \Pi^{\mathrm{lb}}(d)
+:= \underline c\,(1-\alpha(d))(g+p) - \bar\varepsilon\,\mu(d)(L-p) - c_d$.
+
+The detector class $D$ (VC dimension $v$, outside the defect — that is what
+$D$'s freedom means) is **gated by the cover**: every $d \in D$ escalates
+off the covered cells. Data: $n$ i.i.d. samples from each cell conditional
+(stratified — test the candidate detector against known-fatal history per
+category).
+
+**Lemma 4 (uniform cell concentration; standard).** With probability
+$\geq 1-\theta$, simultaneously for all $d \in D$ and all $m + r$ cells, the
+empirical rates satisfy $|\hat\mu_i(d) - \mu_i(d)| \leq \epsilon_n$ and
+$|\hat\alpha_l(d) - \alpha_l(d)| \leq \epsilon_n$ with
+
+$$\epsilon_n = O\!\Big(\sqrt{\tfrac{v \log n + \log((m+r)/\theta)}{n}}\Big).$$
+
+*Proof:* two-sided VC uniform convergence per cell, union bound over the
+$m+r$ cells — the promised "union bound over $\mathcal{P}$'s structure,"
+costing only $\log(m+r)$. $\square$
+
+**Theorem E (agnostic).** Let $\hat d$ maximize the empirical bound
+$\hat\Pi^{\mathrm{lb}}$. On Lemma 4's event,
+
+$$\inf_{P \in \mathcal{P}} \Pi_P(\hat d) \;\geq\; \sup_{d \in D} \Pi^{\mathrm{lb}}(d) \;-\; 2\kappa\,\epsilon_n, \qquad \kappa := \underline c\,(g+p) + \bar\varepsilon\,(L-p).$$
+
+*Proof.* $\Pi^{\mathrm{lb}}$ is $\kappa$-Lipschitz in the sup-norm of the
+rate vector (cell-max is 1-Lipschitz), so $|\Pi^{\mathrm{lb}} -
+\hat\Pi^{\mathrm{lb}}| \leq \kappa\epsilon_n$ uniformly; sandwich the ERM.
+$\square$
+
+The penalty is priced by the same $\kappa \approx B$ for large $L$: under the
+square-root rate, holding the estimation penalty constant costs $n \sim L^2$
+samples. The agnostic training bill is **quadratic in severity** — too
+expensive. The rare-event form fixes this:
+
+**Theorem E′ (rare-event certificate — the linear bill).** Suppose the fatal
+side is realizable: some $d^\* \in D$ has $\mu_i(d^\*) = 0$ on every declared
+fatal cell, with $\alpha(d^\*) \leq \alpha^\*$. Select $\hat d$ among
+$\{d : \hat\mu_i(d) = 0\ \forall i\}$ (nonempty **surely** — a true-zero
+detector cannot miss a sample) minimizing $\max_l \hat\alpha_l$. With
+probability $\geq 1-\theta$:
+
+$$\mu(\hat d) \;\leq\; \epsilon^{01}_n = O\!\Big(\tfrac{v \log n + \log(m/\theta)}{n}\Big), \qquad \alpha(\hat d) \;\leq\; \alpha^\* + 2\epsilon_n,$$
+
+(one-sided realizable PAC bound on the version space, union over fatal
+cells; two-sided only on the safe side), hence
+
+$$\inf_{P} \Pi_P(\hat d) \;\geq\; \underline c\,(1 - \alpha^\* - 2\epsilon_n)(g+p) \;-\; \bar\varepsilon\,\epsilon^{01}_n\,(L-p) \;-\; c_d.$$
+
+Holding the fatal-side penalty below a constant requires
+$\epsilon^{01}_n = O(1/L)$, i.e. $n = O\big(L \cdot (v\log + \log(m/\theta))\big)$
+per fatal cell — **linear in severity**, because certifying a near-zero rate
+is a one-sided rare-event problem, not a mean estimation. The safe side needs
+only $O(1/\sqrt{n})$, independent of $L$. $\square$
+
+**Lifecycle economics.** Sustaining severity $L$ end-to-end now has two
+bills: a **one-time training bill** of $O(L \cdot v \log)$ labeled fatal
+examples per declared category (amortized over deployment), and the
+**per-period rent** $c_d = O(\log L)$ from §11's Remark 3. Amortized, both
+grow slower than the per-event loss they insure against, so **the advantage
+condition survives learning** whenever it held with known rates, up to the
+explicit slack above. One economic observation rides along: the scarce input
+is *labeled catastrophes* — precisely what a well-run system stops producing
+(it escalates them). The detector's training data must come from history,
+simulation, or other agents' failures; in market terms, labeled fatal
+examples are a tradable good, and Theorem E′ prices demand for them at
+$O(L)$ per category.
+
+**Coverage: fail-safe against incompleteness, exposed to mis-declaration.**
+Because $D$ is gated by the cover, a fatal category *outside* the declared
+cells is escalated by default — incompleteness costs foregone premium (an
+uncovered safe cell earns nothing), never uncertified fatal exposure. The
+certificate's true residual risk is **mis-declaration**: fatal mass inside a
+declared-*safe* conditional's support, where the gate admits and the samples
+mislead. That is model misspecification, not sample complexity, and it is
+mitigated structurally (the blast-radius cap on $L$), not statistically —
+FORMALIZATION.md §7's honesty rule, surviving to the end of the pipeline.
+This also discharges Theorem A's delegation: existence of the out-of-defect
+detector is no longer assumed but reduced to realizability of $D$ on the
+declared cells, with everything else certified from data.
+
+## 13. Positioning
 
 - **vs. Fang et al. (2022):** their impossibility is statistical
   (non-learnability of OOD detection in restricted spaces); ours is
@@ -773,21 +876,15 @@ theorem the founding statement asked for, in both directions.
   the extent that the detector's distinction survives outside it* —
   coefficient $\sigma_0$, not a yes/no.
 
-## 13. Open
+## 14. Open
 
-1. **Costed achievability with *learned* detector rates.** Theorem A takes the
-   uniform caps $(\alpha_0, \delta)$ as given (existence delegated to repaired
-   Conjecture C). Folding in finite-sample estimation of those rates — the
-   detector trained, not assumed — would make A end-to-end. The concentration
-   is standard; the honest work is the union bound over $\mathcal{P}$'s
-   structure.
-2. **Iterated adversary** (QUESTIONS.md #3, second half): the adversary here
+1. **Iterated adversary** (QUESTIONS.md #3, second half): the adversary here
    chooses $P$ once; the repeated game with a learning detector is untouched.
-3. **Beyond mixture families:** the theorems quantify over
+2. **Beyond mixture families:** the theorems quantify over
    $\mathcal{F}(\nu_0,\nu_1)$ and unions thereof; characterizing collapse for
    arbitrary $\mathcal{P}$ (not built from confusable ensemble pairs) is open,
    though any $\mathcal{P}$ *containing* such a family inherits the collapse.
-4. **The deterministic max-min.** Theorem M resolves the mixed-obstruction
+3. **The deterministic max-min.** Theorem M resolves the mixed-obstruction
    deficit for randomized play; the *deterministic* value (Lemma 3's max-min
    over the non-convex joint ROC set) is exact but unsimplified, and its
    computational complexity is unproved — the nearby classifier-rejector
@@ -795,7 +892,7 @@ theorem the founding statement asked for, in both directions.
    classes, but we have not shown it. Equivalently open: bounding the closure
    deficit by a structural property of $H$ (something Shapley–Folkman-shaped
    as $k$ grows).
-5. **The iterated router.** Theorem R's recursion is one level deep. A
+4. **The iterated router.** Theorem R's recursion is one level deep. A
    hierarchy of directions (directions about directions) would iterate it;
    whether the total rent telescopes (each level $O(\log L)$) or compounds
    is open, and bears directly on QUESTIONS.md #5's fleet economics.

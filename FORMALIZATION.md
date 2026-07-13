@@ -291,10 +291,12 @@ is priced but in *joint realizability* — whether one member of the class can
 serve all confusable directions at once (the transduction gap is exactly that
 deficit, and vanishes on any single confusable direction for every class).
 
-**Remaining proof obligations (now narrowed; full list PROOFS.md §13).**
-- End-to-end A with the detector's rates $(\alpha_0, \delta)$ *learned* rather
-  than assumed — folding finite-sample estimation into the bound. Standard
-  concentration; the work is the union bound over $\mathcal{P}$'s structure.
+**Remaining proof obligations (now narrowed; full list PROOFS.md §14).**
+- ~~End-to-end A with learned rates~~ — DONE (PROOFS.md §12, Theorems E/E′):
+  detector selected from stratified samples of a declared cell cover; the
+  rare-event certificate prices the fatal side at a one-time training bill
+  linear in $L$ (agnostic route: quadratic); default-deny gating is fail-safe
+  against cover incompleteness, residual risk is mis-declaration.
 - The iterated adversary (backlog #3, second half): the one-shot case is now
   Thms 1–2; the repeated game with a learning detector is untouched.
 - ~~A combinatorial characterization of the joint-realizability deficit~~ —

@@ -181,7 +181,15 @@ out-of-scope task is far more expensive. We will see in §5 that survival
 against fatal events of severity $L$ forces the miss rate down to $O(1/L)$,
 which by the hypothesis-testing bound costs only $O(\log L)$ in detector rent.
 The architecture insures against loss $L$ at logarithmic price — this is why
-it is affordable at all. (Putting detection and production in a single cost
+it is affordable at all. The shape survives when the detector must be
+*learned* rather than assumed: certifying a near-zero miss rate from data is
+a one-sided rare-event problem, costing a **one-time training bill linear in
+$L$** in labeled fatal examples (appendix, §12) — amortized over deployment,
+both bills grow slower than the per-event loss they insure against, so the
+advantage condition survives learning. A side consequence worth naming: the
+scarce input is labeled catastrophes, which a well-run system stops producing
+— it escalates them — so detector training data must come from history,
+simulation, or other agents' failures. (Putting detection and production in a single cost
 model — rather than the mismatched units of samples and compute — is possible
 via doubly-efficient interactive proofs and property testing; the appendix
 treats this as a strengthening, not a load-bearing step.)
@@ -460,10 +468,14 @@ mean the synthesis, not the parts, to be the contribution.
 
 We are honest about the boundary of what is proved.
 
-- **Achievability assumes the detector's rates.** Theorem A takes the uniform
-  miss and false-alarm bounds as given (existence delegated to class-uniform
-  coverage results). An end-to-end version with those rates *learned* from
-  finite samples is routine concentration but not yet written.
+- **The learned detector's certificate is only as good as its cover.** The
+  end-to-end result (appendix, §12) trains and certifies the detector from
+  stratified samples of *declared* fatal categories, and default-deny gating
+  makes it fail-safe against categories left out of the cover — an unknown
+  fatal category is escalated, not missed. What remains exposed is
+  **mis-declaration**: fatal mass inside a declared-safe cell, where the gate
+  admits and the samples mislead. That is model misspecification, mitigated
+  structurally by the blast-radius cap, not statistically.
 - **The advantage condition is frequency-free but budget-dependent.** It uses
   only an upper bound $\bar\varepsilon$ on fatal mass, never a point estimate —
   the minimax robustness we wanted. But it still trusts that budget, and it
