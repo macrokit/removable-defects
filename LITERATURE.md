@@ -178,6 +178,78 @@ as practice.
 Claims 1–3 are theorem-shaped and unproved; 4–5 are framing. Everything else
 in FORMALIZATION.md now carries citations instead of claims.
 
+## Second-round check (2026-07-13, later): Theorems M and E/E′
+
+Run when the proofs outgrew the first check; two research passes, primary
+PDFs read where verdicts depended on precise statements (two confabulated
+auto-summaries were caught and corrected against the actual papers).
+
+### Theorem M (least-favorable mixture duality) — technology classical, application survives
+
+- **Duality technology — cite, don't claim.** Wald (1945, *Ann. Math.*
+  46:265–280; 1950 book): minimax with randomized rules = Bayes against a
+  least favorable prior. Huber (1965, AMS 36:1753–1758): least favorable
+  pair + clipped-LR test, minimax at every finite $n$. **Huber & Strassen
+  (1973, *Ann. Statist.* 1:251–263):** composite minimax testing under
+  2-alternating capacities collapses to an ordinary NP test against a least
+  favorable pair — exactly M's collapse move, fifty years early. Fillatre
+  (2017, *Signal Processing* 141:322–330): the finite-LP / dual-LP
+  least-favorable-prior computation, arbitrary losses.
+- **The coin mechanism is in print.** Randomized rules realize the ROC
+  convex hull: NP lemma with randomization (Lehmann–Romano TSH Thm 3.2.1),
+  Provost & Fawcett (2001, *Mach. Learn.* 42:203–231) for the ML ROCCH/hybrid
+  form; Fauß–Zoubir–Poor (arXiv:2105.09836) §V-D states point-mass LR ⇒
+  linear ROC segments ⇒ randomization required — our exact mechanism. Cite
+  all three; claim none.
+- **Mandatory distinction:** Managoli, Sahasranand & Prabhakaran
+  (arXiv:2501.12938) already pair robust hypothesis testing with abstention
+  — asymptotic error exponents, sample corruption, *unrestricted* detectors.
+  "Abstention under distributional uncertainty" is not novel as of 2025. M's
+  claim must sit at: the single-shot premium game over a *restricted* class,
+  the closure deficit = ROC-set non-convexity identification, and the
+  coin-vs-cross-leak split. Affirmative evidence the classical canon skipped
+  the reject option: the Fauß–Zoubir–Poor survey contains no abstention as a
+  decision action anywhere.
+
+### Theorems E/E′ (learned detector) — E pure technology; E′ a gap-fill between two literatures
+
+- **Canonical bounds confirmed:** Vapnik–Chervonenkis (1971, *TPA*
+  16:264–280) two-sided; **BEHW (1989, JACM 36:929–965, Thm 2.1(ii)(a))**
+  is the version-space bound E′ uses, with the EHKV Ω(d/ε) lower bound
+  making the realizable 1/ε vs agnostic 1/ε² dichotomy tight. Textbooks:
+  Anthony–Bartlett 1999; Shalev-Shwartz–Ben-David 2014 (Thms 6.7–6.8).
+- **E′'s problem is KKM's.** Kalai–Kanade–Mansour (JCSS 78:1481–1495)
+  positive-reliable learning: one error type forced to ~0 against a
+  realizable-on-that-side benchmark — E′'s problem statement, verbatim. But
+  their reduction pays *agnostic* rates at ε² (the contribution was
+  computational); no version-space selection, no one-sided fast rate.
+- **E′'s setup is NP classification at α = 0.** Cannon–Howse–Hush–Scovel
+  (2002), Scott–Nowak (2005, IEEE-IT 51:3806–3819, Thm 3), Rigollet–Tong
+  (2011, COLT), Tong–Feng–Li (2018, *Sci. Adv.*): all α > 0, all two-sided
+  √ rates. None does zero-empirical-miss selection; none states the
+  constrained-side-linear / objective-side-√ asymmetry in a severity
+  parameter.
+- **Must engage by name:** Casacuberta & Kanade (NeurIPS 2025), multigroup
+  selective classification extending KKM — group-wise abstention
+  competitiveness at agnostic rates. No zero-miss certification, no
+  cell-reweighting robustness, no severity asymmetry — but it owns
+  "group-wise reliable abstention." Also cite Mondrian conformal (Vovk;
+  Angelopoulos et al. arXiv:2411.11824) for per-cell calibration and
+  multi-distribution learning (arXiv:2307.12135) for
+  worst-case-over-k-distributions at agnostic rates.
+- **"Training bill linear in L" survives** — no cost-sensitive or NP paper
+  states it — but it is an elementary corollary of the 1/ε-vs-1/ε²
+  dichotomy and the paper should frame it as exactly that.
+
+### Net effect on claims
+
+M and E′ both keep their applications with narrowed framing: M is not
+"abstention under uncertainty" (taken) but the restricted-class premium
+game + obstruction split; E′ is not a new framework (KKM + Scott–Nowak own
+the frame) but the sample-complexity analysis both literatures skipped,
+assembled per-cell under reweighting. All "await the literature check"
+flags in PROOFS.md and PAPER.md are now discharged with real citations.
+
 ## Source index
 
 Chow 1957 (ieeexplore.ieee.org/document/5222035) · Chow 1970
@@ -200,3 +272,18 @@ Good_Bad_Kelly.pdf) · Grossman–Zhou 1993 · Peters–Adamou (arXiv:1507.04655
 Spitznagel 2021 · Gollier–Pratt 1996 · Ehrlich–Becker 1972 · Townsend 1979 ·
 Taleb–Douady (arXiv:1208.1189) · Taleb et al. 2014 (arXiv:1410.5787) ·
 Williamson · Van Mieghem 2003 · Chen et al. MoE (arXiv:2208.02813).
+
+Second round: Wald 1945 (*Ann. Math.* 46:265) & 1950 · Huber 1965 (AMS
+36:1753) · Huber–Strassen 1973 (*Ann. Statist.* 1:251) · Fillatre 2017
+(*Signal Proc.* 141:322) · Fauß–Zoubir–Poor survey (arXiv:2105.09836) ·
+Managoli–Sahasranand–Prabhakaran (arXiv:2501.12938) · Provost–Fawcett 2001
+(arXiv:cs/0009007) · Lehmann–Romano TSH 3e Thm 3.2.1 · VC 1971 (*TPA*
+16:264) · BEHW 1989 (JACM 36:929, Thm 2.1) · EHKV 1989 ·
+Anthony–Bartlett 1999 · Shalev-Shwartz–Ben-David 2014 (Thms 6.7–6.8) ·
+Cannon et al. 2002 (LA-UR-02-2951) · Scott–Nowak 2005 (IEEE-IT 51:3806) ·
+Rigollet–Tong 2011 (COLT) · Tong–Feng–Li 2018 (*Sci. Adv.* 4:eaao1659) ·
+Kalai–Kanade–Mansour (JCSS 78:1481) · Kanade–Thaler 2014 (arXiv:1402.5164) ·
+Rothblum–Yona 2021 (arXiv:2105.09989) · Casacuberta–Kanade NeurIPS 2025 ·
+Angelopoulos et al. (arXiv:2411.11824) · multi-distribution learning
+(arXiv:2307.12135) · Al Makdah et al. (arXiv:2104.02334) · Soen et al.
+(arXiv:2405.18686) · Grigoryan et al. (arXiv:1102.3520).

@@ -486,11 +486,31 @@ mean the synthesis, not the parts, to be the contribution.
   as an average-case correlation model; the coupling lemma is its worst-case,
   identity-strength form.
 - **Minimax testing.** The least-favorable-mixture duality behind the
-  obstruction split (§6) is the classical structure of minimax hypothesis
-  testing (Wald-flavored; Huber–Strassen is the nearby robust version). We
-  claim the application — the premium game and the coin-versus-cross-leak
-  reading — not the duality technology; the formal lineage citations await
-  the usual literature check.
+  obstruction split (§6) is classical: Wald (1945, 1950) for minimax with
+  randomized rules against a least favorable prior; Huber (1965) and
+  Huber–Strassen (1973) for the exact collapse of composite minimax testing
+  to one Neyman–Pearson test against a least favorable pair; Fillatre (2017)
+  for the finite-LP form. That randomization realizes the ROC convex hull is
+  likewise classical (Neyman–Pearson lemma; Provost & Fawcett 2001; see also
+  Fauß–Zoubir–Poor 2021, §V-D). We claim the application — the
+  restricted-class premium game, the closure-deficit identification, and the
+  coin-versus-cross-leak reading — and distinguish Managoli, Sahasranand &
+  Prabhakaran (2025), who pair robust testing with abstention at asymptotic
+  exponents over unrestricted detectors; notably, the classical
+  robust-detection canon itself contains no abstention action at all.
+- **Learning the detector.** Theorem E is standard uniform convergence
+  (Vapnik–Chervonenkis 1971; the version-space bound is Blumer–Ehrenfeucht–
+  Haussler–Warmuth 1989, Thm 2.1). Theorem E′'s problem statement is
+  Kalai–Kanade–Mansour's positive-reliable learning, and its setup is
+  Neyman–Pearson classification at $\alpha = 0$ (Cannon et al. 2002;
+  Scott & Nowak 2005; Rigollet & Tong 2011) — we cite both frames and claim
+  only the analysis they skipped: the zero-empirical-miss certification at a
+  one-sided fast rate, per declared cell under reweighting, and the
+  linear-versus-quadratic-in-severity training bill, itself an elementary
+  corollary of the tight realizable/agnostic $1/\varepsilon$ vs
+  $1/\varepsilon^2$ dichotomy. Casacuberta & Kanade (2025) own group-wise
+  reliable abstention at agnostic rates and are the closest neighbor; they
+  contain neither the zero-miss certificate nor the severity asymmetry.
 
 ## 9. Limitations and open questions
 

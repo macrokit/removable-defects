@@ -590,10 +590,19 @@ closedness the limit sits between the $t{=}0$ and right-limit versions,
 the same caveat as §7's closure remark; we do not pretend otherwise.
 
 **Remarks.**
-- This is the classical least-favorable-prior structure of minimax
-  hypothesis testing (Wald-style), imported to the premium game; the formal
-  citation should pass the usual literature check before the paper claims
-  the connection as more than structural.
+- The lineage is now verified (LITERATURE.md, second round). The duality
+  technology is fully classical: Wald (1945; 1950) for minimax-equals-Bayes
+  against a least favorable prior with randomized rules; **Huber–Strassen
+  (1973)** for the exact collapse move — composite minimax testing reduces
+  to one NP test against a least favorable pair; Fillatre (2017) for the
+  finite-LP/dual-LP computation. Even the coin mechanism is in print:
+  randomized rules realize the ROC convex hull (NP lemma, Lehmann–Romano
+  Thm 3.2.1; Provost–Fawcett 2001; Fauß–Zoubir–Poor §V-D on point-mass LRs
+  forcing randomization). We cite all of it and claim only the application —
+  and must distinguish Managoli–Sahasranand–Prabhakaran (arXiv:2501.12938),
+  who already pair robust testing with abstention (asymptotic exponents,
+  unrestricted detectors): M's claim sits at the restricted-class premium
+  game, the closure-deficit identification, and the obstruction split.
 - Theorem R is now the *constructive* counterpart of M: blind randomization
   (route without looking) is the $\rho = 1 - 1/k$ corner of the router bound,
   and M says the best blind play is not gating but the NP solution against
@@ -782,9 +791,9 @@ $|\hat\alpha_l(d) - \alpha_l(d)| \leq \epsilon_n$ with
 
 $$\epsilon_n = O\!\Big(\sqrt{\tfrac{v \log n + \log((m+r)/\theta)}{n}}\Big).$$
 
-*Proof:* two-sided VC uniform convergence per cell, union bound over the
-$m+r$ cells — the promised "union bound over $\mathcal{P}$'s structure,"
-costing only $\log(m+r)$. $\square$
+*Proof:* two-sided VC uniform convergence per cell (Vapnik–Chervonenkis
+1971), union bound over the $m+r$ cells — the promised "union bound over
+$\mathcal{P}$'s structure," costing only $\log(m+r)$. $\square$
 
 **Theorem E (agnostic).** Let $\hat d$ maximize the empirical bound
 $\hat\Pi^{\mathrm{lb}}$. On Lemma 4's event,
@@ -810,8 +819,10 @@ probability $\geq 1-\theta$:
 
 $$\mu(\hat d) \;\leq\; \epsilon^{01}_n = O\!\Big(\tfrac{v \log n + \log(m/\theta)}{n}\Big), \qquad \alpha(\hat d) \;\leq\; \alpha^\* + 2\epsilon_n,$$
 
-(one-sided realizable PAC bound on the version space, union over fatal
-cells; two-sided only on the safe side), hence
+(one-sided realizable version-space bound — BEHW 1989, Thm 2.1 — union over
+fatal cells; two-sided only on the safe side; E′'s problem statement is
+KKM positive-reliable learning and its setup is NP classification at
+$\alpha = 0$, see §13), hence
 
 $$\inf_{P} \Pi_P(\hat d) \;\geq\; \underline c\,(1 - \alpha^\* - 2\epsilon_n)(g+p) \;-\; \bar\varepsilon\,\epsilon^{01}_n\,(L-p) \;-\; c_d.$$
 
@@ -866,12 +877,32 @@ declared cells, with everything else certified from data.
   coarsened posterior (Theorem 1′ is a Neyman–Pearson problem) — and that is
   precisely why optimal within-defect play cannot help. The failure is not in
   the decision rule but in what reaches it.
-- **vs. least-favorable priors:** Theorem M's structure is the classical
-  minimax-testing duality (Wald-flavored; Huber–Strassen for capacity
-  classes is the nearby robust version). We claim the *application* — the
-  premium game, the obstruction split, the coin-vs-cross-leak reading — not
-  the duality technology; the formal citations go through the usual
-  literature check before the paper asserts lineage.
+- **vs. least-favorable priors (verified):** Theorem M's structure is the
+  classical minimax-testing duality — Wald (1945/1950), Huber (1965),
+  Huber–Strassen (1973) for the collapse-to-one-NP-test move, Fillatre
+  (2017) for the finite-LP form; randomization-realizes-the-ROC-hull is
+  NP-lemma classical (Lehmann–Romano Thm 3.2.1; Provost–Fawcett 2001;
+  Fauß–Zoubir–Poor §V-D). We claim the application only, and distinguish
+  Managoli et al. (arXiv:2501.12938) — robust testing *with* abstention
+  exists as of 2025, at asymptotic exponents over unrestricted detectors;
+  the restricted-class premium game and the obstruction split are ours.
+  Affirmative evidence the classical robust-detection canon skipped the
+  reject option: the Fauß–Zoubir–Poor survey contains no abstention action.
+- **vs. NP classification and reliable learning (verified):** Theorem E is
+  standard technology (VC 1971; BEHW 1989 Thm 2.1 for the version-space
+  bound; textbooks Anthony–Bartlett, Shalev-Shwartz–Ben-David). Theorem E′'s
+  *problem* is Kalai–Kanade–Mansour's positive-reliable learning and its
+  *setup* is Neyman–Pearson classification at $\alpha = 0$ (Cannon et al.
+  2002; Scott–Nowak 2005; Rigollet–Tong 2011) — cite both frames. Neither
+  contains the zero-empirical-miss selection with the one-sided fast rate
+  (KKM's reduction pays agnostic $\varepsilon^2$ rates; all NP papers run
+  two-sided $\sqrt{}$ at $\alpha > 0$), nor the linear-vs-quadratic-in-$L$
+  training bill — which we present as an elementary corollary of the tight
+  realizable/agnostic $1/\varepsilon$ vs $1/\varepsilon^2$ dichotomy (EHKV
+  lower bound), not a new phenomenon. Must engage: Casacuberta–Kanade
+  (NeurIPS 2025), group-wise reliable abstention at agnostic rates — owns
+  the group-wise frame; lacks zero-miss certification, reweighting
+  robustness, and the severity asymmetry.
 - **The slogan, final form:** *a defect is profitably removable exactly to
   the extent that the detector's distinction survives outside it* —
   coefficient $\sigma_0$, not a yes/no.
