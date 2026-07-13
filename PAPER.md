@@ -17,13 +17,14 @@ treated as a cost to be minimized. We treat it as a design variable: a
 deficiency can be *kept* because it pays — it concentrates capability and
 raises output where the specialist is strong — and *removed on demand* in the
 rare situation where it would be fatal, by routing that situation to a
-compensation channel instead of acting. We give three things. First, an
+compensation channel instead of acting. We give three results. First, an
 *advantage condition* under which keeping the deficiency is a computable
 economic position rather than a character trait; structurally it is the
 Ehrlich–Becker market-vs-self-insurance margin applied to a competence gap,
 with the detector as a Townsend costly-state-verification technology. Second,
-a two-sided characterization of when removal is possible. The obstruction is a
-*coupling lemma*: when the deficiency is a coarsening of perception, the rate
+a two-sided characterization of when removal is possible. The obstruction is
+captured by a *coupling lemma*: when the deficiency is a coarsening of
+perception, the rate
 at which the specialist's feature does good equals the rate at which it does
 harm — one number prices both — so no switch, however perfect, can separate
 benefit from harm. This yields a converse (a confounded detector earns zero
@@ -44,8 +45,8 @@ advantage condition.
 ## 1. Introduction
 
 Consider a feature — a capability, a disposition, a trained specialization —
-whose value depends on context: beneficial in situation $B$, harmful in
-situation $A$. Three policies are available. Enable it everywhere, and you
+whose value depends on context: harmful in situation $A$, beneficial in
+situation $B$. Three policies are available. Enable it everywhere, and you
 collect $B$'s benefit and $A$'s harm. Disable it everywhere — the generalist
 who never commits — and you forfeit $B$'s benefit to avoid $A$'s harm. Or
 *control* it: enable in $B$, disable in $A$, capturing the better outcome in
@@ -94,7 +95,7 @@ obstruction is precisely where the detector sits relative to the defect.
 5. The **observation/capacity distinction** (§6): the two defect types differ
    exactly on whether transductive access to the deployment distribution
    rescues them — a split the average-case literature does not see.
-6. Two robustness gains: a **frequency-free** (minimax) advantage condition,
+6. Two robustness results: a **frequency-free** (minimax) advantage condition,
    and the identification of the detector's **per-event miss rate**, not the
    event frequency, as what the ruin condition is written on.
 
@@ -123,7 +124,7 @@ detector never *solves* the escalated task; it answers one binary question,
 
 Expected per-period growth is
 
-$$G = (1-\alpha)\,g\,P(C) - c_d - p\,\big[\alpha P(C) + (\text{escalations off } C)\big] - \varepsilon\mu L - (\text{benign terms}).$$
+$$G = (1-\alpha)\,g\,P(C) - c_d - p\,\big[\alpha P(C) + (\text{escalations outside } C)\big] - \varepsilon\mu L - (\text{benign terms}).$$
 
 Two structural facts. The fatal term $\varepsilon\mu L$ is a product of three
 factors; the architecture attacks $\mu$ (the detector) and caps $L$ (bounded
@@ -180,9 +181,9 @@ against fatal events of severity $L$ forces the miss rate down to $O(1/L)$,
 which by the hypothesis-testing bound costs only $O(\log L)$ in detector rent.
 The architecture insures against loss $L$ at logarithmic price — this is why
 it is affordable at all. (Putting detection and production in a single cost
-model, rather than the two different units of samples and compute, is possible
-via doubly-efficient interactive proofs and property testing; we treat that as
-a strengthening, not a load-bearing step, in the appendix.)
+model — rather than the mismatched units of samples and compute — is possible
+via doubly-efficient interactive proofs and property testing; the appendix
+treats this as a strengthening, not a load-bearing step.)
 
 ## 5. Removability: the central result
 
@@ -215,8 +216,8 @@ rate on the fatal ensemble.*
 The proof is two lines (Doob–Dynkin factorization plus equality of
 pushforwards; appendix, Lemma 1). The content is in what it says: **inside an
 observation defect the miss rate *is* the capture rate.** Every unit of
-specialization gain the detector lets through carries a proportional unit of
-fatal exposure, because they are literally the same number. This is the
+specialization gain the detector lets through carries an equal unit of fatal
+exposure — the two rates are literally the same number. This is the
 common-cause-failure principle of reliability engineering (Eckhardt–Lee 1985;
 Littlewood–Rushby 2012) upgraded from a correlation model to an identity. A
 switch that disables the harm disables the benefit in the same motion.
@@ -224,8 +225,9 @@ switch that disables the harm disables the benefit in the same motion.
 ### 5.3 The converse
 
 **Theorem 1 (converse).** *Against an adversarial choice of task distribution
-within the fatal-mass budget, an observation-defective detector earns zero
-specialization premium once $L$ exceeds an explicit threshold — and this holds
+within the fatal-mass budget, a detector confined inside an observation defect
+earns zero specialization premium once $L$ exceeds an explicit threshold — and
+this holds
 even if the detector is chosen after seeing the deployment distribution.
 Under multiplicative (Kelly) dynamics with true ruin, any positive premium
 forces expected log-growth to $-\infty$.*
@@ -297,16 +299,17 @@ paper's cleanest structural claim.
 For a capacity defect the premium collapses in the **inductive** regime — when
 the detector is committed before the deployment distribution is known
 ($\sup_d \inf_P$) — but is fully recovered in the **transductive** regime, when
-the detector may be chosen knowing the distribution ($\inf_P \sup_d$). The
-inductive-versus-transductive gap is exactly the mechanism by which
-Goldwasser–Kalai–Kalai–Montasser (2020) escape impossibility using unlabeled
-deployment data. For an observation defect, by contrast, the converse holds
-*even transductively* (§5.3): the gap is zero.
+the detector may be chosen knowing the distribution ($\inf_P \sup_d$)
+(appendix, Theorem 2). The inductive-versus-transductive gap is exactly the
+mechanism by which Goldwasser–Kalai–Kalai–Montasser (2020) escape
+impossibility using unlabeled deployment data. For an observation defect, by
+contrast, the converse holds *even transductively* (§5.3): the gap is zero.
 
 So the two defect types are provably distinct along the transduction axis —
-observation defects destroy the distinction per task, and no amount of
-distributional knowledge rebuilds it, while capacity defects merely withhold
-the right classifier until deployment is seen. This is the switch/detector
+an observation defect destroys the distinction per task, and no amount of
+distributional knowledge rebuilds it, while a capacity defect still contains
+the right detector; it merely cannot be identified until deployment is seen.
+This is the switch/detector
 distinction of §1 made precise: a capacity defect is "the switch is confined
 but the context is in principle visible"; an observation defect is "the
 context itself is unresolvable to you, and switch quality is irrelevant." The
@@ -359,12 +362,14 @@ design, quantities the hub can read — capability score against market prices o
 one side, observed escalation spend on the other — so "should this agent be
 deficient?" is meant to be computed, not judged.
 
-**The two-sided theorem, from both sides at once.** Agent World independently
-names the paper's central rule as its *one load-bearing constraint*: "the
-deficiency must never include the detector — an agent may be deficient in what
-it can do, never in noticing what it cannot." That the practitioners reached
-for detector placement, unprompted by the theorem, is the corroboration we can
-honestly claim. And the two failure accounts line up as one fact seen twice.
+**The two-sided theorem, from both sides at once.** Agent World names the
+paper's central rule as its *one load-bearing constraint*: "the deficiency
+must never include the detector — an agent may be deficient in what it can do,
+never in noticing what it cannot." We do not claim independent discovery — the
+design and this paper share an origin. What we can honestly claim is the
+order: the constraint was articulated as an engineering necessity *before* any
+theorem existed, and the theorem then showed the necessity was mathematical,
+not stylistic. And the two failure accounts line up as one fact seen twice.
 The paper's converse is *ex ante*: a confounded detector cannot earn premium,
 full stop. Agent World's ledger supplies the *ex post* image: an agent that
 declares a route but whose detector is in fact blind will act out of
@@ -387,8 +392,9 @@ open question we flag in §9: whether "removable" is one concept or three.
 Each ingredient of this paper has a home in an existing literature, and we
 mean the synthesis, not the parts, to be the contribution.
 
-- **Reject option / selective prediction.** Proposition 2 is Chow's rule
-  (1957, 1970); the separate-rejector architecture is the established
+- **Reject option / selective prediction.** The optimal escalate-versus-act
+  rule (§4) is Chow's (1957, 1970); the separate-rejector architecture is the
+  established
   "separated rejector" of the taxonomy (Hendrickx et al. 2024), with
   Cortes–DeSalvo–Mohri (2016) showing why a restricted actor forces it. Our
   achievability bound is a growth statement, which the risk-coverage framing
