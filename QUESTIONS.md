@@ -12,7 +12,7 @@ tail events are precisely what history underestimates. Is there a robust
 (minimax / heavy-tail-safe) version? What does the condition look like when the
 frequency estimate itself carries fat uncertainty?
 
-**Status (2026-07-13): minimax form now in hand** — Theorem A (PROOFS.md §10)
+**Status (2026-07-13): minimax form now in hand** — Theorem A (PROOFS.md §11)
 proves the worst-case version $\underline c(1-\alpha_0)(g+p) > \bar\varepsilon
 \delta(L-p) + c_d$, which uses only an *upper bound* $\bar\varepsilon$ on fatal
 mass and an upper bound $\delta$ on miss rate — never a point estimate of the
@@ -28,7 +28,7 @@ Make it precise or drop it. A useful target: conditions under which a detector
 with cost o(competence cost) achieves a given miss rate.
 
 **Status (2026-07-13): now load-bearing, not just a curiosity** — Theorem A
-(PROOFS.md §10, Remark 3) shows the architecture survives arbitrary loss
+(PROOFS.md §11, Remark 3) shows the architecture survives arbitrary loss
 severity $L$ only if miss rate shrinks as $\delta = O(1/L)$, which by the
 hypothesis-testing bound costs rent $c_d \sim \log L$. Cheap detection is
 exactly what keeps leakage bounded at logarithmic price — so this question's
@@ -69,7 +69,7 @@ with the gap to ideal bounded by router confusion × (A+B); the router is
 itself a detector and obeys detector economics (O(1/L) fatal-side confusion at
 O(log L) rent). Open remainder: aggregating N detector rents vs one
 generalist's carrying cost, and whether iterated routing telescopes
-(PROOFS.md §12, item 5).
+(PROOFS.md §13, item 5).
 
 ## 6. Is "removable" one concept or three?
 

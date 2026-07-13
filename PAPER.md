@@ -346,7 +346,13 @@ question recurses. The recursion is the observation/capacity split in its
 sharpest form: for a capacity defect it terminates in a cheap router,
 obeying the same $O(\log L)$ detector economics; for an observation defect
 the router would need exactly the information the coarsening destroyed, and
-the recursion halts at the coupling lemma with nothing to buy.
+the recursion halts at the coupling lemma with nothing to buy. When the two
+obstructions mix, a duality resolves them (appendix, §9): allowing the agent
+per-task randomization convexifies its options, and the many-direction game
+collapses to a single-direction problem at a *least-favorable mixture* of
+directions — whereupon the transduction gap splits additively into
+irreducible cross-leak plus the price of determinism. **A coin buys back the
+gluing failure, never the cross-leak.**
 
 ## 7. A worked example: Agent World
 

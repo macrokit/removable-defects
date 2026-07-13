@@ -29,9 +29,15 @@ quantifier structure, not in analytic difficulty.
   bounds it by a direction router's confusion mass at the same two prices —
   the router is itself a detector, the question recurses, and the recursion
   is the observation/capacity split in its third formulation.
+- **Theorem M (mixed obstructions, §9):** the k-direction game, with per-task
+  randomization, collapses by LP duality to a *single* Theorem 2′ instance at
+  a least-favorable mixture of directions; the transduction gap splits
+  additively into irreducible cross-leak plus the closure deficit — a coin
+  buys back the gluing failure, never the cross-leak. XOR witnesses both
+  halves at exactly $A/2$ each.
 - Corollary 3 (growth form): under multiplicative dynamics, survival and
   specialization gain cannot coexist inside the defect.
-- **Theorem A (achievability, §10):** a detector *outside* the defect earns a
+- **Theorem A (achievability, §11):** a detector *outside* the defect earns a
   worst-case premium bounded below by an explicit $\Pi^\* > 0$ under the
   advantage condition; the premium identity has three per-unit-priced terms.
   A meets B exactly at the $L \to \infty$ boundary, and the two give the
@@ -41,9 +47,9 @@ quantifier structure, not in analytic difficulty.
 was vacuous, and the drafted Conjecture B was false under it (§2). The
 repaired notion is *profitable removability*.
 
-**Still open (§12):** end-to-end achievability with the detector's rates
-*learned* rather than assumed, the iterated adversary, and the exact deficit
-for non-union-closed classes on ensemble directions.
+**Still open (§13):** end-to-end achievability with the detector's rates
+*learned* rather than assumed, the iterated adversary, the deterministic
+max-min's complexity, and iterated routing.
 
 ---
 
@@ -495,11 +501,107 @@ Three consequences:
 
 The bound is stated for the augmented class: it characterizes what
 *composition closure buys*, while Propositions 5–6 give the exact deficit of
-the raw classes. The residual open piece is the exact deficit for
-non-union-closed classes on ensemble (non-point) directions, where cross-leak
-and non-closure mix.
+the raw classes. The mixed case — cross-leak and non-closure together, on
+ensemble directions — is §9.
 
-## 9. Corollary 3 — the growth form
+## 9. Theorem M — the mixed-obstruction deficit: duality and the price of determinism
+
+Where §8 characterized the deficit with one obstruction acting alone, this
+section gives the general case. The conjectured shape (a Neyman–Pearson
+problem over the joint ROC set) is correct, and its *dual* is the theorem:
+the k-direction game collapses to a single-direction Theorem 2′ instance at a
+**least-favorable mixture** of directions — and the duality separates the two
+obstructions exactly: randomization eliminates non-closure and can never
+touch cross-leak.
+
+**Lemma 3 (vector operating-point reduction).** Each $h$ has a joint
+operating point $Q(h) := (q_0^j(h), q_1^j(h))_{j \leq k} \in [0,1]^{2k}$;
+write $\mathrm{ROC}_k(H) := \{Q(h) : h \in H\}$. On the union family, the
+deterministic inductive premium is
+
+$$\Pi^{\mathrm{ind}}_L(H) \;=\; \sup_{Q \in \mathrm{ROC}_k(H)}\; \min_j \big[ A\,q_0^j - B\,q_1^j \big]$$
+
+— the max-min of the price functional over the joint ROC set, whose Pareto
+frontier does not factorize per direction. *Proof:* per direction, Lemma 2's
+computation (worst $\lambda$ at $\bar\varepsilon$); the adversary's choice of
+direction is the min. $\square$
+
+**Randomized play.** Let the agent draw its detector per task from a finite
+lottery $\pi$ over $H$. The operating point of a lottery is the mixture of
+its atoms' points, so lotteries realize exactly
+$\mathrm{conv}\,\mathrm{ROC}_k(H)$ (Carathéodory: at most $2k+1$ atoms
+suffice — the optimal randomized detector is a **small menu with a coin**).
+Write $\Pi^{\mathrm{rand}}_L(H)$ for the inductive premium over lotteries.
+
+**Theorem M (least-favorable mixture duality).** For any $H$ (constants
+included), any $k$ ensemble directions, and every $L$:
+
+$$\Pi^{\mathrm{rand}}_L(H) \;=\; \min_{\mu \in \Delta_k}\; \Pi^{2'}_L\!\Big(H;\; \sum_j \mu_j \nu_0^j,\; \sum_j \mu_j \nu_1^j\Big),$$
+
+where $\Pi^{2'}_L(H; \nu_0, \nu_1) = \sup_h [A\,\nu_0(h{=}a) -
+B\,\nu_1(h{=}a)]$ is Theorem 2′'s single-pair value. The minimizer $\mu^\*$
+is the **least-favorable direction mixture**; the optimal lottery is the
+class-restricted Neyman–Pearson solution against the mixed ensembles
+$(\bar\nu_0^{\mu^\*}, \bar\nu_1^{\mu^\*})$; and $\mu^\*$ is supported on the
+binding directions (complementary slackness).
+
+*Proof.* $\Pi^{\mathrm{rand}}_L = \sup_{q \in \mathrm{conv}\,\mathrm{ROC}_k}
+\min_j \langle c_j, q\rangle$ with $c_j$ the $j$-th price functional. The
+objective is concave (min of linear) and unchanged by passing to the closed
+convex hull; the adversary's set is finite; von Neumann/LP duality gives
+$\sup_q \min_j = \min_{\mu \in \Delta_k} \sup_q \langle \sum_j \mu_j c_j,
+q\rangle$, with the min attained on the compact simplex. Finally
+$\sum_j \mu_j [A q_0^j(h) - B q_1^j(h)] = A\,\bar\nu_0^\mu(h{=}a) -
+B\,\bar\nu_1^\mu(h{=}a)$ because operating points are linear in the measure —
+so the inner sup *is* a Theorem 2′ instance. $\square$
+
+**Corollary M1 (the obstructions, exactly separated).** For every $L$,
+
+$$\underbrace{\Pi^{\mathrm{tr}}_L - \Pi^{\mathrm{ind}}_L}_{\text{transduction gap}} \;=\; \underbrace{\big[\Pi^{\mathrm{tr}}_L - \Pi^{\mathrm{rand}}_L\big]}_{\text{irreducible cross-leak}} \;+\; \underbrace{\big[\Pi^{\mathrm{rand}}_L - \Pi^{\mathrm{ind}}_L\big]}_{\text{closure deficit}}.$$
+
+The first bracket is the cross-leak against the least-favorable mixture — it
+survives any amount of randomization, because Theorem M already plays the
+convex hull. The second is the convexity gap of $\mathrm{ROC}_k(H)$ at the
+optimal price functional — the **price of determinism**, and it is *all* of
+Prop 4's non-closure obstruction: **a coin buys back the gluing failure,
+never the cross-leak.** Union-closed classes (Prop 5) have zero closure
+deficit already; for them randomization is worthless, as the exact formula
+showed.
+
+**Worked example (XOR, the numbers).** Halfspaces on the XOR directions
+(§8, Prop 6), $L \to \infty$, in units of $A$: deterministic $0$, randomized
+$1/2$ (the coin over the two corner halfspaces $\{x{+}y < \tfrac12\}$,
+$\{x{+}y > \tfrac32\}$; dual check: at $\mu^\* = (\tfrac12, \tfrac12)$ no
+halfspace excludes both fatal points while capturing more than half the
+mixed safe mass), transductive $1$. Both obstructions are worth exactly
+$1/2$ here: the three values separate, and the decomposition of M1 is
+witnessed with all brackets positive.
+
+**Corollary M2 ($L \to \infty$).** $\Pi^{\mathrm{rand}}_L / A$ decreases to
+the randomized joint coefficient, which under a closed joint ROC set equals
+$\min_{\mu} \bar\sigma_0\big(H;\ \bar\nu_0^\mu, \bar\nu_1^\mu\big)$ — the
+zero-leak capture capacity at the least-favorable mixture. Without
+closedness the limit sits between the $t{=}0$ and right-limit versions,
+the same caveat as §7's closure remark; we do not pretend otherwise.
+
+**Remarks.**
+- This is the classical least-favorable-prior structure of minimax
+  hypothesis testing (Wald-style), imported to the premium game; the formal
+  citation should pass the usual literature check before the paper claims
+  the connection as more than structural.
+- Theorem R is now the *constructive* counterpart of M: blind randomization
+  (route without looking) is the $\rho = 1 - 1/k$ corner of the router bound,
+  and M says the best blind play is not gating but the NP solution against
+  $\mu^\*$; a router with per-task information interpolates between M's value
+  and the transductive one.
+- What M does **not** deliver: the deterministic value itself. The max-min
+  over a non-convex $\mathrm{ROC}_k(H)$ (Lemma 3) is exact but not, in
+  general, simplifiable — computing it is plausibly hard (the nearby
+  classifier-rejector hardness of Mozannar et al. 2023 suggests so, but we
+  have not proved it), and the closure deficit is exactly what it costs. That
+  is now the honest residual.
+
+## 10. Corollary 3 — the growth form
 
 **Corollary 3.** Under multiplicative dynamics (wealth factor $1+r$ per task:
 $r = \tilde g$ on safe acts, $r = -\tilde L$ on missed fatals, $r = -\tilde p$
@@ -519,7 +621,7 @@ forces $\mu = 0$; here, inside the defect, $\mu = 0$ forces $q_0 = 0$
 (Lemma 1) — no gain. The two halves together are the theorem the founding
 statement needed.
 
-## 10. Theorem A — the achievability half (the converse's partner)
+## 11. Theorem A — the achievability half (the converse's partner)
 
 The converse (§4–§7) says a confounded detector earns zero premium. The
 partner statement: a detector placed *outside* the defect earns a premium
@@ -642,7 +744,7 @@ sufficiency is A (outside it, the explicit $\Pi^\* > 0$). Placement supplies
 the *possibility*; the advantage condition supplies the *profit*. This is the
 theorem the founding statement asked for, in both directions.
 
-## 11. Positioning
+## 12. Positioning
 
 - **vs. Fang et al. (2022):** their impossibility is statistical
   (non-learnability of OOD detection in restricted spaces); ours is
@@ -661,11 +763,17 @@ theorem the founding statement asked for, in both directions.
   coarsened posterior (Theorem 1′ is a Neyman–Pearson problem) — and that is
   precisely why optimal within-defect play cannot help. The failure is not in
   the decision rule but in what reaches it.
+- **vs. least-favorable priors:** Theorem M's structure is the classical
+  minimax-testing duality (Wald-flavored; Huber–Strassen for capacity
+  classes is the nearby robust version). We claim the *application* — the
+  premium game, the obstruction split, the coin-vs-cross-leak reading — not
+  the duality technology; the formal citations go through the usual
+  literature check before the paper asserts lineage.
 - **The slogan, final form:** *a defect is profitably removable exactly to
   the extent that the detector's distinction survives outside it* —
   coefficient $\sigma_0$, not a yes/no.
 
-## 12. Open
+## 13. Open
 
 1. **Costed achievability with *learned* detector rates.** Theorem A takes the
    uniform caps $(\alpha_0, \delta)$ as given (existence delegated to repaired
@@ -679,14 +787,14 @@ theorem the founding statement asked for, in both directions.
    $\mathcal{F}(\nu_0,\nu_1)$ and unions thereof; characterizing collapse for
    arbitrary $\mathcal{P}$ (not built from confusable ensemble pairs) is open,
    though any $\mathcal{P}$ *containing* such a family inherits the collapse.
-4. **The deficit for mixed obstructions.** §8 characterizes the deficit
-   exactly where one obstruction acts alone (monotone classes: pure
-   cross-leak; halfspaces on points: pure non-closure) and bounds it via
-   Theorem R where composition is admissible. The exact deficit for
-   non-union-closed classes on *ensemble* directions — cross-leak and
-   non-closure mixed — is open; the conjectured shape is a Neyman–Pearson
-   problem over the class's *joint* ROC set in $[0,1]^{2k}$, whose Pareto
-   frontier no longer factorizes per direction.
+4. **The deterministic max-min.** Theorem M resolves the mixed-obstruction
+   deficit for randomized play; the *deterministic* value (Lemma 3's max-min
+   over the non-convex joint ROC set) is exact but unsimplified, and its
+   computational complexity is unproved — the nearby classifier-rejector
+   hardness (Mozannar et al. 2023) suggests NP-hardness for halfspace-type
+   classes, but we have not shown it. Equivalently open: bounding the closure
+   deficit by a structural property of $H$ (something Shapley–Folkman-shaped
+   as $k$ grows).
 5. **The iterated router.** Theorem R's recursion is one level deep. A
    hierarchy of directions (directions about directions) would iterate it;
    whether the total rent telescopes (each level $O(\log L)$) or compounds
