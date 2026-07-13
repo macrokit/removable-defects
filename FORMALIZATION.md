@@ -225,7 +225,7 @@ worst-case growth above the always-escalate baseline — over $\mathcal{P}$.
 Survival was never the question; paid-for survival is. (Full definitions in
 PROOFS.md §2.)
 
-**Conjecture A — now PROVED (2026-07-13); see PROOFS.md §9.** A detector
+**Conjecture A — now PROVED (2026-07-13); see PROOFS.md §10.** A detector
 placed *outside* the defect, achieving miss rate $\leq \delta$ and
 false-alarm rate $\leq \alpha_0$ uniformly over a structured class $\mathcal{P}$
 with competence floor $\underline c$, earns worst-case premium bounded below
@@ -273,7 +273,7 @@ inside a confounded defect, **survival and specialization gain cannot
 coexist** — bounded log-growth forces zero premium, positive premium forces
 $-\infty$.
 
-**The full iff (Corollary A+B, PROOFS.md §9).** Necessity is B — inside the
+**The full iff (Corollary A+B, PROOFS.md §10).** Necessity is B — inside the
 defect the detector-relevant distinction is gone, premium $= 0$; sufficiency
 is A — outside it, the explicit $\Pi^\* > 0$. Placement supplies the
 *possibility*, the advantage condition supplies the *profit*. The slogan's
@@ -291,15 +291,17 @@ is priced but in *joint realizability* — whether one member of the class can
 serve all confusable directions at once (the transduction gap is exactly that
 deficit, and vanishes on any single confusable direction for every class).
 
-**Remaining proof obligations (now narrowed; full list PROOFS.md §11).**
+**Remaining proof obligations (now narrowed; full list PROOFS.md §12).**
 - End-to-end A with the detector's rates $(\alpha_0, \delta)$ *learned* rather
   than assumed — folding finite-sample estimation into the bound. Standard
   concentration; the work is the union bound over $\mathcal{P}$'s structure.
 - The iterated adversary (backlog #3, second half): the one-shot case is now
   Thms 1–2; the repeated game with a learning detector is untouched.
-- A combinatorial characterization of the joint-realizability deficit for
-  natural classes (thresholds, halfspaces, bounded-VC) — making the
-  observation/capacity split quantitative rather than binary.
+- ~~A combinatorial characterization of the joint-realizability deficit~~ —
+  DONE (PROOFS.md §8): two obstructions (cross-leak / non-closure), exact
+  formulas for monotone classes and halfspaces, and the router bound
+  (Theorem R) pricing the deficit at the same two prices. Residual: the
+  mixed-obstruction case on ensemble directions.
 
 ## 7. Robustness — the heavy-tail honest version (backlog #1)
 
@@ -418,7 +420,7 @@ fatal guarantee; both can be true.
 | #1 heavy tails | §7, Conjecture C |
 | #2 detector economics | §8, Conjecture D + the units gap |
 | #3 adversarial removal | one-shot case RESOLVED (PROOFS.md Thms 1–2); iterated game open |
-| #5 fleet composition | §2's carrying-cost term, summed over N detectors — not yet modeled |
+| #5 fleet composition | partially modeled: menu + router = one detector, deficit ≤ router confusion × (A+B) (PROOFS.md §8, Theorem R); N-rent aggregation still open |
 | #6 one concept or three | split refined by Thm 2′: one value formula for both defect types; the real split is joint realizability across confusable directions (PROOFS.md §7) |
 
 \#4 (the human case) is deliberately absent: this document prices artifacts.

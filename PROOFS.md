@@ -22,9 +22,16 @@ quantifier structure, not in analytic difficulty.
   $\bar\sigma_0(H)$. This subsumes Theorem 1′ — observation and capacity
   defects obey **one value formula** — and relocates the split entirely to
   joint realizability across confusable directions (the transduction gap).
+- **The deficit characterized (§8):** the joint-realizability deficit is the
+  limiting transduction gap in premium units; it decomposes into exactly two
+  obstructions (cross-leak, non-closure); exact formulas for monotone classes
+  ("global paranoia") and halfspaces (convex non-separability); and Theorem R
+  bounds it by a direction router's confusion mass at the same two prices —
+  the router is itself a detector, the question recurses, and the recursion
+  is the observation/capacity split in its third formulation.
 - Corollary 3 (growth form): under multiplicative dynamics, survival and
   specialization gain cannot coexist inside the defect.
-- **Theorem A (achievability, §9):** a detector *outside* the defect earns a
+- **Theorem A (achievability, §10):** a detector *outside* the defect earns a
   worst-case premium bounded below by an explicit $\Pi^\* > 0$ under the
   advantage condition; the premium identity has three per-unit-priced terms.
   A meets B exactly at the $L \to \infty$ boundary, and the two give the
@@ -34,9 +41,9 @@ quantifier structure, not in analytic difficulty.
 was vacuous, and the drafted Conjecture B was false under it (§2). The
 repaired notion is *profitable removability*.
 
-**Still open (§11):** end-to-end achievability with the detector's rates
-*learned* rather than assumed, the iterated adversary, and a combinatorial
-characterization of the joint-realizability gap.
+**Still open (§12):** end-to-end achievability with the detector's rates
+*learned* rather than assumed, the iterated adversary, and the exact deficit
+for non-union-closed classes on ensemble directions.
 
 ---
 
@@ -368,7 +375,131 @@ $\bar\sigma_0(H; \{\nu^j\}) = \lim_{t \downarrow 0} \sup\{\min_j q_0^j(h) :
 h \in H,\; \max_j q_1^j(h) \leq t\}$, which recovers Theorem 2(1)'s collapse
 as $\bar\sigma_0 = 0$ under confounding.
 
-## 8. Corollary 3 — the growth form
+## 8. The joint-realizability deficit, characterized
+
+Theorem 2′ located the transduction gap in joint realizability. This section
+makes that quantitative: what the deficit *is*, which two obstructions
+produce it, exact formulas for the natural classes, and a general bound that
+turns out to be the theory applied to itself.
+
+**Setup.** Directions $j = 1, \dots, k$: ensemble pairs $(\nu_0^j, \nu_1^j)$,
+union family $\mathcal{P} = \bigcup_j \mathcal{F}(\nu_0^j, \nu_1^j)$. Write
+$\bar\sigma^j(H)$ for the per-direction zero-leak capture capacity and
+$\bar\sigma^{\mathrm{jt}}(H) := \lim_{t \downarrow 0} \sup\{\min_j q_0^j(h) :
+h \in H,\ \max_j q_1^j(h) \leq t\}$ for the joint one (§7). Define the
+**joint-realizability deficit**
+
+$$\Delta(H) \;:=\; \min_j \bar\sigma^j(H) \;-\; \bar\sigma^{\mathrm{jt}}(H) \;\in\; [0, 1],$$
+
+(nonnegative since any jointly feasible $h$ is feasible per direction). By
+Theorem 2′'s limits applied per-direction and jointly, the transduction gap
+satisfies $\Gamma_L := \Pi^{\mathrm{tr}}_L - \Pi^{\mathrm{ind}}_L \to
+A \cdot \Delta(H)$ as $L \to \infty$: **the deficit is the limiting gap in
+premium units.**
+
+**Proposition 4 (the two obstructions).** If for each $j$ and every $t > 0$
+there is $h_j \in H$ with $q_0^j(h_j) \geq \bar\sigma^j - \eta$ and
+$q_1^i(h_j) \leq t$ for **all** $i$ (*cross-safe* local solutions), and $H$
+contains a member whose act region contains the union of the $h_j$'s act
+regions (*union closure* over them), then $\Delta(H) = 0$.
+
+*Proof.* The union member captures $q_0^j \geq \bar\sigma^j - \eta$ on each
+$j$ and leaks at most $kt$ on each $i$; let $t, \eta \downarrow 0$. $\square$
+
+So every positive deficit is attributable to **cross-leak** (direction $i$'s
+solution acts on direction $j$'s fatal mass) or **non-closure** (the class
+cannot glue its local solutions), and the two are separated by the examples
+below: thresholds fail only by cross-leak, halfspaces only by non-closure.
+
+**Proposition 5 (monotone classes — exact formula, "global paranoia").**
+Let $H = \{ \text{act iff } s(x) \geq \theta \}$ for a score $s$ (act regions
+nested, hence union-closed). Let $T_j := \inf\{\theta : \nu_1^j(s \geq
+\theta) = 0\}$ be direction $j$'s fatal ceiling and $T := \max_j T_j$ the
+global one. Then
+
+$$\bar\sigma^j = \nu_0^j(s > T_j), \qquad \bar\sigma^{\mathrm{jt}} = \min_j\, \nu_0^j(s > T), \qquad \Delta = \min_j \nu_0^j(s > T_j) - \min_j \nu_0^j(s > T)$$
+
+(with $>$ relaxed to $\geq$ at ceilings carrying no fatal atom). The deficit
+is the safe mass trapped **between each direction's own fatal ceiling and the
+global one**: a single threshold must be paranoid enough for the worst
+direction and pays that paranoia in every direction. *Point-pair corollary:*
+$\Delta \in \{0,1\}$, and $\Delta = 1$ iff the pairs are correctly ordered
+but **interleaved** — every $s(x_0^j) > s(x_1^j)$, yet some safe point scores
+below another direction's fatal point. (Theorem 2's threshold example, now
+exact; Ulmer–Cinà's interleaved-confidence failure is this formula.)
+
+*Proof.* Nested act regions make every supremum one-dimensional in $\theta$;
+zero leak on $j$ forces $\theta > T_j$ (all $i$: $\theta > T$), and
+$\{s \geq \theta\} \downarrow \{s > T\}$ as $\theta \downarrow T$ gives the
+right-limits. $\square$
+
+**Proposition 6 (halfspaces — the deficit is non-separability).** Let $H$ =
+halfspace act regions in $\mathbb{R}^n$, directions given by point pairs.
+Each pair is *always* individually resolvable (two points), so
+$\min_j \bar\sigma^j = 1$; and $\bar\sigma^{\mathrm{jt}} = 1$ iff the safe
+points $\{x_0^j\}$ are strictly linearly separable from the fatal points
+$\{x_1^j\}$, else $0$. Hence $\Delta \in \{0,1\}$ with
+
+$$\Delta = 1 \iff \mathrm{conv}\{x_0^j\} \cap \mathrm{conv}\{x_1^j\} \neq \emptyset.$$
+
+The minimal witness is the XOR configuration ($k = 2$, $n \geq 2$).
+Halfspaces are cross-safe here (a pair's separator can be chosen missing the
+other points) but not union-closed — the complementary failure mode to
+Proposition 5. $\square$
+
+**Remark (no single capacity number).** If $H$ shatters the $2k$ direction
+points, $\Delta = 0$ trivially — so a positive deficit certifies that the
+directions witness a non-shattered set. But the converse fails badly:
+thresholds (VC 1), intervals (VC 2), and halfspaces (VC $n{+}1$) all admit
+$\Delta = 1$ at $k = 2$ under adversarial placement. The deficit is a
+function of the **geometry of the directions relative to the class**, not of
+class capacity alone; shattering gives sufficiency, never a characterization.
+
+**Theorem R (router bound — the theory applied to itself).** Let
+$r : X \to [k]$ be any *direction router* with confusion mass
+$\rho := \max_j \max\big(\nu_0^j(r \neq j),\ \nu_1^j(r \neq j)\big)$, and let
+the gated composite $h_r(x) := h_{r(x)}(x)$ be admissible (i.e. play in the
+augmented class $R \ltimes H^k$). Then at **every** $L$:
+
+$$\Gamma_L(R \ltimes H^k) \;\leq\; \rho \cdot (A + B).$$
+
+*Proof.* Pick per-direction detectors $h_j$ within $\eta$ of the transductive
+optimum at the current $L$. On direction $j$ the composite's capture drops by
+at most $\nu_0^j(r \neq j) \leq \rho$ and its leak rises by at most
+$\nu_1^j(r \neq j) \leq \rho$, so its premium is within
+$\rho(A + B) + \eta$ of $\Pi^{\mathrm{tr}}_L$. $\square$
+
+Three consequences:
+
+1. **The deficit is priced by the same two prices** — router confusion on
+   safe mass costs $A$ per unit, on fatal mass $B$ per unit. Since
+   $B = \bar\varepsilon(L - p)$ grows with $L$, a useful bound at large $L$
+   needs router confusion $O(1/L)$ on the fatal ensembles — *exactly*
+   Theorem A's law for the primary detector, at the same
+   $O(\log L)$ hypothesis-testing rent. The router **is** a detector — of
+   directions instead of fatality — and obeys detector economics.
+2. **The escape-route question recurses.** "Can the class serve all
+   directions at once?" reduces to "can the direction be detected per task?"
+   — a second-order instance of the original problem. The recursion
+   terminates in one of two ways, and this is the observation/capacity split
+   in its third and sharpest formulation: for a **capacity defect** the
+   recursion bottoms out in a cheap router (directions distinguishable from
+   the task; deficit $\leq \rho(A{+}B)$, bought at log-rent); for an
+   **observation defect** the router would need exactly the information the
+   coarsening destroyed — its confusion is bounded *below* by the coupling
+   lemma — and the recursion halts at level one with nothing to buy.
+3. **Fleet corollary** (QUESTIONS.md #5): a menu of $k$ specialists plus a
+   router is one generalist detector, and $\rho(A + B)$ is precisely what the
+   fleet loses to the ideal; the composition question inherits the whole
+   pricing apparatus.
+
+The bound is stated for the augmented class: it characterizes what
+*composition closure buys*, while Propositions 5–6 give the exact deficit of
+the raw classes. The residual open piece is the exact deficit for
+non-union-closed classes on ensemble (non-point) directions, where cross-leak
+and non-closure mix.
+
+## 9. Corollary 3 — the growth form
 
 **Corollary 3.** Under multiplicative dynamics (wealth factor $1+r$ per task:
 $r = \tilde g$ on safe acts, $r = -\tilde L$ on missed fatals, $r = -\tilde p$
@@ -388,7 +519,7 @@ forces $\mu = 0$; here, inside the defect, $\mu = 0$ forces $q_0 = 0$
 (Lemma 1) — no gain. The two halves together are the theorem the founding
 statement needed.
 
-## 9. Theorem A — the achievability half (the converse's partner)
+## 10. Theorem A — the achievability half (the converse's partner)
 
 The converse (§4–§7) says a confounded detector earns zero premium. The
 partner statement: a detector placed *outside* the defect earns a premium
@@ -511,7 +642,7 @@ sufficiency is A (outside it, the explicit $\Pi^\* > 0$). Placement supplies
 the *possibility*; the advantage condition supplies the *profit*. This is the
 theorem the founding statement asked for, in both directions.
 
-## 10. Positioning
+## 11. Positioning
 
 - **vs. Fang et al. (2022):** their impossibility is statistical
   (non-learnability of OOD detection in restricted spaces); ours is
@@ -534,7 +665,7 @@ theorem the founding statement asked for, in both directions.
   the extent that the detector's distinction survives outside it* —
   coefficient $\sigma_0$, not a yes/no.
 
-## 11. Open
+## 12. Open
 
 1. **Costed achievability with *learned* detector rates.** Theorem A takes the
    uniform caps $(\alpha_0, \delta)$ as given (existence delegated to repaired
@@ -548,9 +679,15 @@ theorem the founding statement asked for, in both directions.
    $\mathcal{F}(\nu_0,\nu_1)$ and unions thereof; characterizing collapse for
    arbitrary $\mathcal{P}$ (not built from confusable ensemble pairs) is open,
    though any $\mathcal{P}$ *containing* such a family inherits the collapse.
-4. **The joint-realizability gap, quantified.** Theorem 2′ locates the
-   transduction gap in whether one member serves all confusable directions;
-   a combinatorial characterization of that deficit for natural classes
-   (thresholds, halfspaces, bounded-VC) — presumably a covering/shattering
-   quantity on $H$ restricted to the directions — would make the
-   observation/capacity split quantitative rather than binary.
+4. **The deficit for mixed obstructions.** §8 characterizes the deficit
+   exactly where one obstruction acts alone (monotone classes: pure
+   cross-leak; halfspaces on points: pure non-closure) and bounds it via
+   Theorem R where composition is admissible. The exact deficit for
+   non-union-closed classes on *ensemble* directions — cross-leak and
+   non-closure mixed — is open; the conjectured shape is a Neyman–Pearson
+   problem over the class's *joint* ROC set in $[0,1]^{2k}$, whose Pareto
+   frontier no longer factorizes per direction.
+5. **The iterated router.** Theorem R's recursion is one level deep. A
+   hierarchy of directions (directions about directions) would iterate it;
+   whether the total rent telescopes (each level $O(\log L)$) or compounds
+   is open, and bears directly on QUESTIONS.md #5's fleet economics.

@@ -332,6 +332,22 @@ each resolvable by some member of the class but no member resolving all. An
 observation defect fails per direction; a capacity defect fails only jointly.
 One formula for the price; two escape routes.
 
+The joint-realizability deficit is itself characterizable (appendix, §8). It
+decomposes into exactly two obstructions — *cross-leak* (one direction's
+solution acts on another's fatal mass) and *non-closure* (the class cannot
+glue its local solutions) — with exact formulas where each acts alone: for
+confidence-threshold detectors the deficit is a "global paranoia" tax (the
+safe mass trapped between each direction's fatal ceiling and the worst
+direction's), and for halfspaces it is precisely non-separability of the safe
+and fatal point clouds. In general the deficit is bounded by the confusion
+mass of a *direction router*, priced at the same two prices — and since a
+router is itself a detector (of directions rather than of fatality), the
+question recurses. The recursion is the observation/capacity split in its
+sharpest form: for a capacity defect it terminates in a cheap router,
+obeying the same $O(\log L)$ detector economics; for an observation defect
+the router would need exactly the information the coarsening destroyed, and
+the recursion halts at the coupling lemma with nothing to buy.
+
 ## 7. A worked example: Agent World
 
 The theory grew out of an engineering problem, and the engineering carries an
