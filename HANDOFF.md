@@ -1,26 +1,24 @@
 # Removable Defects — founding handoff
 
 This file is the complete handoff from the session that developed the concept inside
-Agent World (2026-07-13, branch `claude/controllable-dual-personality-11933e`). It is
+Agent World (2026-07-13, on a since-merged agent-world branch). It is
 self-contained: everything needed to develop *Removable Defects* as an independent
 project is here or pointed to from here.
 
 ---
 
-## 1. The founding statement (owner's words, verbatim)
+## 1. The founding statement (owner's words, lightly elided)
 
 > There exists a certain (and can be artificially compensated for) deficiency.
 > Because in most cases this deficiency is unlikely to be fatal, it is beneficial to
 > the individual, as it reduces noise and helps to realize individual potential and
 > increase output in specific areas. If, in a fatal situation, the deficiency can be
-> artificially compensated for, then this is an overall advantage. This
-> intermittently flawed nature is called controllable dual personality.
+> artificially compensated for, then this is an overall advantage. [...]
 
-Naming history: the working name was **controllable dual personality**; the owner
-renamed it **removable defects** (2026-07-13). The rename is deliberate — it drops
-the clinical DID connotation and is literally true in the strongest case (see §4,
-the market channel, where a defect *becomes* a capability). Keep "dual personality"
-out of public-facing text; the two-persona mechanism below is internal vocabulary.
+The elided closing sentence named the concept's working title, retired the same day
+in favor of **removable defects** — a deliberate rename: the new name is literally
+true in the strongest case (see §4, the market channel, where a defect *becomes* a
+capability). The two-persona mechanism below is internal vocabulary.
 
 ## 2. The concept, refined
 
@@ -87,9 +85,9 @@ serving different goal frames is not this pattern, it is undeclared misalignment
 ## 5. What already exists elsewhere (do not duplicate)
 
 **Agent World** (`/Users/jameswalstonn/Documents/agent-world`) instantiated the
-concept for its own purposes. As of this handoff the changes are **uncommitted** on
-worktree branch `claude/controllable-dual-personality-11933e`
-(`.claude/worktrees/controllable-dual-personality-11933e/`):
+concept for its own purposes. (At handoff time the changes sat uncommitted on a
+worktree branch; they have since been merged to that repo's mainline, commit
+`42cefd7`, tests green.)
 
 - `DESIGN.md` §7 "Removable defects — deficiency by design" — the rationale section
   (the canonical prose as of today; a good starting text to generalize *from*).
