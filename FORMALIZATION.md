@@ -72,8 +72,12 @@ $$\big[(1-\alpha)\,g - g_{\text{gen}}\big] P(C) + c_{\text{gen}}
 Informally: *specialization gain per period > fatal-event frequency × price of
 compensation*, once the detector's rent and false alarms are counted.
 
-**Status: Proposition.** This is algebra on the growth equation; the only work
-is defining the generalist's payoff symmetrically. The interesting content is
+**Status: Proposition, with pedigree.** This is algebra on the growth
+equation; structurally it is the Ehrlich–Becker (1972) market-insurance vs
+self-insurance substitution margin (generalist's carried breadth =
+self-insurance; per-event channel = market insurance), with the detector rent
+being Townsend (1979) costly state verification. Cite both; the residual here
+is the growth dynamics and the measurability. The interesting content is
 not the proof but the observation that **every term is measurable** in an
 instrumented environment (Agent World: capability score × market prices vs.
 observed escalation spend), which turns "should I be deficient?" into a
@@ -91,9 +95,16 @@ $$\tau \;=\; \frac{g\,P(C) + p\,(\text{net escalation cost on } C)}{\varepsilon\
 i.e. the detector should get exactly as paranoid as the ratio of "what a false
 alarm wastes" to "what a miss costs" dictates — no more.
 
-**Status: Proposition** (classical detection theory). Its role here is a design
-consequence: **the detector's threshold is an economic quantity**, not a fixed
-engineering constant. When $L$ grows (higher-stakes deployment), the same
+**Status: Proposition — and it is Chow's rule (1957, 1970), not ours.** The
+threshold-as-cost-ratio form, the error–reject tradeoff, and monotonicity are
+all proved there; present as an application with citation. **Mandatory scope
+caveat (Cortes–DeSalvo–Mohri 2016):** Chow-optimality holds only under exact
+posteriors — with a restricted or learned actor, the optimal rejection region
+is provably *not* a threshold on the actor's own confidence, and the rejector
+must come from a separate hypothesis family. This shrinks the proposition and
+strengthens the architecture. What we keep is the design consequence: **the
+detector's threshold is an economic quantity**, not a fixed engineering
+constant. When $L$ grows (higher-stakes deployment), the same
 detector should slide along its ROC curve toward paranoia. A system whose
 escalation threshold cannot be re-priced is mis-built by this theory's lights.
 
@@ -109,8 +120,14 @@ $G = -\infty$: long-run growth is destroyed by *any* nonzero miss rate,
 regardless of how large the specialization gain is. Concentration is only
 Kelly-optimal when ruin is excluded from the support.
 
-**Status: Proposition** ($\log 0 = -\infty$; the content is the framing). Two
-consequences:
+**Status: Proposition, canonical engine** ($\log 0 = -\infty$). The
+ruin-exclusion lemma is Kelly (1956) / Breiman (1961) folklore ("the E-log
+bettor never risks ruin"), drawdown-constrained form in Grossman & Zhou
+(1993); the licensing half exists in Peters & Adamou (2015) and Spitznagel
+(2021). What is ours is only the argument of the condition: **the detector's
+per-event miss rate on ruin states, not the event frequency, is what drives
+growth to $-\infty$** — detector reliability, not frequency knowledge, is the
+binding constraint. Two consequences:
 
 - In the true-ruin regime, the architecture is not an optimization but a
   **precondition**: the detector-plus-channel is what re-admits concentrated
@@ -143,10 +160,18 @@ $\mu \leq \delta$, and the compensation channel is affordable
 specialization margin), then $D$ is removable, with $G$ bounded below by an
 explicit function of $(\delta, p, c_d, L)$.
 
-**Conjecture B (converse).** If $D$ degrades the detector — $\mu$ bounded away
-from $0$ for some $P \in \mathcal{P}$ — then for $L$ large enough no policy
-makes $D$ removable: $\inf_{P \in \mathcal{P}} G \to -\infty$ as
-$L \to \infty$, regardless of specialization gain and channel price.
+**Conjecture B (converse).** *In the inductive regime — the agent has no
+access to unlabeled deployment-time data* — if $D$ degrades the detector —
+$\mu$ bounded away from $0$ for some $P \in \mathcal{P}$ — then for $L$ large
+enough no policy makes $D$ removable: $\inf_{P \in \mathcal{P}} G \to -\infty$
+as $L \to \infty$, regardless of specialization gain and channel price.
+
+The regime condition is not cosmetic: with transductive access,
+Goldwasser–Kalai–Kalai–Montasser (2020) build selective classifiers from
+essentially the restricted class itself that bound loss under *arbitrary*
+adversarial shift — **B is provably false without the condition.** Usefully,
+this pins down the one resource that lets a within-class detector escape the
+impossibility: seeing where the questions come from before answering.
 
 Together these give the honest form of the README's slogan. Note it is **not**
 a clean iff on placement alone:
@@ -182,20 +207,31 @@ sharpen $\hat{\varepsilon}$; it makes the *other two factors* small by
 construction — $\mu$ via a detector that conditions on the **current task**,
 not on historical frequency, and $L$ via spend ceilings (bounded blast radius).
 
-**Conjecture C (frequency-free removability).** Fix the uncertainty class
-$\mathcal{P} = \{P : P(F \setminus C) \leq \bar\varepsilon\}$ with
-$\bar\varepsilon$ *unknown or adversarial*. If $\mu \leq \delta$ uniformly over
-$\mathcal{P}$ (a per-task guarantee, not a frequency guarantee) and $L$ is
-capped at $\bar{L}$, then the worst-case growth penalty is at most
-$\delta\,\bar{L}$ per fatal event — independent of $\varepsilon$. The minimax
-advantage condition then needs only an upper bound on how often escalation is
-*triggered* (which is observable), never a correct estimate of how often it is
-*needed*.
+**Conjecture C (frequency-free removability), repaired form.** The originally
+drafted per-task version — $\mu \leq \delta$ conditioned on the current input,
+uniformly over a rich distribution class — is **impossible**: distribution-free
+object-conditional coverage forces trivial detectors (Vovk 2012; Barber,
+Candès, Ramdas & Tibshirani 2021, whose Theorem 2 shows even the approximate
+relaxation collapses to adjusted marginal coverage). The achievable statement:
 
-**Proof obligation:** make "per-task $\mu \leq \delta$ uniformly over
-$\mathcal{P}$" achievable by some detector class — this is exactly a selective
-prediction / conformal-style coverage guarantee, and the literature (§9) may
-already contain the needed lemma.
+Fix a *structured* uncertainty class $\mathcal{P}$ — a finite-VC family of
+subpopulations/shifts (Barber et al. Thm 3; Gibbs–Cherian–Candès 2023) or an
+$f$-divergence ball around the training distribution (Cauchois et al. 2024).
+If the detector achieves $\mu \leq \delta$ **uniformly over $\mathcal{P}$**
+and $L$ is capped at $\bar{L}$, the worst-case growth penalty is at most
+$\delta\,\bar{L}$ per fatal event — **independent of the unknown fatal-event
+frequency $\varepsilon$**, since none of these guarantees reference it. The
+minimax advantage condition then needs only an upper bound on how often
+escalation is *triggered* (observable), never a correct estimate of how often
+it is *needed*. What died in the repair is "per-task"; what survives —
+frequency-freeness — is the part the architecture actually needs.
+
+**Proof obligation:** assemble the growth bound from the cited class-uniform
+coverage lemmas; state honestly that protection is relative to the declared
+class $\mathcal{P}$, not to nature. Practicality caveat from MoE theory:
+router-collapse dynamics show a dispatcher trained *jointly* with its experts
+has persistent self-reinforcing failure modes — a training-dynamics argument
+for detector independence that complements Conjecture B.
 
 ## 8. Detector economics — why the architecture is affordable (backlog #2)
 
@@ -212,45 +248,63 @@ competence.*
   something like the conditional description complexity of the answer,
   $H(y \mid x)$, or the compute to search for it.
 
-**Conjecture D (one-bit lemma).** Under a cost model where both detection and
-competence are priced in the same units, detector cost is
-$O\!\big(\log(1/\mu)\big)$ while competence cost over $X \setminus C$ is
-$\Omega\!\big(\sup_x H(y\mid x)\big)$, so the ratio diverges as the defect
-widens — *the wider the defect, the better the bargain.*
+**Conjecture D, restated (the units gap is closable).** The original draft
+compared detector cost $O(\log 1/\mu)$ (samples, via Chernoff–Stein) against a
+competence bound $\Omega(H(y \mid x))$ (bits) — different units, and the
+entropy lower bound has no literature support (conditional entropy bounds
+description length, not computation). Both halves get repaired:
 
-**Gap (serious).** The two costs above are currently in **different units**
-(samples-to-decide vs. bits-to-produce). Conjecture D is not well-posed until a
-single cost model covers both — compute, or money via the market. This is the
-hardest open modeling choice in the document, and the NP-flavored slogan
-("verify is easier than solve") stays out of the paper until it is closed or
-replaced with the honest hypothesis-testing statement, which is weaker but
-true.
+- **Detection half, with regime condition.** Chernoff–Stein gives
+  $n \approx \log(1/\mu)/C(P_{\text{in}}, P_{\text{out}})$ asymptotically, but
+  Pensia–Jog–Loh (COLT 2024) show that under skewed priors — and fatal events
+  *are* the skewed-prior case, $\pi = \varepsilon$ small — there is a
+  moderate-$\mu$ regime where sample complexity is $\mu$-independent, governed
+  by $\pi \log(1/\pi)/I(\Theta; X)$. The $\log(1/\mu)$ law holds for
+  $\mu \lesssim \pi^2$. State D only in that regime.
+- **One cost model.** Put both detection and production in query/time
+  complexity: doubly-efficient interactive proofs (Goldwasser–Kalai–Rothblum,
+  JACM 2015: verifier nearly-linear, prover polynomial), doubly-efficient
+  debate (Brown-Cohen–Irving–Georgiev 2023), and property testing / IPs of
+  proximity (GGR 1998; RVW 2013: sublinear detection of "$\epsilon$-far from
+  in-scope" vs. linear-plus production, with the promise gap playing $\mu$'s
+  role). In this model the detection/competence separation is a **theorem, not
+  a conjecture** — at the price that the verifier interacts with a prover
+  (possibly the competent system itself). The standalone-detector version
+  keeps only the hypothesis-testing bound, which is weaker but true.
 
-## 9. Literature check — do this before claiming anything
+The NP-flavored slogan stays out of the paper; the interactive-proof
+restatement replaces it.
 
-Each item names what would kill or shrink a novelty claim. From memory —
-**verify all of it**:
+## 9. Literature check — DONE (2026-07-13); see LITERATURE.md
 
-- **Chow (1957, 1970)** — the reject option; optimal rejection threshold as a
-  cost ratio. Proposition 2 is almost certainly a reskin of Chow's rule. Cite,
-  don't claim.
-- **Learning to defer / selective prediction** (Cortes et al.; Geifman &
-  El-Yaniv; Madras et al.; Mozannar & Sontag) — cost-based deferral to an
-  expert, coverage/risk curves. Conjecture A's machinery likely exists here.
-  The check that matters: does anyone state **Conjecture B** — an impossibility
-  result for detectors *sharing the restriction* that created the blind spot?
-  OOD-detection-fails-under-shift results are nearby; find the closest and
-  position against it.
-- **Kelly (1956), ruin theory, drawdown constraints** — §5 is standard; the
-  contribution is only the framing (insurance *licenses* concentration).
-- **Insurance economics / catastrophe pricing** — the advantage condition is
-  structurally a premium-vs-self-insurance decision; find the canonical form.
-- **Mixture-of-experts routing; conformal prediction** — for §7's per-task
-  coverage guarantee.
-- The defensible residual, if the checks go as expected: the **converse
-  (Conjecture B)**, the **per-event pricing of removal** as a declared economic
-  position, and the **synthesis** — one growth equation in which Chow, Kelly,
-  and the deferral literature are all visible as terms.
+The check ran as four parallel research passes; full per-paper verdicts,
+citations, and the source index live in `LITERATURE.md`. Net effect on this
+document (repairs already applied above):
+
+- **Prop 1** — structure is Ehrlich–Becker (1972) + Townsend (1979); cited.
+- **Prop 2** — is Chow's rule (1957, 1970); relabeled as an application, with
+  the Cortes–DeSalvo–Mohri (2016) scope caveat.
+- **Prop 3** — engine is Kelly–Breiman canonical; residual claim narrowed to
+  miss-rate-as-binding-constraint.
+- **Conjecture B** — nobody states it (the AI-control literature holds it as
+  an axiom with no formal backing), but it was false as drafted; now
+  restricted to the inductive regime per Goldwasser et al. (2020).
+- **Conjecture C** — per-task form killed by conditional-coverage
+  impossibility (Vovk 2012; Barber et al. 2021); repaired to the
+  frequency-free, class-uniform form.
+- **Conjecture D** — entropy bound dropped; restated in a single
+  query/time-complexity model via doubly-efficient IPs / debate / property
+  testing, where the separation is a theorem.
+
+**The defensible residual** (LITERATURE.md §6): the repaired converse; miss
+rate as the argument of the ruin condition; frequency-free class-uniform
+removability; the synthesis growth equation; and removability-as-framing (a
+detector that survives removal of the competence because it never depended on
+the actor's representations). One tension the paper must engage directly:
+SelectiveNet-style *shared* rejectors empirically beat independent post-hoc
+ones on average-case selective risk — the reconciliation is that sharing
+optimizes the average case while independence is demanded by the worst-case
+fatal guarantee; both can be true.
 
 ## 10. Mapping to the backlog
 
