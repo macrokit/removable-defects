@@ -25,9 +25,8 @@ Ehrlich–Becker market-vs-self-insurance margin applied to a competence gap,
 with the detector as a Townsend costly-state-verification technology. Second,
 a two-sided characterization of when removal is possible. The obstruction is
 captured by a *coupling lemma*: when the deficiency is a coarsening of
-perception, the rate
-at which the specialist's feature does good equals the rate at which it does
-harm — one number prices both — so no switch, however perfect, can separate
+perception, the rate at which the specialist's feature does good equals the
+rate at which it does harm — one number prices both — so no switch, however perfect, can separate
 benefit from harm. This yields a converse (a confounded detector earns zero
 premium and, under multiplicative dynamics, drives long-run growth to
 negative infinity) and a matching achievability result (a detector placed
@@ -201,7 +200,12 @@ out-of-scope task is far more expensive. We will see in §5 that survival
 against fatal events of severity $L$ forces the miss rate down to $O(1/L)$,
 which by the hypothesis-testing bound costs only $O(\log L)$ in detector rent.
 The architecture insures against loss $L$ at logarithmic price — this is why
-it is affordable at all. The shape survives when the detector must be
+it is affordable at all. (Putting detection and production in a single cost
+model — rather than the mismatched units of samples and compute — is possible
+via doubly-efficient interactive proofs and property testing; the appendix
+treats this as a strengthening, not a load-bearing step.)
+
+The shape survives when the detector must be
 *learned* rather than assumed: certifying a near-zero miss rate from data is
 a one-sided rare-event problem, costing a **one-time training bill linear in
 $L$** in labeled fatal examples (appendix, §12) — amortized over deployment,
@@ -209,10 +213,7 @@ both bills grow slower than the per-event loss they insure against, so the
 advantage condition survives learning. A side consequence worth naming: the
 scarce input is labeled catastrophes, which a well-run system stops producing
 — it escalates them — so detector training data must come from history,
-simulation, or other agents' failures. (Putting detection and production in a single cost
-model — rather than the mismatched units of samples and compute — is possible
-via doubly-efficient interactive proofs and property testing; the appendix
-treats this as a strengthening, not a load-bearing step.)
+simulation, or other agents' failures.
 
 ## 5. Removability: the central result
 
@@ -225,8 +226,9 @@ regardless of the defect. Survival is trivially available; it is not the
 question. The question is *paid-for* survival:
 
 **Definition.** The **specialization premium** of a detector is its worst-case
-growth (over an uncertainty class $\mathcal{P}$ of task distributions) *above
-the always-escalate baseline*. A defect is **profitably removable** on
+growth — over an uncertainty class $\mathcal{P}$ of task distributions whose
+fatal mass is capped by a declared budget $\bar\varepsilon$ — *above the
+always-escalate baseline*. A defect is **profitably removable** on
 $\mathcal{P}$ if some policy earns strictly positive premium — it retains part
 of the specialization gain while avoiding ruin.
 
@@ -256,10 +258,9 @@ switch that disables the harm disables the benefit in the same motion.
 **Theorem 1 (converse).** *Against an adversarial choice of task distribution
 within the fatal-mass budget, a detector confined inside an observation defect
 earns zero specialization premium once $L$ exceeds an explicit threshold — and
-this holds
-even if the detector is chosen after seeing the deployment distribution.
-Under multiplicative (Kelly) dynamics with true ruin, any positive premium
-forces expected log-growth to $-\infty$.*
+this holds even if the detector is chosen after seeing the deployment
+distribution. Under multiplicative (Kelly) dynamics with true ruin, any
+positive premium forces expected log-growth to $-\infty$.*
 
 The mechanism is the coupling lemma: positive premium requires acting on the
 confounded family at some positive rate $q > 0$, which by the lemma is also
@@ -284,8 +285,9 @@ decision rule but in what reaches it.
 
 **Theorem A (achievability).** *A detector placed outside the defect —
 achieving miss rate $\leq \delta$ and false-alarm rate $\leq \alpha_0$
-uniformly over a structured class with competence floor $\underline c$ — earns
-worst-case premium bounded below by the explicit constant*
+uniformly over a structured class with competence floor $\underline c$ and
+fatal budget $\bar\varepsilon$ — earns worst-case premium bounded below by the
+explicit constant*
 
 $$\Pi^\* = \underline c\,(1-\alpha_0)(g+p) - \bar\varepsilon\,\delta\,(L-p) - c_d,$$
 
@@ -462,8 +464,7 @@ mean the synthesis, not the parts, to be the contribution.
 
 - **Reject option / selective prediction.** The optimal escalate-versus-act
   rule (§4) is Chow's (1957, 1970); the separate-rejector architecture is the
-  established
-  "separated rejector" of the taxonomy (Hendrickx et al. 2024), with
+  established "separated rejector" of the taxonomy (Hendrickx et al. 2024), with
   Cortes–DeSalvo–Mohri (2016) showing why a restricted actor forces it. Our
   achievability bound is a growth statement, which the risk-coverage framing
   (El-Yaniv–Wiener 2010; Geifman–El-Yaniv 2017) does not provide.
@@ -560,6 +561,11 @@ position, advantageous when specialization gain outruns the insured tail. The
 limit: removal is possible exactly when the detector sits outside the defect,
 and impossible — regardless of switch quality — when the defect and its harm
 share a substrate, because then the rate the feature helps and the rate it
-harms are the same number. The single design rule that follows is sharper than
+harms are the same number. Between the two sits an exact accounting: one
+value formula prices every detector class, the shortfall against the ideal
+decomposes into two named obstructions with a coin buying back one and never
+the other, and the whole architecture can be certified from data at a
+training bill linear in the severity it insures. The single design rule that
+follows is sharper than
 "add a monitor": *narrow the action all you like, but never let the narrowing
 reach the detector.* Perception must stay open even where action is closed.
