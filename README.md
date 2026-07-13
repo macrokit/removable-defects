@@ -56,7 +56,15 @@ Two companions hang off it:
 
 - **`FORMALIZATION.md`** — the mathematical model: the growth equation, the
   advantage condition and optimal-detector results (propositions), and the
-  detector-placement theorems (conjectures with stated proof obligations).
+  detector-placement theorems.
+- **`PROOFS.md`** — the converse, proved: inside an observation defect the
+  gain-capture rate and the fatal-miss rate are the same number (coupling
+  lemma), so the specialization premium collapses — unconditionally for
+  observation defects, in the inductive regime for capacity defects.
+  Removability is a coefficient (residual separability $\sigma_0$), not a
+  yes/no.
+- **`LITERATURE.md`** — the literature check: per-claim verdicts, what was
+  killed or repaired, and the defensible residual.
 - **`QUESTIONS.md`** — the live research backlog (formalizing the advantage
   condition under heavy tails, detector economics, adversarial removal, the human
   case, fleet composition, whether "removable" is one concept or three). Questions

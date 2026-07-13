@@ -149,10 +149,16 @@ a coarsened observation channel, a pruned model — the formalism should cover
 all three). Say the **detector lies outside the defect** if $d$'s error pair
 $(\mu, \alpha)$ is unchanged by $D$.
 
-**Definition (removable).** A defect $D$ is *removable* if there exists a
-routing-plus-compensation policy whose growth $G$ is bounded below,
-uniformly over an uncertainty class $\mathcal{P}$ of task distributions
-(equivalently: no ruin, for all $P \in \mathcal{P}$).
+**Definition (removable) — upgraded 2026-07-13.** The original definition
+("some policy keeps $G$ bounded below uniformly over $\mathcal{P}$") was
+**vacuous**: the constant always-escalate detector lies in every detector
+class and bounds $G \geq -p$ regardless of the defect, so every defect was
+"removable" and Conjecture B was vacuously false. The honest notion is
+**profitable removability**: the defect is profitably removable if some
+within-defect policy earns a strictly positive *specialization premium* —
+worst-case growth above the always-escalate baseline — over $\mathcal{P}$.
+Survival was never the question; paid-for survival is. (Full definitions in
+PROOFS.md §2.)
 
 **Conjecture A (achievability).** If the detector lies outside the defect with
 $\mu \leq \delta$, and the compensation channel is affordable
@@ -160,41 +166,54 @@ $\mu \leq \delta$, and the compensation channel is affordable
 specialization margin), then $D$ is removable, with $G$ bounded below by an
 explicit function of $(\delta, p, c_d, L)$.
 
-**Conjecture B (converse).** *In the inductive regime — the agent has no
-access to unlabeled deployment-time data* — if $D$ degrades the detector —
-$\mu$ bounded away from $0$ for some $P \in \mathcal{P}$ — then for $L$ large
-enough no policy makes $D$ removable: $\inf_{P \in \mathcal{P}} G \to -\infty$
-as $L \to \infty$, regardless of specialization gain and channel price.
+**Conjecture B — now PROVED (2026-07-13), in two forms; see PROOFS.md.**
+The proof splits by defect type, and the split is itself a result:
 
-The regime condition is not cosmetic: with transductive access,
-Goldwasser–Kalai–Kalai–Montasser (2020) build selective classifiers from
-essentially the restricted class itself that bound loss under *arbitrary*
-adversarial shift — **B is provably false without the condition.** Usefully,
-this pins down the one resource that lets a within-class detector escape the
-impossibility: seeing where the questions come from before answering.
+- **Observation defects** (coarsened perception, $d$ must factor through
+  $\varphi$): the specialization premium collapses to zero
+  **unconditionally** — even transductive access to the deployment
+  distribution does not help (PROOFS.md Thm 1). The engine is the coupling
+  lemma: inside an observation defect, the gain-capture rate and the
+  fatal-miss rate are *the same number* ($q_0 = q_1$); gain and ruin cannot
+  be decoupled because they are one scalar. The exact value formula
+  (Thm 1′) gives the graded version: the surviving premium fraction is the
+  *residual separability* $\sigma_0$ — the safe mass recoverable at zero
+  coarsened fatal risk — settling the "iff" for this defect type:
+  **profitably removable exactly to the extent the detector's distinction
+  survives outside the defect.**
+- **Capacity defects** (full perception, restricted detector class $H$): the
+  premium collapses **in the inductive regime**, and the inductive condition
+  is now formally identified: it is the order of quantifiers.
+  $\sup_h \inf_P$ (detector committed first) collapses;
+  $\inf_P \sup_h$ (detector chosen knowing the distribution) retains the full
+  premium (PROOFS.md Thm 2). The Goldwasser–Kalai–Kalai–Montasser (2020)
+  escape is exactly this minimax gap; transduction rescues capacity defects
+  and never observation defects.
 
-Together these give the honest form of the README's slogan. Note it is **not**
-a clean iff on placement alone:
+The growth form (PROOFS.md Cor. 3) completes Proposition 3's missing half:
+inside a confounded defect, **survival and specialization gain cannot
+coexist** — bounded log-growth forces zero premium, positive premium forces
+$-\infty$.
 
-> a defect is removable **iff** the detector lies outside it **and** the
-> compensation channel is priced below the advantage margin.
+The slogan's final form, post-proof: *a defect is profitably removable
+exactly to the extent that the detector's distinction survives outside it* —
+a coefficient ($\sigma_0$), not a yes/no. Placement remains the necessary
+condition and needs no channel assumption; affordability (Conjecture A) is
+what turns necessity into sufficiency.
 
-Placement is the necessary condition (Conjecture B needs no channel assumption
-at all — a blind detector cannot be bought back). Affordability is what turns
-necessity into sufficiency.
-
-**Proof obligations.**
-- A: mostly assembly — concentration of measure on escalation counts, plus the
-  linearity of §2. The work is making the bound uniform over $\mathcal{P}$.
-- B: the real theorem. Needs a construction: for any detector *inside* the
-  defect, exhibit a $P \in \mathcal{P}$ concentrating fatal mass exactly where
-  the restricted detector is blind. This is where the adversarial question
-  (backlog #3) enters: Conjecture B *is* the adversarial case with the
-  adversary choosing $P$ once. The iterated-adversary version is open.
-- Both: pin down the restriction formalism so that "detector unchanged by $D$"
-  is well-defined for function-class, observation-channel, and pruning defects
-  simultaneously — or split into three theorems (backlog #6 suggests the
-  split may be forced).
+**Remaining proof obligations.**
+- A: still open — mostly assembly (concentration on escalation counts + the
+  linearity of §2), with the separation witness already proved
+  (PROOFS.md Thm 1(3)). The work is making the bound uniform over
+  $\mathcal{P}$ with the detector rent $c_d$ carried honestly.
+- The capacity-defect value formula: the analogue of $\sigma_0$ for
+  function-class defects (a disagreement/covering quantity on $H$).
+- The iterated adversary (backlog #3, second half): the one-shot case is now
+  Thms 1–2; the repeated game with a learning detector is untouched.
+- The restriction-formalism question (backlog #6) is partially **answered
+  rather than pinned down**: observation and capacity defects are provably
+  different along the transduction axis, so a single unified theorem was the
+  wrong target — the split is real.
 
 ## 7. Robustness — the heavy-tail honest version (backlog #1)
 
@@ -312,9 +331,9 @@ fatal guarantee; both can be true.
 |---|---|
 | #1 heavy tails | §7, Conjecture C |
 | #2 detector economics | §8, Conjecture D + the units gap |
-| #3 adversarial removal | §6, Conjecture B's proof obligation (one-shot case) |
+| #3 adversarial removal | one-shot case RESOLVED (PROOFS.md Thms 1–2); iterated game open |
 | #5 fleet composition | §2's carrying-cost term, summed over N detectors — not yet modeled |
-| #6 one concept or three | §6's restriction-formalism obligation may force the split |
+| #6 one concept or three | first hard evidence of a real split: observation vs capacity defects differ along the transduction axis (PROOFS.md) |
 
 \#4 (the human case) is deliberately absent: this document prices artifacts.
 Applying the growth equation to persons imports every ethical issue flagged in

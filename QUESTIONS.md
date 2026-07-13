@@ -26,6 +26,11 @@ architecture at its single point of failure. What does the detector constraint
 demand under adversarial distribution shift? Does the detector need diversity
 (multiple cheap detectors) the way the value theory says portfolios do?
 
+**Status (2026-07-13): one-shot case resolved** — the adversary choosing the
+distribution once is exactly PROOFS.md Theorems 1–2 (value collapse inside a
+confounded defect). Open remainder: the iterated game with a learning
+detector, and detector diversity as a defense.
+
 ## 4. The human case
 
 The founding statement is about individuals realizing potential. Treat with
@@ -47,3 +52,10 @@ Permanent removal (buy the capability — the defect becomes a capability),
 momentary removal (escalate this once), interpretive removal (the sealed-frame
 case, where the seal is never lifted and removal means compensating its fatal
 case). One spectrum, or three mechanisms that deserve separate treatment?
+
+**Status (2026-07-13): first hard evidence the split is real, on a different
+axis than expected** — observation defects and capacity defects provably
+differ (PROOFS.md): transductive access rescues capacity defects and never
+observation defects, so a unified removability theorem was the wrong target.
+Also: removability is a coefficient ($\sigma_0$, residual separability), not
+a yes/no.
