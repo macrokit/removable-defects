@@ -322,10 +322,10 @@ The theory grew out of an engineering problem, and the engineering carries an
 instantiation of it. *Agent World* is a protocol for autonomous agents that
 act on a principal's behalf: each agent is a keypair, a signed manifest, and an
 inbox. The instantiation is at the design and protocol level — a manifest field,
-its schema, and a conformance rule — not a deployment with measured data; as of
-this writing it lives on an unmerged branch. We describe it as a demonstration
-that the paper's objects have a natural protocol footprint, not as empirical
-confirmation.
+its schema, and a conformance rule, merged to the project's mainline with its
+chain test passing — not a deployment with measured data. We describe it as a
+demonstration that the paper's objects have a natural protocol footprint, not
+as empirical confirmation.
 
 **The defect is a closed list.** A manifest declares the agent's capabilities
 as a *positive, closed* list of typed task classes. Everything not listed is a
