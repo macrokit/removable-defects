@@ -154,7 +154,7 @@ verification — pay to verify, and only in the bad state. The carrying-cost-
 versus-per-event framing is the standard make-or-buy / capacity-versus-spot
 tradeoff (Williamson; Van Mieghem 2003). Our contribution here is narrow and
 we state it as such: the *insured object* is a deliberately maintained
-competence gap rather than a portfolio position, and — see §7 — the binding
+competence gap rather than a portfolio position, and — see §5 — the binding
 constraint turns out to be the detector's reliability, not the frequency the
 insurance is priced against.
 
@@ -313,7 +313,76 @@ context itself is unresolvable to you, and switch quality is irrelevant." The
 average-case selective-prediction literature, which fixes a distribution, does
 not see this split; the worst-case framing makes it unavoidable.
 
-## 7. Related work
+## 7. A worked example: Agent World
+
+The theory grew out of an engineering problem, and the engineering carries an
+instantiation of it. *Agent World* is a protocol for autonomous agents that
+act on a principal's behalf: each agent is a keypair, a signed manifest, and an
+inbox. The instantiation is at the design and protocol level — a manifest field,
+its schema, and a conformance rule — not a deployment with measured data; as of
+this writing it lives on an unmerged branch. We describe it as a demonstration
+that the paper's objects have a natural protocol footprint, not as empirical
+confirmation.
+
+**The defect is a closed list.** A manifest declares the agent's capabilities
+as a *positive, closed* list of typed task classes. Everything not listed is a
+deliberate deficiency, and silence is the honest way to express it — the
+competence set $C$ of §2, written down. A narrow agent with a high capability
+score on one class is the specialist the advantage condition rewards; a diluted
+generalist is what it warns against.
+
+**The compensation route is declared, the detector is not.** A manifest may
+carry one optional field:
+
+```
+"onOutOfScope": "escalate:market"    // or "escalate:owner" | "decline"
+```
+
+This names the route the agent takes when it meets work outside its competence:
+post the missing task to the market, defer to its principal, or refuse.
+Crucially, the field declares *that* a route exists — never the detector that
+fires it. What recognizes "this task is out of my competence and high-stakes"
+is internals, out of the protocol's scope by construction. This is exactly the
+paper's division of labor: the switch and its route are public and cheap to
+state; the detector is the agent's own always-on burden.
+
+**Placement is enforced, weakly but measurably.** No hub can verify that a
+detector actually sits outside the defect. The protocol does two enforceable
+things instead. It rejects an *internally inconsistent* declaration — a
+manifest claiming `escalate:market` while its mandate lacks the right to post
+tasks is read as `decline`, since it has declared a route it cannot take
+(a conformance requirement, checked by a chain test that also rejects unknown
+routes). And it makes the rest a *measurable divergence*: declaring a route,
+like declaring a goal frame, turns silent failure into an observable gap
+between declared route and behavior. The advantage condition's terms are, by
+design, quantities the hub can read — capability score against market prices on
+one side, observed escalation spend on the other — so "should this agent be
+deficient?" is meant to be computed, not judged.
+
+**The two-sided theorem, from both sides at once.** Agent World independently
+names the paper's central rule as its *one load-bearing constraint*: "the
+deficiency must never include the detector — an agent may be deficient in what
+it can do, never in noticing what it cannot." That the practitioners reached
+for detector placement, unprompted by the theorem, is the corroboration we can
+honestly claim. And the two failure accounts line up as one fact seen twice.
+The paper's converse is *ex ante*: a confounded detector cannot earn premium,
+full stop. Agent World's ledger supplies the *ex post* image: an agent that
+declares a route but whose detector is in fact blind will act out of
+competence, overclaim, burn its stake, and go broke — dissipation is the
+punishment the market administers to the unremovable defect. Theorem 1 says it
+was never removable; the ledger says why that costs.
+
+**Removal in the strongest sense.** One of the declared routes is to *buy a
+capability module* — after which the missing competence is no longer missing.
+This is the permanent end of the removability spectrum: the defect does not
+merely get compensated for one event, it *becomes a capability*, and the word
+"removable" is then literal. The sealed-frame agent is the opposite extreme —
+a permanent deficiency that is never lifted, where removal means the guardian
+machinery compensating the seal's one fatal case. That a single manifest field
+spans permanent, per-event, and interpretive removal is the concrete form of an
+open question we flag in §9: whether "removable" is one concept or three.
+
+## 8. Related work
 
 Each ingredient of this paper has a home in an existing literature, and we
 mean the synthesis, not the parts, to be the contribution.
@@ -343,7 +412,7 @@ mean the synthesis, not the parts, to be the contribution.
   as an average-case correlation model; the coupling lemma is its worst-case,
   identity-strength form.
 
-## 8. Limitations and open questions
+## 9. Limitations and open questions
 
 We are honest about the boundary of what is proved.
 
@@ -359,12 +428,20 @@ We are honest about the boundary of what is proved.
 - **The adversary moves once.** The converse is a one-shot game. The iterated
   game against a learning detector — and whether detector *diversity* helps the
   way portfolio diversity does — is open.
+- **"Removable" may be one concept or three.** Permanent removal (buy the
+  capability — the defect *becomes* a capability), per-event removal (escalate
+  this once), and interpretive removal (the sealed-frame case, where the seal
+  is never lifted and removal means compensating its one fatal reading) share a
+  single manifest field in §7 but may deserve separate treatment. The
+  observation/capacity split (§6) is first evidence that the taxonomy is real;
+  the removability spectrum is a second, orthogonal axis, and we have unified
+  neither.
 - **The human case is deliberately excluded.** The model prices artifacts.
   Applying "a person's deficiency is an advantage" to people imports ethical
   questions — who owns the compensation channel, autonomy versus dependency —
   that no theorem here resolves, and we do not pretend otherwise.
 
-## 9. Conclusion
+## 10. Conclusion
 
 A deliberately narrow system with a tripwire and an escalation path is a
 common engineering pattern, usually justified by intuition. This paper gives

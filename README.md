@@ -67,7 +67,7 @@ its technical appendix.
 
 - **`PAPER.md`** — the paper itself: abstract, model, advantage condition, the
   coupling lemma and the two-sided removability theorem, the observation/capacity
-  split, related work, honest limitations.
+  split, the Agent World worked example, related work, honest limitations.
 - **`FORMALIZATION.md`** — the mathematical model: the growth equation, the
   advantage condition and optimal-detector results (propositions), and the
   detector-placement theorems.
