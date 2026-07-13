@@ -98,8 +98,30 @@ handful of overfull-hbox warnings (cosmetic).
 | `hendrickx2024` | Machine Learning journal volume/pages (113:3073–3110) from standard data |
 | `fillatre2017` | exact title (notes give journal/volume/pages only) |
 | `fauss2021` | IEEE TSP volume/pages (69:2252–2283) from standard data |
-| `managoli2025` | exact title and author first names (notes give surnames + arXiv:2501.12938) |
 | `ehrenfeucht1989` | volume/number/pages (Inf. & Comp. 82(3):247–261) from standard data |
 | `rigollet2011` | notes say "COLT 2011"; entry uses the JMLR 12:2831–2855 version |
-| `casacuberta2025` | exact title and first names (notes: "Casacuberta–Kanade, NeurIPS 2025") |
-| `mozannar2023` | full author list and title (notes: "Mozannar et al. 2023, PMLR v206") |
+
+Verified and fixed (2026-07-13): `managoli2025` (authors + arXiv id),
+`casacuberta2025` (real title: "Selective Omniprediction and Fair Abstention"),
+`mozannar2023` (pages added). Added in the pre-submission review pass:
+`coverthomas2006`, `greenblatt2024`, `geifman2019`, `vovk2005`.
+
+**Note:** `references.bib` is deliberately **excluded** from `arxiv-upload.zip`
+(arXiv uses the committed `main.bbl`); the remaining TODO comments above
+therefore never ship publicly. Verify them before the TMLR port.
+
+## Pre-submission review pass (2026-07-13, arXiv v1)
+
+Applied before submitting: benign region `N` and act-on-benign loss `l` added
+to the model appendix; standing assumption `L > p`; Theorem 1(1) uniqueness
+restricted to `L > L*`; Theorem 2'(2) lower bound rewritten with `t(L) = 1/L^2`
+coupled to `L`; Prop 4 "contains" → "is"; both Theorem A "iff"s rebound to
+`Pi* > 0`; "within-defect" qualifier restored in the main-text removability
+definition; Remark 4 gets `c_d = 0`; `Pi^tr`/`Pi^ind` defined at first use;
+Theorem M mixture renamed `mu → w`; dangling `v log` → `v log L`;
+`g_gen`/`c_gen` bound before Prop 1; abstract hedged (iff qualifiers) and
+Corollary 3 stated as a dichotomy; Conjecture C/D pointers replaced with
+Theorem E' / published cites (Cover–Thomas, Vovk et al.); AI control cited
+(Greenblatt et al. 2024); SelectiveNet reconciled (Geifman–El-Yaniv 2019).
+Now 30 pages. Submitted to arXiv 2026-07-13 (submission 7819449, cs.AI
+primary, cs.LG + stat.ML cross-lists).

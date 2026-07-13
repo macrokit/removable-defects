@@ -52,10 +52,13 @@ captured by a \emph{coupling lemma}: when the deficiency is a coarsening of
 perception, the rate at which the specialist's feature does good equals the
 rate at which it does harm --- one number prices both --- so no switch, however perfect, can separate
 benefit from harm. This yields a converse (a confounded detector earns zero
-premium and, under multiplicative dynamics, drives long-run growth to
-negative infinity) and a matching achievability result (a detector placed
+premium --- and any within-defect policy insisting on positive premium is
+driven, under multiplicative dynamics, to long-run growth of negative
+infinity) and a matching achievability result (a detector placed
 \emph{outside} the deficiency earns an explicit positive premium under the
-advantage condition). Together: \textbf{a defect is profitably removable iff the
+advantage condition). Together, over structured uncertainty classes and with
+severity capped or the miss rate scaling as $O(1/L)$: \textbf{a defect is
+profitably removable iff the
 detector-relevant distinction survives the restriction and the advantage
 condition holds} --- and a single value formula covers every detector class
 (the premium is the support function of the class's ROC set at an economic
@@ -81,7 +84,7 @@ one of engineering's most common patterns, and the literatures that study its
 parts are mature. Chow's reject option prices the tripwire's threshold;
 selective prediction and learning-to-defer train it; out-of-distribution
 detection asks how well it fires where the data runs out; AI control demands
-a monitor outside the untrusted system. All of them ask how \emph{good} the
+a monitor outside the untrusted system \citep{greenblatt2024}. All of them ask how \emph{good} the
 detector is. \textbf{None asks where the detector sits relative to the restriction
 that created the blind spot it guards} --- whether the narrowing that makes
 the specialist cheap also reaches the tripwire. This paper shows that
@@ -198,7 +201,8 @@ factors; the architecture attacks $\mu$ (the detector) and caps $L$ (bounded
 blast radius --- a spend ceiling), and deliberately does \emph{not} lean on
 estimating $\varepsilon$ well, because tail frequencies are exactly what
 history gets wrong. And the generalist alternative is not free: it pays a
-carrying cost for rarely-used breadth and typically earns less than $g$ on
+carrying cost $c_{\text{gen}}$ per period for rarely-used breadth and earns
+$g_{\text{gen}}$ (typically $< g$) on
 $C$, since breadth dilutes depth.
 
 \section{The advantage condition}\label{sec:advantage}
@@ -241,7 +245,8 @@ a threshold on the actor's own confidence --- the detector must be a separate
 function. This foreshadows \S\ref{sec:removability}.
 
 \textbf{Detection is cheap --- and that is load-bearing.} Detecting whether a task is
-out of scope is a binary hypothesis test; by the Chernoff--Stein bound its cost
+out of scope is a binary hypothesis test; by the Chernoff--Stein bound
+\citep[Thm.~11.8.3]{coverthomas2006} its cost
 scales as $\log(1/\mu)$ in the miss rate. Producing the \emph{solution} to an
 out-of-scope task is far more expensive. We will see in \S\ref{sec:removability} that survival
 against fatal events of severity $L$ forces the miss rate down to $O(1/L)$,
@@ -249,8 +254,8 @@ which by the hypothesis-testing bound costs only $O(\log L)$ in detector rent.
 The architecture insures against loss $L$ at logarithmic price --- this is why
 it is affordable at all. (Putting detection and production in a single cost
 model --- rather than the mismatched units of samples and compute --- is possible
-via doubly-efficient interactive proofs and property testing; the appendix
-treats this as a strengthening, not a load-bearing step.)
+via doubly-efficient interactive proofs and property testing; we regard this
+as a strengthening, not a load-bearing step, and do not pursue it here.)
 
 The shape survives when the detector must be
 \emph{learned} rather than assumed: certifying a near-zero miss rate from data is
@@ -277,8 +282,9 @@ The \textbf{specialization premium} of a detector is its worst-case
 growth --- over an uncertainty class $\mathcal{P}$ of task distributions whose
 fatal mass is capped by a declared budget $\bar\varepsilon$ --- \emph{above the
 always-escalate baseline}. A defect is \textbf{profitably removable} on
-$\mathcal{P}$ if some policy earns strictly positive premium --- it retains part
-of the specialization gain while avoiding ruin.
+$\mathcal{P}$ if some \emph{within-defect} policy --- detector drawn from the
+restricted class the defect induces --- earns strictly positive premium: it
+retains part of the specialization gain while avoiding ruin.
 \end{ndef}
 
 \subsection{The coupling lemma}\label{sec:coupling}
@@ -342,7 +348,8 @@ uniformly over a structured class with competence floor $\underline c$ and
 fatal budget $\bar\varepsilon$ --- earns worst-case premium bounded below by the
 explicit constant
 $$\Pi^* = \underline c\,(1-\alpha_0)(g+p) - \bar\varepsilon\,\delta\,(L-p) - c_d,$$
-and the defect is profitably removable ($\Pi^* > 0$) iff the advantage
+and this guarantee is positive ($\Pi^* > 0$) --- so removal is profitable ---
+iff the advantage
 condition $\underline c(1-\alpha_0)(g+p) > \bar\varepsilon\delta(L-p) + c_d$
 holds.
 \end{nthm}
@@ -524,14 +531,19 @@ sources are maintained in the project repository; here we position only.
   restricted actor forces a separate rejector, an architecture the taxonomy
   already names \citep{hendrickx2024}. None of it provides a growth
   statement, and none asks where the rejector sits relative to the actor's
-  restriction.
+  restriction. The empirical finding that a rejector \emph{sharing} the
+  actor's representation can beat an independent one \citep{geifman2019} is
+  not a counterexample: that is average-case selective risk on the deployment
+  distribution, while our placement claim is a worst-case guarantee against
+  declared fatal events --- exactly the regime where Lemma 1 prices the shared
+  representation at zero.
 \item \textbf{Impossibility.} Adversarial-distribution impossibility for restricted
   detector classes is standard technology (\citealt{fang2022}; \citealt{ulmer2021}
   for same-representation failures). Unstated anywhere we could find: the
   \emph{coupling} --- one restriction defining both competence and blindness --- with
   an unbounded-loss consequence and a positive converse. The AI-control
-  literature holds ``monitor outside the untrusted system'' as an axiom with
-  no formal backing; this is the backing.
+  literature \citep{greenblatt2024} holds ``monitor outside the untrusted
+  system'' as an axiom with no formal backing; this is the backing.
 \item \textbf{Growth and insurance.} \citet{kelly1956} and \citet{breiman1961} own ruin
   exclusion; \citet{peters2015} and \citet{spitznagel2021} the licensing half;
   \citet{ehrlich1972} plus \citet{townsend1979} the advantage condition's
@@ -698,7 +710,12 @@ payoffs for the two actions:
 \end{center}
 
 \noindent
-with $g, p > 0$ and $L$ the fatal loss. A detector is a measurable
+with $g, p > 0$ and $L$ the fatal loss; \textbf{standing assumption:} $L > p$
+(a missed fatal costs more than an escalation --- otherwise always-act
+dominates and there is nothing to insure). Tasks outside $C \cup E$ form the
+\textbf{benign region} $N := X \setminus (C \cup E)$: acting there pays $-\ell$
+with $0 \leq \ell \leq p$, escalating pays $-p$; benign mass enters no result
+below except through Theorem A's accounting. A detector is a measurable
 $d : X \to \{a, e\}$; the agent's per-period expected payoff under task
 distribution $P$ is $G_P(d) = \mathbb{E}_P[\text{payoff}]$. The detector rent
 $c_d$ is a constant shift within any fixed detector class and is dropped. A
@@ -796,7 +813,7 @@ Suppose $\varphi_*\nu_0 = \varphi_*\nu_1$ and
 $\mathcal{P} \supseteq \mathcal{F}(\nu_0, \nu_1)$. Then for every
 $L \geq L^*$:
 \begin{enumerate}
-\item \textbf{(Collapse.)} $\displaystyle \sup_{d \in \mathcal{D}_R} \inf_{\lambda} G_{P_\lambda}(d) = -p$, attained only by policies with $q = 0$ (total forfeit on the family). Hence $\Pi(\mathcal{D}_R) = 0$.
+\item \textbf{(Collapse.)} $\displaystyle \sup_{d \in \mathcal{D}_R} \inf_{\lambda} G_{P_\lambda}(d) = -p$; for $L > L^*$ it is attained only by policies with $q = 0$ (total forfeit on the family; at $L = L^*$ every $q$ attains it). Hence $\Pi(\mathcal{D}_R) = 0$.
 \item \textbf{(Transduction is powerless.)} Minimax equality holds:
    $\displaystyle \inf_{\lambda} \sup_{d \in \mathcal{D}_R} G_{P_\lambda}(d) = -p$ as well. Even a detector chosen \emph{after} seeing the deployment distribution earns zero premium.
 \item \textbf{(Separation.)} The unrestricted detector $d^*= \mathbf{1}[x \in C]\cdot a$ achieves $\inf_\lambda G_{P_\lambda}(d^*) = (1-\bar\varepsilon)g - \bar\varepsilon p > 0$, i.e. premium $(1-\bar\varepsilon)(g+p)$. This is exactly optimal: $\sup_{d \text{ } \Sigma\text{-meas.}} \inf_\lambda G_{P_\lambda}(d) = (1-\bar\varepsilon)g - \bar\varepsilon p$.
@@ -812,8 +829,9 @@ $$G_{P_\lambda}(d) \;=\; (1-\lambda)\big[qg - (1-q)p\big] + \lambda\big[-qL - (1
 $\inf_\lambda$ sits at $\lambda = \bar\varepsilon$, giving
 $q\big[(1-\bar\varepsilon)g - \bar\varepsilon L\big] - (1-q)p$. For
 $L \geq L^*$ the bracket is $\leq -p$, so the whole expression is maximized
-at $q = 0$ with value $-p$; any $q > 0$ does strictly worse (and $\to -\infty$
-as $L \to \infty$).
+at $q = 0$ with value $-p$; for $L > L^*$ the bracket is $< -p$ and any
+$q > 0$ does strictly worse (and $\to -\infty$ as $L \to \infty$), while at
+$L = L^*$ the bracket equals $-p$ and every $q$ ties.
 
 (2) For fixed $\lambda$, $\sup_{d}$ over $\mathcal{D}_R$ is the same linear
 program in $q \in [0,1]$ (both endpoints are realized by the constant
@@ -989,9 +1007,12 @@ The formula is Lemma 2 plus taking the supremum; $(0,0) \in
 (2): upper bound --- for any $h$, $\Pi(h) \leq \min\big(A\,q_0(h),\; A -
 B\,q_1(h)\big)$, so any $h$ competing with the limit must have $q_1(h) \leq
 A/B \to 0$ and hence $q_0(h) \leq \sup\{q_0 : q_1 \leq A/B\} \to
-\bar\sigma_0(H)$. Lower bound --- for any $t$, pick $h$ with $q_1(h) \leq t$,
-$q_0(h)$ within $\eta$ of the sup: $\Pi(h) \geq A(q_0) - Bt$, and let
-$t \downarrow 0$ after $L \to \infty$ along the definition of the limit.
+\bar\sigma_0(H)$. Lower bound --- couple $t$ to $L$: since
+$\sup\{q_0(h) : q_1(h) \leq t\} \geq \bar\sigma_0(H)$ for every $t > 0$ (the
+sup is nonincreasing as $t \downarrow 0$), take $t(L) := L^{-2}$ and pick
+$h_L$ with $q_1(h_L) \leq t(L)$ and $q_0(h_L) \geq \bar\sigma_0(H) - \eta$;
+then $\Pi(H) \geq \Pi(h_L) \geq A\,(\bar\sigma_0(H) - \eta) - B\,t(L)$ with
+$B\,t(L) = \bar\varepsilon(L-p)\,L^{-2} \to 0$.
 \end{proof}
 
 \textbf{Remark (closure).} $\bar\sigma_0(H) \geq \sigma_0(H) := \sup\{q_0 : q_1 =
@@ -1046,7 +1067,12 @@ turns out to be the theory applied to itself.
 union family $\mathcal{P} = \bigcup_j \mathcal{F}(\nu_0^j, \nu_1^j)$. Write
 $\bar\sigma^j(H)$ for the per-direction zero-leak capture capacity and
 $\bar\sigma^{\mathrm{jt}}(H) := \lim_{t \downarrow 0} \sup\{\min_j q_0^j(h) :
-h \in H,\ \max_j q_1^j(h) \leq t\}$ for the joint one (Appendix~\ref{app:thm2prime}). Define the
+h \in H,\ \max_j q_1^j(h) \leq t\}$ for the joint one (Appendix~\ref{app:thm2prime}). Write
+$\Pi^{\mathrm{ind}}_L(H) := \sup_{h \in H} \min_j \big[A\,q_0^j(h) - B\,q_1^j(h)\big]$
+for the \textbf{inductive} premium (one detector must serve every direction) and
+$\Pi^{\mathrm{tr}}_L(H) := \min_j \sup_{h \in H} \big[A\,q_0^j(h) - B\,q_1^j(h)\big]$
+for the \textbf{transductive} one (the detector may be chosen after the
+direction is revealed), as in Appendix~\ref{app:thm2prime}. Define the
 \textbf{joint-realizability deficit}
 $$\Delta(H) \;:=\; \min_j \bar\sigma^j(H) \;-\; \bar\sigma^{\mathrm{jt}}(H) \;\in\; [0, 1],$$
 (nonnegative since any jointly feasible $h$ is feasible per direction). By
@@ -1059,7 +1085,7 @@ premium units.}
 If for each $j$ and every $t > 0$
 there is $h_j \in H$ with $q_0^j(h_j) \geq \bar\sigma^j - \eta$ and
 $q_1^i(h_j) \leq t$ for \textbf{all} $i$ (\emph{cross-safe} local solutions), and $H$
-contains a member whose act region contains the union of the $h_j$'s act
+contains a member whose act region \emph{is} the union of the $h_j$'s act
 regions (\emph{union closure} over them), then $\Delta(H) = 0$.
 \end{nthm}
 
@@ -1201,12 +1227,12 @@ Write $\Pi^{\mathrm{rand}}_L(H)$ for the inductive premium over lotteries.
 \begin{nthm}{Theorem M}[least-favorable mixture duality]
 For any $H$ (constants
 included), any $k$ ensemble directions, and every $L$:
-$$\Pi^{\mathrm{rand}}_L(H) \;=\; \min_{\mu \in \Delta_k}\; \Pi^{2'}_L\!\Big(H;\; \sum_j \mu_j \nu_0^j,\; \sum_j \mu_j \nu_1^j\Big),$$
+$$\Pi^{\mathrm{rand}}_L(H) \;=\; \min_{w \in \Delta_k}\; \Pi^{2'}_L\!\Big(H;\; \sum_j w_j \nu_0^j,\; \sum_j w_j \nu_1^j\Big),$$
 where $\Pi^{2'}_L(H; \nu_0, \nu_1) = \sup_h [A\,\nu_0(h{=}a) -
-B\,\nu_1(h{=}a)]$ is Theorem 2$'$'s single-pair value. The minimizer $\mu^*$
+B\,\nu_1(h{=}a)]$ is Theorem 2$'$'s single-pair value. The minimizer $w^*$
 is the \textbf{least-favorable direction mixture}; the optimal lottery is the
 class-restricted Neyman--Pearson solution against the mixed ensembles
-$(\bar\nu_0^{\mu^*}, \bar\nu_1^{\mu^*})$; and $\mu^*$ is supported on the
+$(\bar\nu_0^{w^*}, \bar\nu_1^{w^*})$; and $w^*$ is supported on the
 binding directions (complementary slackness).
 \end{nthm}
 
@@ -1215,10 +1241,10 @@ $\Pi^{\mathrm{rand}}_L = \sup_{q \in \mathrm{conv}\,\mathrm{ROC}_k}
 \min_j \langle c_j, q\rangle$ with $c_j$ the $j$-th price functional. The
 objective is concave (min of linear) and unchanged by passing to the closed
 convex hull; the adversary's set is finite; von Neumann/LP duality gives
-$\sup_q \min_j = \min_{\mu \in \Delta_k} \sup_q \langle \sum_j \mu_j c_j,
+$\sup_q \min_j = \min_{w \in \Delta_k} \sup_q \langle \sum_j w_j c_j,
 q\rangle$, with the min attained on the compact simplex. Finally
-$\sum_j \mu_j [A q_0^j(h) - B q_1^j(h)] = A\,\bar\nu_0^\mu(h{=}a) -
-B\,\bar\nu_1^\mu(h{=}a)$ because operating points are linear in the measure ---
+$\sum_j w_j [A q_0^j(h) - B q_1^j(h)] = A\,\bar\nu_0^w(h{=}a) -
+B\,\bar\nu_1^w(h{=}a)$ because operating points are linear in the measure ---
 so the inner sup \emph{is} a Theorem 2$'$ instance.
 \end{proof}
 
@@ -1239,7 +1265,7 @@ showed.
 \textbf{Worked example (XOR, the numbers).} Halfspaces on the XOR directions
 (Appendix~\ref{app:deficit}, Prop 6), $L \to \infty$, in units of $A$: deterministic $0$, randomized
 $1/2$ (the coin over the two corner halfspaces $\{x{+}y < \tfrac12\}$,
-$\{x{+}y > \tfrac32\}$; dual check: at $\mu^* = (\tfrac12, \tfrac12)$ no
+$\{x{+}y > \tfrac32\}$; dual check: at $w^* = (\tfrac12, \tfrac12)$ no
 halfspace excludes both fatal points while capturing more than half the
 mixed safe mass), transductive $1$. Both obstructions are worth exactly
 $1/2$ here: the three values separate, and the decomposition of M1 is
@@ -1248,7 +1274,7 @@ witnessed with all brackets positive.
 \begin{nthm}{Corollary M2}[$L \to \infty$]
 $\Pi^{\mathrm{rand}}_L / A$ decreases to
 the randomized joint coefficient, which under a closed joint ROC set equals
-$\min_{\mu} \bar\sigma_0\big(H;\ \bar\nu_0^\mu, \bar\nu_1^\mu\big)$ --- the
+$\min_{w} \bar\sigma_0\big(H;\ \bar\nu_0^w, \bar\nu_1^w\big)$ --- the
 zero-leak capture capacity at the least-favorable mixture. Without
 closedness the limit sits between the $t{=}0$ and right-limit versions,
 the same caveat as Appendix~\ref{app:thm2prime}'s closure remark; we do not pretend otherwise.
@@ -1273,7 +1299,7 @@ the same caveat as Appendix~\ref{app:thm2prime}'s closure remark; we do not pret
 \item Theorem R is now the \emph{constructive} counterpart of M: blind randomization
   (route without looking) is the $\rho = 1 - 1/k$ corner of the router bound,
   and M says the best blind play is not gating but the NP solution against
-  $\mu^*$; a router with per-task information interpolates between M's value
+  $w^*$; a router with per-task information interpolates between M's value
   and the transductive one.
 \item What M does \textbf{not} deliver: the deterministic value itself. The max-min
   over a non-convex $\mathrm{ROC}_k(H)$ (Lemma 3) is exact but not, in
@@ -1330,9 +1356,11 @@ lower-bound its worst-case premium over the class.
   choice; acting on benign only helps, by $(p-\ell) \geq 0$ per unit). ``Out of
   the defect'' is exactly what makes both bounds simultaneously attainable:
   Lemma 1 forbids it \emph{inside} an observation defect (there capture rate $=$
-  miss rate), and the repaired Conjecture C of the formalization notes \emph{constructs}
-  such a $d$ for structured $\mathcal{P}$ (finite-VC families,
-  $f$-divergence balls). A inherits C's structural restriction --- no more, no
+  miss rate), and Appendix~\ref{app:thmE} \emph{constructs} such a $d$ for
+  structured $\mathcal{P}$ (declared covers with finite-VC detector classes,
+  Theorem~E$'$; Mondrian/group-conditional conformal constructions
+  \citep{vovk2005} cover the same ground distribution-free). A inherits that
+  structural restriction --- no more, no
   less.
 \end{itemize}
 
@@ -1356,7 +1384,8 @@ per unit (loss $L$ where the baseline paid $p$); \textbf{rent} is flat.
 \begin{nthm}{Theorem A}
 Under the hypotheses,
 $$\inf_{P \in \mathcal{P}} \Pi_P(d) \;\geq\; \Pi^* \;:=\; \underline{c}\,(1-\alpha_0)\,(g+p) \;-\; \bar\varepsilon\,\delta\,(L-p) \;-\; c_d,$$
-and the defect is \textbf{profitably removable} ($\Pi^* > 0$) iff the
+and the guaranteed premium is positive ($\Pi^* > 0$) --- hence removal
+profitable --- iff the
 \textbf{advantage condition} holds:
 $$\underline{c}\,(1-\alpha_0)\,(g+p) \;>\; \bar\varepsilon\,\delta\,(L-p) + c_d.$$
 \end{nthm}
@@ -1398,7 +1427,8 @@ which any fixed $\delta$ satisfying the advantage condition at $\bar L$ works.
 The architecture uses both; either alone suffices for a constant lower bound.
 
 \textbf{3. Route (i) is cheap --- the tie to detector economics.} By the
-hypothesis-testing bound (Conjecture D of the formalization notes), miss rate
+Chernoff--Stein hypothesis-testing bound \citep[Thm.~11.8.3]{coverthomas2006},
+miss rate
 $\delta$ costs rent $c_d \sim \log(1/\delta)$, so $\delta = O(1/L)$ costs only
 $c_d \sim \log L$. Leakage is held constant at the price of \emph{logarithmic}
 rent --- the detector's cost grows exponentially slower than the severity it
@@ -1408,7 +1438,8 @@ the specialization premium net of constant leakage. Cheap detection is what
 makes the whole architecture affordable, quantified.
 
 \textbf{4. Graceful degradation recovers the converse's witness.} At the ideal
-operating point $\alpha_0 = \delta = 0$ (perfect detector) with the fullest
+operating point $\alpha_0 = \delta = 0$ and zero rent $c_d = 0$ (perfect free
+detector) with the fullest
 class $\underline c = 1-\bar\varepsilon$, $\Pi^* = (1-\bar\varepsilon)(g+p)$
 --- \textbf{exactly the separation witness of Theorem 1(3)} and the outside-defect
 value against which the converse measured the collapse. A's bound degrades
@@ -1446,8 +1477,9 @@ certificate costs as severity grows.
 \textbf{Setup (declared cover; the repaired-C structure made concrete).} The
 agent declares a finite \textbf{cover}: safe-cell conditionals
 $\nu_0^1, \dots, \nu_0^r$ (supported in $C$) and fatal-cell conditionals
-$\nu_1^1, \dots, \nu_1^m$ (supported in $E$) --- fixed measures, the
-Mondrian/group-conditional structure of repaired Conjecture C in its simplest
+$\nu_1^1, \dots, \nu_1^m$ (supported in $E$) --- fixed measures, a
+Mondrian/group-conditional structure (cf.\ Mondrian conformal prediction,
+\citealt{vovk2005}) in its simplest
 form. The uncertainty class $\mathcal{P}$ reweights cells arbitrarily subject
 to the budgets $P(E) \leq \bar\varepsilon$, $P(C) \geq \underline c$; within
 cells, conditionals are fixed. Worst-case rates then reduce to cell maxima:
@@ -1506,14 +1538,14 @@ KKM positive-reliable learning and its setup is NP classification at
 $\alpha = 0$, see Appendix~\ref{app:positioning}), hence
 $$\inf_{P} \Pi_P(\hat d) \;\geq\; \underline c\,(1 - \alpha^* - 2\epsilon_n)(g+p) \;-\; \bar\varepsilon\,\epsilon^{01}_n\,(L-p) \;-\; c_d.$$
 Holding the fatal-side penalty below a constant requires
-$\epsilon^{01}_n = O(1/L)$, i.e.\ $n = O\big(L \cdot (v\log + \log(m/\theta))\big)$
+$\epsilon^{01}_n = O(1/L)$, i.e.\ $n = O\big(L \cdot (v\log L + \log(m/\theta))\big)$
 per fatal cell --- \textbf{linear in severity}, because certifying a near-zero rate
 is a one-sided rare-event problem, not a mean estimation. The safe side needs
 only $O(1/\sqrt{n})$, independent of $L$. \qquad $\square$
 \end{nthm}
 
 \textbf{Lifecycle economics.} Sustaining severity $L$ end-to-end now has two
-bills: a \textbf{one-time training bill} of $O(L \cdot v \log)$ labeled fatal
+bills: a \textbf{one-time training bill} of $O(L \cdot v \log L)$ labeled fatal
 examples per declared category (amortized over deployment), and the
 \textbf{per-period rent} $c_d = O(\log L)$ from Appendix~\ref{app:thmA}'s Remark 3. Amortized, both
 grow slower than the per-event loss they insure against, so \textbf{the advantage
