@@ -59,7 +59,7 @@ under another name).
 
 ## Shape of the project
 
-The primary deliverable is a **short paper**, `PAPER.md` (draft v0): the general
+The primary deliverable is a **short paper**, `PAPER.md` (draft v2): the general
 principle, the advantage condition, and the detector-placement iff as the central
 result, grounded in the value theory (below), positioned against the prior
 literature. It assembles the finished results in the companions below, which are

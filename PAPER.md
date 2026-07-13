@@ -2,7 +2,9 @@
 
 **Cheng Qian**
 
-**Draft v1 — 2026-07-13.** This draft assembles the finished results in `FORMALIZATION.md` and
+**Draft v2 — 2026-07-13** (venue restructuring: contribution-first opening,
+compressed framing and related work; no mathematical changes from v1). This
+draft assembles the finished results in `FORMALIZATION.md` and
 `PROOFS.md`; those files are the technical appendix and carry the full proofs.
 Status labels follow repo convention: *proposition* (provable with standard
 tools, cited), *theorem* (proved here / in the appendix), *conjecture*
@@ -51,73 +53,85 @@ a frequency-free form of the advantage condition.
 
 ## 1. Introduction
 
-Consider a feature — a capability, a disposition, a trained specialization —
-whose value depends on context: harmful in situation $A$, beneficial in
-situation $B$. Three policies are available. Enable it everywhere, and you
-collect $B$'s benefit and $A$'s harm. Disable it everywhere — the generalist
-who never commits — and you forfeit $B$'s benefit to avoid $A$'s harm. Or
-*control* it: enable in $B$, disable in $A$, capturing the better outcome in
-each context. If control were free, it would simply dominate.
+A deliberately narrow system guarded by a tripwire and an escalation path is
+one of engineering's most common patterns, and the literatures that study its
+parts are mature. Chow's reject option prices the tripwire's threshold;
+selective prediction and learning-to-defer train it; out-of-distribution
+detection asks how well it fires where the data runs out; AI control demands
+a monitor outside the untrusted system. All of them ask how *good* the
+detector is. **None asks where the detector sits relative to the restriction
+that created the blind spot it guards** — whether the narrowing that makes
+the specialist cheap also reaches the tripwire. This paper shows that
+placement is the whole game.
 
-Control is not free, and the reason is the subject of this paper. It requires
-two things of very unequal difficulty. A *switch* — the ability to enable or
-disable the feature — is usually cheap and usually available. A *detector* —
-knowing which context you are in, so you know which way to throw the switch —
-is the binding constraint. A flawless switch you cannot time is worthless.
+The central fact is a two-line lemma with a long shadow. Model the
+specialist's deficiency as a coarsening of perception, and force the detector
+to work through that same coarsened view. Then for any pair of task ensembles
+the coarsening cannot tell apart — one safe and profitable, one fatal — **the
+detector's gain-capture rate equals its fatal-miss rate: one number prices
+both.** Every unit of specialization gain let through carries an equal unit
+of fatal exposure, so benefit and harm cannot be decoupled by anything
+downstream of the coarsening; a switch that disables the harm disables the
+benefit in the same motion, however perfect the switch. From this coupling
+the paper's two-sided characterization follows: **a defect is profitably
+removable iff the detector-relevant distinction survives the restriction —
+iff the detector can be placed outside the defect — and an explicit advantage
+condition holds.**
 
-The sharp and economically interesting case is asymmetric: $B$ common and
-mildly good, $A$ rare but *fatal*. Here the feature is kept enabled by default
-— that default is where the specialist's edge lives — and switched off only on
-detection, by routing the rare fatal case to a compensation channel (buy the
-missing work, defer to a principal, rent judgment). We call such a
-deliberately-kept, on-demand-correctable deficiency a **removable defect**.
-The word "defect" names the feature in this asymmetric regime; the general
-object is a conditionally-valuable feature and the detectability of its
-condition.
+The general object behind the story is a feature whose value depends on
+context: harmful in situation $A$, beneficial in situation $B$. Always-on
+pays $A$'s harm; always-off — the generalist who never commits — forfeits
+$B$'s benefit; *controlled* (enable in $B$, disable in $A$) dominates both,
+if achievable. Control needs a switch, which is usually cheap, and a detector
+that tells you which situation you are in, which is the binding constraint: a
+flawless switch you cannot time is worthless. The economically sharp case is
+asymmetric — $B$ common and mildly good, $A$ rare but *fatal* — and there the
+feature is kept enabled by default and switched off only on detection, by
+routing the rare fatal case to a compensation channel (buy the missing work,
+defer to a principal, rent judgment). We call such a deliberately-kept,
+on-demand-correctable deficiency a **removable defect**.
 
 Two questions organize the paper. *When is keeping the defect worth it?* — an
 economic question, answered by the advantage condition (§3). *When can it
-actually be removed?* — a structural question, and the one with teeth, because
-"if we can control it" hides the whole difficulty. Our central finding (§5) is
-that removal can be *impossible even with a perfect switch*, and the
-obstruction is precisely where the detector sits relative to the defect.
+actually be removed?* — a structural question, answered by the coupling lemma
+and its consequences (§5–§6): removal can be impossible even with a perfect
+switch, and the obstruction is precisely where the detector sits.
 
 ### Contributions
 
-1. A growth model (§2) in which the decision to be deficient is a computable
-   position, and an **advantage condition** (§3) that is the Ehrlich–Becker
-   (1972) insurance margin restated for a competence gap, with the detector a
-   Townsend (1979) verification cost.
-2. The **coupling lemma** (§5): inside an observation defect, gain-capture
-   rate $=$ fatal-miss rate. Benefit and harm are one scalar and cannot be
-   decoupled downstream.
-3. The **converse** (Theorem 1): a confounded detector earns zero
-   specialization premium, and under multiplicative dynamics drives growth to
-   $-\infty$. To our knowledge the first worst-case, decision-theoretic
-   formalization of detector placement — a principle safety engineering has
-   held only as practice.
-4. **Achievability** (Theorem A): a detector outside the defect earns an
-   explicit positive premium under the advantage condition, giving the
-   two-sided **iff**.
-5. The **observation/capacity distinction** (§6): the two defect types differ
-   exactly on whether transductive access to the deployment distribution
-   rescues them — a split the average-case literature does not see.
-6. Two robustness results: a **frequency-free** (minimax) advantage condition,
-   and the identification of the detector's **per-event miss rate**, not the
-   event frequency, as what the ruin condition is written on.
-7. **An exact theory of the gap** (§6; appendix §§7–9): one value formula for
-   every detector class — premium $=$ support function of the class's ROC set
-   at the economic price vector — with the transduction gap decomposed into
-   two obstructions (cross-leak, non-closure), exact formulas for thresholds
-   and halfspaces, a router bound that makes the theory recurse on itself,
-   and a least-favorable-mixture duality showing **a coin buys back the
-   gluing failure, never the cross-leak**.
-8. **End-to-end learnability** (§4; appendix §12): the detector selected and
-   certified from stratified samples of declared fatal categories, at a
-   one-time training bill *linear* in severity (rare-event certification)
-   plus $O(\log L)$ per-period rent — the advantage condition survives
-   learning, and default-deny gating makes the certificate fail-safe against
-   cover incompleteness.
+1. **The coupling lemma, and the converse it forces** (§5; appendix Lemma 1,
+   Thm 1). Inside an observation defect, gain-capture rate $=$ fatal-miss
+   rate — benefit and harm are one scalar. Consequently a confounded detector
+   earns zero specialization premium against an adversarial task distribution
+   — *even with transductive access to the deployment distribution* — and
+   under multiplicative (Kelly) dynamics any positive premium forces
+   log-growth to $-\infty$. To our knowledge the first worst-case,
+   decision-theoretic formalization of detector placement — the principle AI
+   control and safety engineering hold as an axiom, given formal backing.
+2. **The two-sided iff, priced** (§3, §5; appendix Thm A). A detector outside
+   the defect earns an explicit positive premium under an **advantage
+   condition** that is the Ehrlich–Becker insurance margin restated for a
+   competence gap, with the detector a Townsend verification cost. Placement
+   supplies the possibility; the advantage condition supplies the profit. The
+   condition is frequency-free: the ruin condition is written on the
+   detector's per-event miss rate, never on the fatal-event frequency that
+   history cannot estimate.
+3. **A taxonomy with an exact price** (§6; appendix §§5–9). *Observation*
+   defects (the information is destroyed) and *capacity* defects (the
+   information survives; the class cannot use it) differ exactly on whether
+   deployment knowledge rescues them — yet one value formula prices both:
+   premium $=$ support function of the detector class's ROC set at an
+   economic price vector, with removability a coefficient, not a yes/no. The
+   gap between menu and machine decomposes into two named obstructions with
+   exact formulas, a router bound that makes the theory recurse on itself,
+   and a least-favorable-mixture duality: **a coin buys back the gluing
+   failure, never the cross-leak.**
+4. **End-to-end learnability** (§4; appendix §12). The detector can be
+   selected and certified from stratified samples of declared fatal
+   categories: a one-time training bill *linear* in the loss severity plus
+   $O(\log L)$ per-period rent, both growing slower than the loss they
+   insure — the advantage condition survives learning, and default-deny
+   gating makes the certificate fail-safe against cover incompleteness.
 
 ## 2. The model
 
@@ -459,59 +473,47 @@ open question we flag in §9: whether "removable" is one concept or three.
 
 ## 8. Related work
 
-Each ingredient of this paper has a home in an existing literature, and we
-mean the synthesis, not the parts, to be the contribution.
+Each ingredient has a home in an existing literature; we claim the coupling,
+the converse, the taxonomy, and the synthesis. Per-claim verdicts with
+sources are in `LITERATURE.md`; here we position only.
 
 - **Reject option / selective prediction.** The optimal escalate-versus-act
-  rule (§4) is Chow's (1957, 1970); the separate-rejector architecture is the
-  established "separated rejector" of the taxonomy (Hendrickx et al. 2024), with
-  Cortes–DeSalvo–Mohri (2016) showing why a restricted actor forces it. Our
-  achievability bound is a growth statement, which the risk-coverage framing
-  (El-Yaniv–Wiener 2010; Geifman–El-Yaniv 2017) does not provide.
-- **Impossibility.** The converse's proof technology — an adversarial
-  distribution defeating every detector in a restricted class — is standard
-  (Fang et al. 2022 for OOD detection; Ulmer–Cinà 2021 for same-representation
-  detectors). What is not stated anywhere we could find: the *coupling* (one
-  restriction defines both the actor's competence and the detector's
-  blindness) with an *unbounded-loss* consequence, and the positive converse
-  that an out-of-restriction detector restores boundedness. The AI-control
-  literature treats "monitor outside the untrusted system" as a design axiom
-  with no formal backing; this is the backing.
-- **Growth and insurance.** The ruin-exclusion lemma is Kelly (1956) /
-  Breiman (1961); "insurance licenses concentration" appears in Peters–Adamou
-  (2015) and, informally, Spitznagel (2021). The advantage condition is
-  Ehrlich–Becker (1972) plus Townsend (1979). Our residual: the ruin condition
-  is written on the detector's *miss rate*, not the event frequency.
+  rule (§4) is Chow's (1957, 1970); Cortes–DeSalvo–Mohri (2016) show a
+  restricted actor forces a separate rejector, an architecture the taxonomy
+  already names (Hendrickx et al. 2024). None of it provides a growth
+  statement, and none asks where the rejector sits relative to the actor's
+  restriction.
+- **Impossibility.** Adversarial-distribution impossibility for restricted
+  detector classes is standard technology (Fang et al. 2022; Ulmer–Cinà 2021
+  for same-representation failures). Unstated anywhere we could find: the
+  *coupling* — one restriction defining both competence and blindness — with
+  an unbounded-loss consequence and a positive converse. The AI-control
+  literature holds "monitor outside the untrusted system" as an axiom with
+  no formal backing; this is the backing.
+- **Growth and insurance.** Kelly (1956) and Breiman (1961) own ruin
+  exclusion; Peters–Adamou (2015) and Spitznagel (2021) the licensing half;
+  Ehrlich–Becker (1972) plus Townsend (1979) the advantage condition's
+  structure. Our residual: the ruin condition written on the detector's
+  *miss rate*, not the event frequency.
 - **Common-cause failure.** Eckhardt–Lee (1985) and Littlewood–Rushby (2012)
-  formalize "a monitor sharing the system's failure mode gives no protection"
-  as an average-case correlation model; the coupling lemma is its worst-case,
+  give "a monitor sharing the system's failure mode gives no protection" as
+  an average-case correlation model; the coupling lemma is its worst-case,
   identity-strength form.
-- **Minimax testing.** The least-favorable-mixture duality behind the
-  obstruction split (§6) is classical: Wald (1945, 1950) for minimax with
-  randomized rules against a least favorable prior; Huber (1965) and
-  Huber–Strassen (1973) for the exact collapse of composite minimax testing
-  to one Neyman–Pearson test against a least favorable pair; Fillatre (2017)
-  for the finite-LP form. That randomization realizes the ROC convex hull is
-  likewise classical (Neyman–Pearson lemma; Provost & Fawcett 2001; see also
-  Fauß–Zoubir–Poor 2021, §V-D). We claim the application — the
-  restricted-class premium game, the closure-deficit identification, and the
-  coin-versus-cross-leak reading — and distinguish Managoli, Sahasranand &
-  Prabhakaran (2025), who pair robust testing with abstention at asymptotic
-  exponents over unrestricted detectors; notably, the classical
-  robust-detection canon itself contains no abstention action at all.
-- **Learning the detector.** Theorem E is standard uniform convergence
-  (Vapnik–Chervonenkis 1971; the version-space bound is Blumer–Ehrenfeucht–
-  Haussler–Warmuth 1989, Thm 2.1). Theorem E′'s problem statement is
-  Kalai–Kanade–Mansour's positive-reliable learning, and its setup is
-  Neyman–Pearson classification at $\alpha = 0$ (Cannon et al. 2002;
-  Scott & Nowak 2005; Rigollet & Tong 2011) — we cite both frames and claim
-  only the analysis they skipped: the zero-empirical-miss certification at a
-  one-sided fast rate, per declared cell under reweighting, and the
-  linear-versus-quadratic-in-severity training bill, itself an elementary
-  corollary of the tight realizable/agnostic $1/\varepsilon$ vs
-  $1/\varepsilon^2$ dichotomy. Casacuberta & Kanade (2025) own group-wise
-  reliable abstention at agnostic rates and are the closest neighbor; they
-  contain neither the zero-miss certificate nor the severity asymmetry.
+- **Minimax testing.** The duality behind the obstruction split (§6) is
+  classical — Wald (1945, 1950); Huber–Strassen (1973) for the collapse to a
+  least favorable pair — and randomization realizing the ROC convex hull is
+  the Neyman–Pearson lemma plus Provost & Fawcett (2001). We claim the
+  application only, and distinguish Managoli et al. (2025), who pair robust
+  testing with abstention at asymptotic exponents over unrestricted
+  detectors.
+- **Learning the detector.** Theorem E is Vapnik–Chervonenkis (1971) plus the
+  BEHW (1989) version-space bound. Theorem E′'s problem is Kalai–Kanade–
+  Mansour's positive-reliable learning and its setup is Neyman–Pearson
+  classification at $\alpha = 0$ (Scott & Nowak 2005); neither contains the
+  zero-empirical-miss fast-rate certificate nor the linear-versus-quadratic-
+  in-severity bill — itself an elementary corollary of the realizable/
+  agnostic rate dichotomy. Closest neighbor: Casacuberta & Kanade (2025),
+  group-wise reliable abstention at agnostic rates.
 
 ## 9. Limitations and open questions
 
