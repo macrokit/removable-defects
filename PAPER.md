@@ -2,7 +2,7 @@
 
 **Cheng Qian**
 
-**Draft v0 — 2026-07-13.** This draft assembles the finished results in `FORMALIZATION.md` and
+**Draft v1 — 2026-07-13.** This draft assembles the finished results in `FORMALIZATION.md` and
 `PROOFS.md`; those files are the technical appendix and carry the full proofs.
 Status labels follow repo convention: *proposition* (provable with standard
 tools, cited), *theorem* (proved here / in the appendix), *conjecture*
@@ -34,14 +34,21 @@ negative infinity) and a matching achievability result (a detector placed
 *outside* the deficiency earns an explicit positive premium under the
 advantage condition). Together: **a defect is profitably removable iff the
 detector-relevant distinction survives the restriction and the advantage
-condition holds.** Third, a distinction between *observation* and *capacity*
-defects that is invisible to the average-case literature but sharp here — they
-differ exactly on whether access to the deployment distribution rescues them.
-The results synthesize Chow's reject option, Kelly growth under ruin, and
-selective prediction; the residual contributions are the converse as a
-worst-case impossibility, the detector's per-event miss rate (not the event
-frequency) as the binding constraint, and a frequency-free form of the
-advantage condition.
+condition holds** — and a single value formula covers every detector class
+(the premium is the support function of the class's ROC set at an economic
+price vector, with removability a coefficient, not a yes/no). Third, a
+distinction between *observation* and *capacity* defects that is invisible to
+the average-case literature but sharp here — they differ exactly on whether
+access to the deployment distribution rescues them, and the gap between the
+two decomposes exactly: it is cross-leak plus a closure deficit, and per-task
+randomization buys back the latter, never the former. The characterization is
+constructive end to end — the detector can be *learned* from declared fatal
+categories at a one-time training bill linear in the loss severity, with the
+advantage condition surviving learning. The results synthesize Chow's reject
+option, Kelly growth under ruin, and selective prediction; the residual
+contributions are the converse as a worst-case impossibility, the detector's
+per-event miss rate (not the event frequency) as the binding constraint, and
+a frequency-free form of the advantage condition.
 
 ## 1. Introduction
 
@@ -99,6 +106,19 @@ obstruction is precisely where the detector sits relative to the defect.
 6. Two robustness results: a **frequency-free** (minimax) advantage condition,
    and the identification of the detector's **per-event miss rate**, not the
    event frequency, as what the ruin condition is written on.
+7. **An exact theory of the gap** (§6; appendix §§7–9): one value formula for
+   every detector class — premium $=$ support function of the class's ROC set
+   at the economic price vector — with the transduction gap decomposed into
+   two obstructions (cross-leak, non-closure), exact formulas for thresholds
+   and halfspaces, a router bound that makes the theory recurse on itself,
+   and a least-favorable-mixture duality showing **a coin buys back the
+   gluing failure, never the cross-leak**.
+8. **End-to-end learnability** (§4; appendix §12): the detector selected and
+   certified from stratified samples of declared fatal categories, at a
+   one-time training bill *linear* in severity (rare-event certification)
+   plus $O(\log L)$ per-period rent — the advantage condition survives
+   learning, and default-deny gating makes the certificate fail-safe against
+   cover incompleteness.
 
 ## 2. The model
 
@@ -280,7 +300,9 @@ abstract "price of compensation." Existence of such an out-of-defect detector
 is exactly a class-uniform coverage guarantee; it is achievable for structured
 uncertainty classes (finite-VC families, divergence balls) and, by the
 coupling lemma, *impossible* inside an observation defect. Achievability
-inherits that structural restriction — no more, no less.
+inherits that structural restriction — no more, no less — and the existence
+assumption is ultimately discharged constructively: appendix §12 selects the
+detector from data within that structure, with certified rates.
 
 The two theorems meet at the large-loss boundary. With $\delta$ fixed,
 $\Pi^\* \to -\infty$ as $L \to \infty$ — a detector of any fixed miss rate is
@@ -463,6 +485,12 @@ mean the synthesis, not the parts, to be the contribution.
   formalize "a monitor sharing the system's failure mode gives no protection"
   as an average-case correlation model; the coupling lemma is its worst-case,
   identity-strength form.
+- **Minimax testing.** The least-favorable-mixture duality behind the
+  obstruction split (§6) is the classical structure of minimax hypothesis
+  testing (Wald-flavored; Huber–Strassen is the nearby robust version). We
+  claim the application — the premium game and the coin-versus-cross-leak
+  reading — not the duality technology; the formal lineage citations await
+  the usual literature check.
 
 ## 9. Limitations and open questions
 
@@ -484,6 +512,12 @@ We are honest about the boundary of what is proved.
 - **The adversary moves once.** The converse is a one-shot game. The iterated
   game against a learning detector — and whether detector *diversity* helps the
   way portfolio diversity does — is open.
+- **The price of determinism is exact but not computable-by-us.** The
+  deterministic many-direction value is a max-min over a non-convex joint ROC
+  set; we resolve it for randomized play (the duality of §6) but have neither
+  a simplification nor a hardness proof for the deterministic case — the
+  nearby classifier-rejector hardness results suggest NP-hardness, and we
+  have not shown it.
 - **"Removable" may be one concept or three.** Permanent removal (buy the
   capability — the defect *becomes* a capability), per-event removal (escalate
   this once), and interpretive removal (the sealed-frame case, where the seal
