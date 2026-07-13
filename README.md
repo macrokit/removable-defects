@@ -59,13 +59,15 @@ under another name).
 
 ## Shape of the project
 
-The primary deliverable is a **short paper**: the general principle, the
-advantage condition formalized, the detector constraint as the central claim,
-grounded in the value theory (below), with Agent World as the worked engineering
-example.
+The primary deliverable is a **short paper**, `PAPER.md` (draft v0): the general
+principle, the advantage condition, and the detector-placement iff as the central
+result, grounded in the value theory (below), positioned against the prior
+literature. It assembles the finished results in the companions below, which are
+its technical appendix.
 
-Two companions hang off it:
-
+- **`PAPER.md`** — the paper itself: abstract, model, advantage condition, the
+  coupling lemma and the two-sided removability theorem, the observation/capacity
+  split, related work, honest limitations.
 - **`FORMALIZATION.md`** — the mathematical model: the growth equation, the
   advantage condition and optimal-detector results (propositions), and the
   detector-placement theorems.
