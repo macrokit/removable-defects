@@ -12,7 +12,7 @@ tail events are precisely what history underestimates. Is there a robust
 (minimax / heavy-tail-safe) version? What does the condition look like when the
 frequency estimate itself carries fat uncertainty?
 
-**Status (2026-07-13): minimax form now in hand** — Theorem A (PROOFS.md §8)
+**Status (2026-07-13): minimax form now in hand** — Theorem A (PROOFS.md §9)
 proves the worst-case version $\underline c(1-\alpha_0)(g+p) > \bar\varepsilon
 \delta(L-p) + c_d$, which uses only an *upper bound* $\bar\varepsilon$ on fatal
 mass and an upper bound $\delta$ on miss rate — never a point estimate of the
@@ -28,7 +28,7 @@ Make it precise or drop it. A useful target: conditions under which a detector
 with cost o(competence cost) achieves a given miss rate.
 
 **Status (2026-07-13): now load-bearing, not just a curiosity** — Theorem A
-(PROOFS.md §8, Remark 3) shows the architecture survives arbitrary loss
+(PROOFS.md §9, Remark 3) shows the architecture survives arbitrary loss
 severity $L$ only if miss rate shrinks as $\delta = O(1/L)$, which by the
 hypothesis-testing bound costs rent $c_d \sim \log L$. Cheap detection is
 exactly what keeps leakage bounded at logarithmic price — so this question's
@@ -76,3 +76,12 @@ differ (PROOFS.md): transductive access rescues capacity defects and never
 observation defects, so a unified removability theorem was the wrong target.
 Also: removability is a coefficient ($\sigma_0$, residual separability), not
 a yes/no.
+
+**Refined (later same day) by Theorem 2′ (PROOFS.md §7):** the value formula
+*does* unify — for any detector class, premium = support function of the
+class's ROC set at the economic price vector, coefficient = zero-leak capture
+capacity $\bar\sigma_0$; Theorem 1′ is the σ-algebra special case. So
+removability is priced identically for both defect types; the genuine split
+is **joint realizability** — whether one member of the class serves all
+confusable directions at once. One concept for the price, (at least) two for
+the escape routes.

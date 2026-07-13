@@ -225,7 +225,7 @@ worst-case growth above the always-escalate baseline — over $\mathcal{P}$.
 Survival was never the question; paid-for survival is. (Full definitions in
 PROOFS.md §2.)
 
-**Conjecture A — now PROVED (2026-07-13); see PROOFS.md §8.** A detector
+**Conjecture A — now PROVED (2026-07-13); see PROOFS.md §9.** A detector
 placed *outside* the defect, achieving miss rate $\leq \delta$ and
 false-alarm rate $\leq \alpha_0$ uniformly over a structured class $\mathcal{P}$
 with competence floor $\underline c$, earns worst-case premium bounded below
@@ -273,7 +273,7 @@ inside a confounded defect, **survival and specialization gain cannot
 coexist** — bounded log-growth forces zero premium, positive premium forces
 $-\infty$.
 
-**The full iff (Corollary A+B, PROOFS.md §8).** Necessity is B — inside the
+**The full iff (Corollary A+B, PROOFS.md §9).** Necessity is B — inside the
 defect the detector-relevant distinction is gone, premium $= 0$; sufficiency
 is A — outside it, the explicit $\Pi^\* > 0$. Placement supplies the
 *possibility*, the advantage condition supplies the *profit*. The slogan's
@@ -281,20 +281,25 @@ final form: *a defect is profitably removable exactly to the extent that the
 detector's distinction survives outside it* — a coefficient ($\sigma_0$), not
 a yes/no.
 
-**Remaining proof obligations (now narrowed; full list PROOFS.md §10).**
+**The capacity value formula — now PROVED (2026-07-13); see PROOFS.md §7,
+Theorem 2′.** For *any* detector class the premium is the support function of
+the class's ROC set at the economic price vector, with removability
+coefficient the zero-leak capture capacity $\bar\sigma_0(H)$; Theorem 1′ is
+the σ-algebra special case. **One value formula for both defect types.** The
+observation/capacity split is thereby relocated: it is not in how a detector
+is priced but in *joint realizability* — whether one member of the class can
+serve all confusable directions at once (the transduction gap is exactly that
+deficit, and vanishes on any single confusable direction for every class).
+
+**Remaining proof obligations (now narrowed; full list PROOFS.md §11).**
 - End-to-end A with the detector's rates $(\alpha_0, \delta)$ *learned* rather
   than assumed — folding finite-sample estimation into the bound. Standard
   concentration; the work is the union bound over $\mathcal{P}$'s structure.
-- The capacity-defect value formula: the analogue of $\sigma_0$ for
-  function-class defects (a disagreement/covering quantity on $H$), which would
-  give the A+B iff an *exact* premium for capacity defects, not just Theorem 2's
-  inequality.
 - The iterated adversary (backlog #3, second half): the one-shot case is now
   Thms 1–2; the repeated game with a learning detector is untouched.
-- The restriction-formalism question (backlog #6) is partially **answered
-  rather than pinned down**: observation and capacity defects are provably
-  different along the transduction axis, so a single unified theorem was the
-  wrong target — the split is real.
+- A combinatorial characterization of the joint-realizability deficit for
+  natural classes (thresholds, halfspaces, bounded-VC) — making the
+  observation/capacity split quantitative rather than binary.
 
 ## 7. Robustness — the heavy-tail honest version (backlog #1)
 
@@ -414,7 +419,7 @@ fatal guarantee; both can be true.
 | #2 detector economics | §8, Conjecture D + the units gap |
 | #3 adversarial removal | one-shot case RESOLVED (PROOFS.md Thms 1–2); iterated game open |
 | #5 fleet composition | §2's carrying-cost term, summed over N detectors — not yet modeled |
-| #6 one concept or three | first hard evidence of a real split: observation vs capacity defects differ along the transduction axis (PROOFS.md) |
+| #6 one concept or three | split refined by Thm 2′: one value formula for both defect types; the real split is joint realizability across confusable directions (PROOFS.md §7) |
 
 \#4 (the human case) is deliberately absent: this document prices artifacts.
 Applying the growth equation to persons imports every ethical issue flagged in

@@ -317,6 +317,21 @@ context itself is unresolvable to you, and switch quality is irrelevant." The
 average-case selective-prediction literature, which fixes a distribution, does
 not see this split; the worst-case framing makes it unavoidable.
 
+The split is sharper than it first appears, because it is *not* a split in
+how removability is priced. A single value formula covers both defect types
+(appendix, Theorem 2′): for *any* detector class, the worst-case premium is
+the support function of the class's ROC set — its achievable (capture, leak)
+pairs against the confusable ensembles — evaluated at the economic price
+vector (captured competence at $g+p$, leaked fatal at $L-p$), and the
+removability coefficient is the class's **zero-leak capture capacity**, of
+which §5.3's $\sigma_0$ is the σ-algebra special case. What genuinely
+separates the two types is **joint realizability**: on any single confusable
+direction the inductive and transductive values coincide for every class, so
+the transduction gap exists only when the adversary has several directions,
+each resolvable by some member of the class but no member resolving all. An
+observation defect fails per direction; a capacity defect fails only jointly.
+One formula for the price; two escape routes.
+
 ## 7. A worked example: Agent World
 
 The theory grew out of an engineering problem, and the engineering carries an

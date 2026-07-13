@@ -16,9 +16,15 @@ quantifier structure, not in analytic difficulty.
 - Theorem 2 (capacity defects): the premium collapses in the inductive regime,
   and the inductive condition is exactly a minimax gap — transduction closes
   it, matching Goldwasser et al. (2020).
+- **Theorem 2′ (capacity value formula, §7):** for *any* detector class, the
+  premium is the support function of the class's ROC set at an economic price
+  vector, with removability coefficient the zero-leak capture capacity
+  $\bar\sigma_0(H)$. This subsumes Theorem 1′ — observation and capacity
+  defects obey **one value formula** — and relocates the split entirely to
+  joint realizability across confusable directions (the transduction gap).
 - Corollary 3 (growth form): under multiplicative dynamics, survival and
   specialization gain cannot coexist inside the defect.
-- **Theorem A (achievability, §8):** a detector *outside* the defect earns a
+- **Theorem A (achievability, §9):** a detector *outside* the defect earns a
   worst-case premium bounded below by an explicit $\Pi^\* > 0$ under the
   advantage condition; the premium identity has three per-unit-priced terms.
   A meets B exactly at the $L \to \infty$ boundary, and the two give the
@@ -28,9 +34,9 @@ quantifier structure, not in analytic difficulty.
 was vacuous, and the drafted Conjecture B was false under it (§2). The
 repaired notion is *profitable removability*.
 
-**Still open (§10):** end-to-end achievability with the detector's rates
-*learned* rather than assumed, the exact capacity-defect premium, and the
-iterated adversary.
+**Still open (§11):** end-to-end achievability with the detector's rates
+*learned* rather than assumed, the iterated adversary, and a combinatorial
+characterization of the joint-realizability gap.
 
 ---
 
@@ -266,7 +272,103 @@ $G = (1-\lambda)g - \lambda p \geq (1-\bar\varepsilon)g - \bar\varepsilon p$. $\
   norm for restricted scores — this is Ulmer–Cinà's ReLU-confidence failure
   as a two-pair combinatorial fact.
 
-## 7. Corollary 3 — the growth form
+## 7. Theorem 2′ — the capacity value formula, and the unification
+
+Theorem 2 gave the capacity-defect collapse as an inequality under a
+combinatorial condition. Here is the exact value, for an arbitrary class — and
+it turns out to be the *same formula* as Theorem 1′, which relocates the
+observation/capacity split.
+
+**Setup.** Detector class $H \subseteq \{a,e\}^X$ (constants included),
+ensemble pair $\nu_0$ (supported in $C$), $\nu_1$ (supported in $E$), family
+$\mathcal{F}(\nu_0,\nu_1)$. Each $h \in H$ has an **operating point**
+$\big(q_0(h), q_1(h)\big) := \big(\nu_0(h{=}a),\, \nu_1(h{=}a)\big)$ —
+capture rate and leak rate; note $q_1$ *is* the miss rate $\mu$ on the fatal
+ensemble and $1 - q_0$ the false-alarm rate on the safe one. Call
+$\mathrm{ROC}(H) := \{(q_0(h), q_1(h)) : h \in H\} \subseteq [0,1]^2$ the
+class's **ROC set** against the pair. Write the **price vector**
+
+$$A := (1-\bar\varepsilon)(g+p) \quad (\text{per unit captured}), \qquad B := \bar\varepsilon\,(L-p) \quad (\text{per unit leaked}).$$
+
+**Lemma 2 (operating-point reduction).** For every $h \in H$, the worst-case
+premium over the family depends on $h$ only through its operating point:
+
+$$\Pi(h) \;=\; A\,q_0(h) \;-\; B\,q_1(h).$$
+
+*Proof.* $G_{P_\lambda}(h) = (1-\lambda)[q_0 g - (1-q_0)p] + \lambda[-q_1 L -
+(1-q_1)p]$, which is nonincreasing in $\lambda$ (strictly, unless
+$q_0 = q_1 = 0$), so the infimum sits at $\lambda = \bar\varepsilon$;
+subtracting the baseline $-p$ and collecting terms gives the display. $\square$
+
+**Theorem 2′ (capacity value formula).** For any $H$ containing the
+constants,
+
+$$\Pi(H) \;=\; \sup_{(q_0, q_1) \in \mathrm{ROC}(H)} \big[ A\,q_0 - B\,q_1 \big]$$
+
+— the **support function of the class's ROC set at the price vector
+$(A, -B)$**. Consequently:
+
+1. The supremum is approached on the Pareto frontier of $\mathrm{ROC}(H)$ —
+   the class-restricted ROC curve — and the within-class optimal detector is
+   the class-restricted Neyman–Pearson point at slope $B/A$: Chow's rule
+   again, executed inside the class.
+2. As $L \to \infty$, $\;\Pi(H) \to A \cdot \bar\sigma_0(H)$, where
+
+   $$\bar\sigma_0(H) \;:=\; \lim_{t \downarrow 0}\; \sup\{\, q_0(h) : h \in H,\; q_1(h) \leq t \,\}$$
+
+   is the **zero-leak capture capacity** of the class (the limit exists by
+   monotonicity in $t$).
+
+*Proof.* The formula is Lemma 2 plus taking the supremum; $(0,0) \in
+\mathrm{ROC}(H)$ via the constant $e$, so $\Pi(H) \geq 0$ automatically. For
+(2): upper bound — for any $h$, $\Pi(h) \leq \min\big(A\,q_0(h),\; A -
+B\,q_1(h)\big)$, so any $h$ competing with the limit must have $q_1(h) \leq
+A/B \to 0$ and hence $q_0(h) \leq \sup\{q_0 : q_1 \leq A/B\} \to
+\bar\sigma_0(H)$. Lower bound — for any $t$, pick $h$ with $q_1(h) \leq t$,
+$q_0(h)$ within $\eta$ of the sup: $\Pi(h) \geq A(q_0) - Bt$, and let
+$t \downarrow 0$ after $L \to \infty$ along the definition of the limit.
+$\square$
+
+**Remark (closure).** $\bar\sigma_0(H) \geq \sigma_0(H) := \sup\{q_0 : q_1 =
+0\}$, with equality when the ROC set is closed — finite classes, compact
+operating sets — and possibly strict otherwise (a class whose every
+non-constant member leaks a little, with no zero-leak limit point, has
+$\sigma_0 = 0 < \bar\sigma_0$). For σ-algebra classes the two coincide: from
+$S_n$ with $m_1(S_n) \to 0$ summably and $m_0(S_n) \geq c$, the set $S =
+\limsup S_n$ has $m_1(S) = 0$ and $m_0(S) \geq c$ by reverse Fatou. So
+Theorem 1′'s $\sigma_0$ needed no correction.
+
+**Corollary (unification).** Theorem 1′ is the special case $H = $ the
+$\sigma(\varphi)$-measurable detectors: by Lemma 1's factorization,
+$\mathrm{ROC}(H_\varphi) = \{(m_0(S), m_1(S)) : S \subseteq Z\}$, the support
+function reproduces Theorem 1′'s value, and $\bar\sigma_0 = \sigma_0$ by the
+closure remark. **Observation and capacity defects obey one value formula:
+premium $=$ support function of the detector class's ROC set at the economic
+price vector; removability coefficient $=$ zero-leak capture capacity.** What
+distinguishes the two defect types is only how the ROC set arises — the image
+of a coarsened σ-algebra versus the trace of a function class.
+
+**Where the split actually lives.** On a *single* mixture family the
+transduction gap vanishes for **every** class: each $h$'s infimum over
+$\lambda$ sits at $\bar\varepsilon$, so
+$\inf_\lambda \sup_h G \leq \sup_h G_{P_{\bar\varepsilon}} = \sup_h
+\inf_\lambda G$, and the minimax inequality closes the other side. The gap of
+Theorem 2 is therefore a **multi-direction phenomenon**: with a union of
+confusable families the inductive value is the *joint* max-min
+$\sup_h \min_j [A\,q_0^j(h) - B\,q_1^j(h)]$, the transductive value is the
+per-direction $\min_j \sup_h$, and the gap measures **joint-realizability
+deficit** — whether one member of the class can serve all confusable
+directions at once. Theorem 2's confounding/resolution conditions are the
+extreme case (each direction resolvable, no member resolves all). This
+sharpens the taxonomy result: the observation/capacity split is *not* about
+how a detector is priced — the formula above is common — but about whether
+deployment knowledge lets the class pick its member per direction. The
+limiting coefficient for a union family is accordingly
+$\bar\sigma_0(H; \{\nu^j\}) = \lim_{t \downarrow 0} \sup\{\min_j q_0^j(h) :
+h \in H,\; \max_j q_1^j(h) \leq t\}$, which recovers Theorem 2(1)'s collapse
+as $\bar\sigma_0 = 0$ under confounding.
+
+## 8. Corollary 3 — the growth form
 
 **Corollary 3.** Under multiplicative dynamics (wealth factor $1+r$ per task:
 $r = \tilde g$ on safe acts, $r = -\tilde L$ on missed fatals, $r = -\tilde p$
@@ -286,7 +388,7 @@ forces $\mu = 0$; here, inside the defect, $\mu = 0$ forces $q_0 = 0$
 (Lemma 1) — no gain. The two halves together are the theorem the founding
 statement needed.
 
-## 8. Theorem A — the achievability half (the converse's partner)
+## 9. Theorem A — the achievability half (the converse's partner)
 
 The converse (§4–§7) says a confounded detector earns zero premium. The
 partner statement: a detector placed *outside* the defect earns a premium
@@ -400,16 +502,16 @@ with either $L$ capped or $\delta = O(1/L)$:
 
 > A defect is **profitably removable** iff a detector achieving small
 > miss and false-alarm rates exists **outside** it — equivalently, iff the
-> detector-relevant distinction survives the restriction (coefficient
-> $\sigma_0 > 0$ for observation defects; the resolution condition for
-> capacity defects) **and** the advantage condition holds.
+> detector-relevant distinction survives the restriction (zero-leak capture
+> capacity $\bar\sigma_0 > 0$, one coefficient for both defect types by
+> Theorem 2′) **and** the advantage condition holds.
 
 Necessity is B (inside the defect the distinction is gone, premium $= 0$);
 sufficiency is A (outside it, the explicit $\Pi^\* > 0$). Placement supplies
 the *possibility*; the advantage condition supplies the *profit*. This is the
 theorem the founding statement asked for, in both directions.
 
-## 9. Positioning
+## 10. Positioning
 
 - **vs. Fang et al. (2022):** their impossibility is statistical
   (non-learnability of OOD detection in restricted spaces); ours is
@@ -432,7 +534,7 @@ theorem the founding statement asked for, in both directions.
   the extent that the detector's distinction survives outside it* —
   coefficient $\sigma_0$, not a yes/no.
 
-## 10. Open
+## 11. Open
 
 1. **Costed achievability with *learned* detector rates.** Theorem A takes the
    uniform caps $(\alpha_0, \delta)$ as given (existence delegated to repaired
@@ -440,14 +542,15 @@ theorem the founding statement asked for, in both directions.
    detector trained, not assumed — would make A end-to-end. The concentration
    is standard; the honest work is the union bound over $\mathcal{P}$'s
    structure.
-2. **Capacity-defect value formula:** the analogue of Theorem 1′ — a
-   removability coefficient for function-class defects (presumably a
-   disagreement/covering quantity on $H$ restricted to $C \times E$). Would let
-   the A+B iff carry an *exact* premium for capacity defects, not just the
-   inequality of Theorem 2.
-3. **Iterated adversary** (QUESTIONS.md #3, second half): the adversary here
+2. **Iterated adversary** (QUESTIONS.md #3, second half): the adversary here
    chooses $P$ once; the repeated game with a learning detector is untouched.
-4. **Beyond mixture families:** the theorems quantify over
-   $\mathcal{F}(\nu_0,\nu_1)$; characterizing collapse for arbitrary
-   $\mathcal{P}$ (not built from a confusable ensemble pair) is open, though
-   any $\mathcal{P}$ *containing* such a family inherits the collapse.
+3. **Beyond mixture families:** the theorems quantify over
+   $\mathcal{F}(\nu_0,\nu_1)$ and unions thereof; characterizing collapse for
+   arbitrary $\mathcal{P}$ (not built from confusable ensemble pairs) is open,
+   though any $\mathcal{P}$ *containing* such a family inherits the collapse.
+4. **The joint-realizability gap, quantified.** Theorem 2′ locates the
+   transduction gap in whether one member serves all confusable directions;
+   a combinatorial characterization of that deficit for natural classes
+   (thresholds, halfspaces, bounded-VC) — presumably a covering/shattering
+   quantity on $H$ restricted to the directions — would make the
+   observation/capacity split quantitative rather than binary.
