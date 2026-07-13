@@ -54,6 +54,9 @@ example.
 
 Two companions hang off it:
 
+- **`FORMALIZATION.md`** — the mathematical model: the growth equation, the
+  advantage condition and optimal-detector results (propositions), and the
+  detector-placement theorems (conjectures with stated proof obligations).
 - **`QUESTIONS.md`** — the live research backlog (formalizing the advantage
   condition under heavy tails, detector economics, adversarial removal, the human
   case, fleet composition, whether "removable" is one concept or three). Questions
