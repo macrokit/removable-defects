@@ -1,7 +1,8 @@
 # Removable Defects: The Economics and Limits of Deliberate Deficiency
 
-**Draft v0 — 2026-07-13.** Byline: Cheng Qian (provisional — change as you
-wish). This draft assembles the finished results in `FORMALIZATION.md` and
+**Cheng Qian**
+
+**Draft v0 — 2026-07-13.** This draft assembles the finished results in `FORMALIZATION.md` and
 `PROOFS.md`; those files are the technical appendix and carry the full proofs.
 Status labels follow repo convention: *proposition* (provable with standard
 tools, cited), *theorem* (proved here / in the appendix), *conjecture*
