@@ -1,5 +1,7 @@
 # arXiv submission package
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21348185.svg)](https://doi.org/10.5281/zenodo.21348185)
+
 ## Contents
 
 - `main.tex` — full manuscript: paper body (PAPER.md, Abstract + §§1–10) followed by
