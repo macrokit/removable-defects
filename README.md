@@ -1,5 +1,7 @@
 # Removable Defects
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21348185.svg)](https://doi.org/10.5281/zenodo.21348185)
+
 A deficiency kept deliberately because it pays, and removable on demand because a
 compensation channel takes it out of the loop in the rare situation where it would
 be fatal.
