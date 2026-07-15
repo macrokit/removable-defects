@@ -1,0 +1,276 @@
+\begin{thebibliography}{42}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Anthony and Bartlett(1999)]{anthonybartlett1999}
+Martin Anthony and Peter~L. Bartlett.
+\newblock \emph{Neural Network Learning: Theoretical Foundations}.
+\newblock Cambridge University Press, 1999.
+
+\bibitem[Blumer et~al.(1989)Blumer, Ehrenfeucht, Haussler, and
+  Warmuth]{blumer1989}
+Anselm Blumer, Andrzej Ehrenfeucht, David Haussler, and Manfred~K. Warmuth.
+\newblock Learnability and the {V}apnik--{C}hervonenkis dimension.
+\newblock \emph{Journal of the ACM}, 36\penalty0 (4):\penalty0 929--965, 1989.
+
+\bibitem[Breiman(1961)]{breiman1961}
+Leo Breiman.
+\newblock Optimal gambling systems for favorable games.
+\newblock In \emph{Proceedings of the Fourth Berkeley Symposium on Mathematical
+  Statistics and Probability}, volume~1, pages 65--78. University of California
+  Press, 1961.
+
+\bibitem[Cannon et~al.(2002)Cannon, Howse, Hush, and Scovel]{cannon2002}
+Adam Cannon, James Howse, Don Hush, and Clint Scovel.
+\newblock Learning with the {N}eyman--{P}earson and min-max criteria.
+\newblock Technical Report LA-UR-02-2951, Los Alamos National Laboratory, 2002.
+
+\bibitem[Casacuberta and Kanade(2025)]{casacuberta2025}
+S{\'i}lvia Casacuberta and Varun Kanade.
+\newblock Selective omniprediction and fair abstention.
+\newblock In \emph{Advances in Neural Information Processing Systems 38
+  (NeurIPS 2025)}, 2025.
+
+\bibitem[Chow(1957)]{chow1957}
+C.~K. Chow.
+\newblock An optimum character recognition system using decision functions.
+\newblock \emph{IRE Transactions on Electronic Computers}, EC-6\penalty0
+  (4):\penalty0 247--254, 1957.
+
+\bibitem[Chow(1970)]{chow1970}
+C.~K. Chow.
+\newblock On optimum recognition error and reject tradeoff.
+\newblock \emph{IEEE Transactions on Information Theory}, 16\penalty0
+  (1):\penalty0 41--46, 1970.
+
+\bibitem[Cortes et~al.(2016)Cortes, DeSalvo, and Mohri]{cortes2016}
+Corinna Cortes, Giulia DeSalvo, and Mehryar Mohri.
+\newblock Learning with rejection.
+\newblock In \emph{Algorithmic Learning Theory (ALT)}, volume 9925 of
+  \emph{Lecture Notes in Computer Science}, pages 67--82. Springer, 2016.
+
+\bibitem[Cover and Thomas(2006)]{coverthomas2006}
+Thomas~M. Cover and Joy~A. Thomas.
+\newblock \emph{Elements of Information Theory}.
+\newblock Wiley-Interscience, Hoboken, NJ, second edition, 2006.
+
+\bibitem[Eckhardt and Lee(1985)]{eckhardt1985}
+Dave~E. Eckhardt and Larry~D. Lee.
+\newblock A theoretical basis for the analysis of multiversion software subject
+  to coincident errors.
+\newblock \emph{IEEE Transactions on Software Engineering}, SE-11\penalty0
+  (12):\penalty0 1511--1517, 1985.
+
+\bibitem[Ehrenfeucht et~al.(1989)Ehrenfeucht, Haussler, Kearns, and
+  Valiant]{ehrenfeucht1989}
+Andrzej Ehrenfeucht, David Haussler, Michael Kearns, and Leslie Valiant.
+\newblock A general lower bound on the number of examples needed for learning.
+\newblock \emph{Information and Computation}, 82\penalty0 (3):\penalty0
+  247--261, 1989.
+
+\bibitem[Ehrlich and Becker(1972)]{ehrlich1972}
+Isaac Ehrlich and Gary~S. Becker.
+\newblock Market insurance, self-insurance, and self-protection.
+\newblock \emph{Journal of Political Economy}, 80\penalty0 (4):\penalty0
+  623--648, 1972.
+
+\bibitem[Fang et~al.(2022)Fang, Li, Lu, Dong, Han, and Liu]{fang2022}
+Zhen Fang, Yixuan Li, Jie Lu, Jiahua Dong, Bo~Han, and Feng Liu.
+\newblock Is out-of-distribution detection learnable?
+\newblock In \emph{Advances in Neural Information Processing Systems 35
+  (NeurIPS 2022)}, 2022.
+\newblock arXiv:2210.14707; extended version in Journal of Machine Learning
+  Research 25, 2024.
+
+\bibitem[Fau{\ss} et~al.(2021)Fau{\ss}, Zoubir, and Poor]{fauss2021}
+Michael Fau{\ss}, Abdelhak~M. Zoubir, and H.~Vincent Poor.
+\newblock Minimax robust detection: Classic results and recent advances.
+\newblock \emph{IEEE Transactions on Signal Processing}, 69:\penalty0
+  2252--2283, 2021.
+\newblock arXiv:2105.09836.
+
+\bibitem[Fillatre(2017)]{fillatre2017}
+Lionel Fillatre.
+\newblock Constructive minimax classification of discrete observations with
+  arbitrary loss function.
+\newblock \emph{Signal Processing}, 141:\penalty0 322--330, 2017.
+
+\bibitem[Geifman and El-Yaniv(2019)]{geifman2019}
+Yonatan Geifman and Ran El-Yaniv.
+\newblock {SelectiveNet}: A deep neural network with an integrated reject
+  option.
+\newblock In \emph{Proceedings of the 36th International Conference on Machine
+  Learning (ICML)}, volume~97 of \emph{Proceedings of Machine Learning
+  Research}, pages 2151--2159, 2019.
+
+\bibitem[Goldwasser et~al.(2020)Goldwasser, Kalai, Kalai, and
+  Montasser]{goldwasser2020}
+Shafi Goldwasser, Adam~Tauman Kalai, Yael~Tauman Kalai, and Omar Montasser.
+\newblock Beyond perturbations: Learning guarantees with arbitrary adversarial
+  test examples.
+\newblock In \emph{Advances in Neural Information Processing Systems 33
+  (NeurIPS 2020)}, 2020.
+\newblock arXiv:2007.05145.
+
+\bibitem[Greenblatt et~al.(2024)Greenblatt, Shlegeris, Sachan, and
+  Roger]{greenblatt2024}
+Ryan Greenblatt, Buck Shlegeris, Kshitij Sachan, and Fabien Roger.
+\newblock {AI} control: Improving safety despite intentional subversion.
+\newblock In \emph{Proceedings of the 41st International Conference on Machine
+  Learning (ICML)}, volume 235 of \emph{Proceedings of Machine Learning
+  Research}, 2024.
+\newblock arXiv:2312.06784.
+
+\bibitem[Hendrickx et~al.(2024)Hendrickx, Perini, Van~der Plas, Meert, and
+  Davis]{hendrickx2024}
+Kilian Hendrickx, Lorenzo Perini, Dries Van~der Plas, Wannes Meert, and Jesse
+  Davis.
+\newblock Machine learning with a reject option: A survey.
+\newblock \emph{Machine Learning}, 113:\penalty0 3073--3110, 2024.
+\newblock arXiv:2107.11277.
+
+\bibitem[Huber(1965)]{huber1965}
+Peter~J. Huber.
+\newblock A robust version of the probability ratio test.
+\newblock \emph{Annals of Mathematical Statistics}, 36\penalty0 (6):\penalty0
+  1753--1758, 1965.
+
+\bibitem[Huber and Strassen(1973)]{huberstrassen1973}
+Peter~J. Huber and Volker Strassen.
+\newblock Minimax tests and the {N}eyman--{P}earson lemma for capacities.
+\newblock \emph{Annals of Statistics}, 1\penalty0 (2):\penalty0 251--263, 1973.
+
+\bibitem[Kalai et~al.(2012)Kalai, Kanade, and Mansour]{kalai2012}
+Adam~Tauman Kalai, Varun Kanade, and Yishay Mansour.
+\newblock Reliable agnostic learning.
+\newblock \emph{Journal of Computer and System Sciences}, 78\penalty0
+  (5):\penalty0 1481--1495, 2012.
+
+\bibitem[Kelly(1956)]{kelly1956}
+John~L. Kelly, Jr.
+\newblock A new interpretation of information rate.
+\newblock \emph{Bell System Technical Journal}, 35\penalty0 (4):\penalty0
+  917--926, 1956.
+
+\bibitem[Lehmann and Romano(2005)]{lehmannromano2005}
+Erich~L. Lehmann and Joseph~P. Romano.
+\newblock \emph{Testing Statistical Hypotheses}.
+\newblock Springer, New York, third edition, 2005.
+
+\bibitem[Littlewood and Rushby(2012)]{littlewood2012}
+Bev Littlewood and John Rushby.
+\newblock Reasoning about the reliability of diverse two-channel systems in
+  which one channel is ``possibly perfect''.
+\newblock \emph{IEEE Transactions on Software Engineering}, 38\penalty0
+  (5):\penalty0 1178--1194, 2012.
+
+\bibitem[Managoli et~al.(2025)Managoli, Sahasranand, and
+  Prabhakaran]{managoli2025}
+Malhar~A. Managoli, K.~R. Sahasranand, and Vinod~M. Prabhakaran.
+\newblock Robust hypothesis testing with abstention, 2025.
+
+\bibitem[Mozannar et~al.(2023)Mozannar, Lang, Wei, Sattigeri, Das, and
+  Sontag]{mozannar2023}
+Hussein Mozannar, Hunter Lang, Dennis Wei, Prasanna Sattigeri, Subhro Das, and
+  David Sontag.
+\newblock Who should predict? {E}xact algorithms for learning to defer to
+  humans.
+\newblock In \emph{Proceedings of the 26th International Conference on
+  Artificial Intelligence and Statistics (AISTATS)}, volume 206 of
+  \emph{Proceedings of Machine Learning Research}, pages 10520--10545, 2023.
+
+\bibitem[Neyman and Pearson(1933)]{neymanpearson1933}
+Jerzy Neyman and Egon~S. Pearson.
+\newblock On the problem of the most efficient tests of statistical hypotheses.
+\newblock \emph{Philosophical Transactions of the Royal Society of London,
+  Series A}, 231:\penalty0 289--337, 1933.
+
+\bibitem[Peters and Adamou(2015)]{peters2015}
+Ole Peters and Alexander Adamou.
+\newblock Insurance makes wealth grow faster, 2015.
+\newblock arXiv:1507.04655.
+
+\bibitem[Provost and Fawcett(2001)]{provost2001}
+Foster Provost and Tom Fawcett.
+\newblock Robust classification for imprecise environments.
+\newblock \emph{Machine Learning}, 42\penalty0 (3):\penalty0 203--231, 2001.
+\newblock arXiv:cs/0009007.
+
+\bibitem[Rigollet and Tong(2011)]{rigollet2011}
+Philippe Rigollet and Xin Tong.
+\newblock {N}eyman--{P}earson classification, convexity and stochastic
+  constraints.
+\newblock \emph{Journal of Machine Learning Research}, 12:\penalty0 2831--2855,
+  2011.
+
+\bibitem[Scott and Nowak(2005)]{scottnowak2005}
+Clayton Scott and Robert Nowak.
+\newblock A {N}eyman--{P}earson approach to statistical learning.
+\newblock \emph{IEEE Transactions on Information Theory}, 51\penalty0
+  (11):\penalty0 3806--3819, 2005.
+
+\bibitem[Shalev-Shwartz and Ben-David(2014)]{shalevshwartz2014}
+Shai Shalev-Shwartz and Shai Ben-David.
+\newblock \emph{Understanding Machine Learning: From Theory to Algorithms}.
+\newblock Cambridge University Press, 2014.
+
+\bibitem[Spitznagel(2021)]{spitznagel2021}
+Mark Spitznagel.
+\newblock \emph{Safe Haven: Investing for Financial Storms}.
+\newblock Wiley, Hoboken, NJ, 2021.
+
+\bibitem[Townsend(1979)]{townsend1979}
+Robert~M. Townsend.
+\newblock Optimal contracts and competitive markets with costly state
+  verification.
+\newblock \emph{Journal of Economic Theory}, 21\penalty0 (2):\penalty0
+  265--293, 1979.
+
+\bibitem[Ulmer and Cin{\`a}(2021)]{ulmer2021}
+Dennis Ulmer and Giovanni Cin{\`a}.
+\newblock Know your limits: Uncertainty estimation with {ReLU} classifiers
+  fails at reliable {OOD} detection.
+\newblock In \emph{Proceedings of the 37th Conference on Uncertainty in
+  Artificial Intelligence (UAI)}, 2021.
+\newblock arXiv:2012.05329.
+
+\bibitem[Van~Mieghem(2003)]{vanmieghem2003}
+Jan~A. Van~Mieghem.
+\newblock Capacity management, investment, and hedging: Review and recent
+  developments.
+\newblock \emph{Manufacturing \& Service Operations Management}, 5\penalty0
+  (4):\penalty0 269--302, 2003.
+
+\bibitem[Vapnik and Chervonenkis(1971)]{vapnik1971}
+V.~N. Vapnik and A.~Ya. Chervonenkis.
+\newblock On the uniform convergence of relative frequencies of events to their
+  probabilities.
+\newblock \emph{Theory of Probability and its Applications}, 16\penalty0
+  (2):\penalty0 264--280, 1971.
+
+\bibitem[Vovk et~al.(2005)Vovk, Gammerman, and Shafer]{vovk2005}
+Vladimir Vovk, Alexander Gammerman, and Glenn Shafer.
+\newblock \emph{Algorithmic Learning in a Random World}.
+\newblock Springer, New York, 2005.
+
+\bibitem[Wald(1945)]{wald1945}
+Abraham Wald.
+\newblock Statistical decision functions which minimize the maximum risk.
+\newblock \emph{Annals of Mathematics}, 46\penalty0 (2):\penalty0 265--280,
+  1945.
+
+\bibitem[Wald(1950)]{wald1950}
+Abraham Wald.
+\newblock \emph{Statistical Decision Functions}.
+\newblock Wiley, New York, 1950.
+
+\bibitem[Williamson(1985)]{williamson1985}
+Oliver~E. Williamson.
+\newblock \emph{The Economic Institutions of Capitalism: Firms, Markets,
+  Relational Contracting}.
+\newblock Free Press, New York, 1985.
+
+\end{thebibliography}

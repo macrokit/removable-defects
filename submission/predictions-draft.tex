@@ -1,0 +1,90 @@
+% ---------------------------------------------------------------------------
+% DRAFT: "Falsifiable predictions" section for main.tex
+% Intended insertion point: after \section{Limitations and open questions}
+% (line ~612, after the closing \end{itemize}), before \section{Conclusion}.
+%
+% Requires one new bib entry (see bottom of this file) — which finding #3 of
+% the pre-submission review (engage SelectiveNet) already requires anyway.
+% ---------------------------------------------------------------------------
+
+\section{Falsifiable predictions}\label{sec:predictions}
+
+The results above are proved on constructed uncertainty classes; whether
+their domain includes real routed systems is an empirical question, and we
+prefer to state now, before any data, what would settle it. Each prediction
+below is quantitative, measurable on an instrumented system at modest cost,
+and named together with the outcome that would refute it. We intend to test
+them under a frozen pre-registration --- predictions, acceptance bands, and
+decision rules committed publicly before any run; the bands sketched here
+are indicative, not yet frozen.
+
+\begin{description}
+\item[P1 --- the coupling identity, measured.] Construct an explicit
+  observation defect: a specialist whose routing decision must factor
+  through a coarsened view $\varphi$ (redacted or truncated input), and a
+  family of safe/fatal ensemble pairs that $\varphi$ provably cannot
+  distinguish. Lemma~1 is an identity, not an inequality, so it predicts a
+  tight band: at every threshold, the within-defect detector's gain-capture
+  rate on the safe member equals its fatal-miss rate on the fatal member,
+  within sampling error --- while a detector outside $\varphi$ separates the
+  same pair by a margin bounded below by its measured advantage.
+  \emph{Refuted if} within-defect detectors systematically deviate from
+  equality --- in particular, capture above miss on the confounded family.
+  That outcome would mean real coarsenings leak side information the formal
+  $\varphi$ does not capture: $\sigma_0$ is generically positive in practice
+  and the lemma's binding regime is empirically empty. We flag this as a
+  live possibility, not a formality.
+
+\item[P2 --- the observation/capacity dichotomy.] Same task, two defects:
+  (a) an observation defect --- coarsened input, unrestricted detector
+  class; (b) a capacity defect --- full input, restricted detector class.
+  Intervention: transductive access, i.e.\ unlabeled samples of the
+  deployment distribution. Theorems~1 and~2 jointly predict a two-by-two
+  with no free cells: measurable rescue in (b) wherever the minimax gap of
+  Theorem~2 is positive, and no rescue in (a) at any sample size.
+  \emph{Refuted if} transductive access materially rescues (a), or fails to
+  rescue (b) where the gap is positive.
+
+\item[P3 --- the shared-representation boundary.] Rejectors that share
+  representations with the actor empirically beat independently trained
+  ones on average selective risk \citep{geifman2019selectivenet}; our
+  results predict where that reverses, and we pre-commit to both halves.
+  On standard benchmarks the shared rejector should \emph{win} the average
+  case --- consistent with the prior literature, and no embarrassment to
+  it. On a constructed confusable-fatal slice --- safe/fatal pairs the
+  shared encoder maps together --- the shared rejector's selective risk is
+  priced by the coupling identity and cannot fall below it, while an
+  independent rejector with access to the distinction can. \emph{Refuted
+  if} a shared-representation rejector beats the coupling bound on the
+  constructed slice.
+
+\item[P4 --- the premium as a quantitative law.] Theorem~1$'$ prices the
+  surviving premium by the residual separability $\sigma_0$;
+  Theorem~A gives the outside detector's premium $\Pi^*$ in measured
+  quantities ($\bar\varepsilon$, $g$, $L$, $p$, $c_d$). Estimate $\sigma_0$
+  and $\bar\varepsilon$ on held-out data, predict the realized premium
+  across a grid of $(g, L)$, and regress realized on predicted. The
+  prediction is a slope near one, not merely a positive sign.
+  \emph{Refuted if} the slope departs systematically from one in the regime
+  where the model's stated assumptions (i.i.d.\ periods, one-shot
+  adversary) hold.
+\end{description}
+
+\noindent Two of these can fail in a way that damages the central claim
+(P1, P3); the other two bound its scope (P2, P4). Stating them before any
+data is collected is, we think, part of the result: a theory of deliberate
+deficiency should declare its own fatal set.
+
+% ---------------------------------------------------------------------------
+% New bib entry required (references.bib) — also satisfies review finding #3:
+%
+% @inproceedings{geifman2019selectivenet,
+%   author    = {Yonatan Geifman and Ran El-Yaniv},
+%   title     = {{SelectiveNet}: A Deep Neural Network with an Integrated
+%                Reject Option},
+%   booktitle = {Proceedings of the 36th International Conference on Machine
+%                Learning (ICML)},
+%   year      = {2019},
+%   pages     = {2151--2159}
+% }
+% ---------------------------------------------------------------------------
