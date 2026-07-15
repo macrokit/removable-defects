@@ -1,6 +1,7 @@
 # arXiv submission package
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21348184.svg)](https://doi.org/10.5281/zenodo.21348184)
+[![arXiv](https://img.shields.io/badge/arXiv-2607.11983-b31b1b.svg)](https://arxiv.org/abs/2607.11983)
 
 ## Contents
 
